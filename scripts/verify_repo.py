@@ -12,13 +12,15 @@ import pandas as pd
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+SRC_DIR = PROJECT_ROOT / "src"
+for path in (SRC_DIR, PROJECT_ROOT):
+    if str(path) not in sys.path:
+        sys.path.insert(0, str(path))
 
 from ageing_packages.mortality_data_analysis.HMD_lifetables import HMD
 from ageing_packages.hetero_analysis import nhanes_analysis as nhanes
 from ageing_packages.utils.sr_utils import create_sr_simulation
-from src.shared.thresholds.paths import HMD_DATA_DIR, NHANES_DATA_DIR, SAVED_RESULTS_DIR
+from senogenic_vs_robustness.paths import HMD_DATA_DIR, NHANES_DATA_DIR, RESULTS_DIR
 
 
 REQUIRED_FILES = [
@@ -27,9 +29,9 @@ REQUIRED_FILES = [
     HMD_DATA_DIR / "mortality.org_File_GetDocument_hmd.v6_DAN_STATS_bltper_1x1.txt",
     NHANES_DATA_DIR / "nhanes_mortality_all_years.csv",
     NHANES_DATA_DIR / "all_cohort_age_data.csv",
-    SAVED_RESULTS_DIR / "fit_archive" / "records" / "joint2019_tail90_sweden_emphasis.json",
-    SAVED_RESULTS_DIR / "fit_archive" / "records" / "hybrid2019_swe_tail90_usa_refit.json",
-    SAVED_RESULTS_DIR / "csv" / "fig6_progeria_fit_results.csv",
+    RESULTS_DIR / "fits" / "records" / "joint2019_tail90_sweden_emphasis.json",
+    RESULTS_DIR / "fits" / "records" / "hybrid2019_swe_tail90_usa_refit.json",
+    RESULTS_DIR / "tables" / "fig6_progeria_fit_results.csv",
 ]
 
 
@@ -58,13 +60,13 @@ def check_nhanes() -> None:
     print(f"ok NHANES core: n={len(core):,}, deaths={deaths:,}")
 
 
-def check_fit_archive() -> None:
-    record_path = SAVED_RESULTS_DIR / "fit_archive" / "records" / "joint2019_tail90_sweden_emphasis.json"
+def check_fits() -> None:
+    record_path = RESULTS_DIR / "fits" / "records" / "joint2019_tail90_sweden_emphasis.json"
     record = json.loads(record_path.read_text())
     params = record["summary"]["fitted_parameters"]
     for key in ("eta", "beta", "epsilon", "SWE_Xc"):
         float(params[key])
-    print("ok fit archive: joint2019_tail90_sweden_emphasis")
+    print("ok fits: joint2019_tail90_sweden_emphasis")
 
 
 def check_tiny_sr_simulation() -> None:
@@ -95,7 +97,7 @@ def main() -> None:
     check_required_files()
     check_hmd()
     check_nhanes()
-    check_fit_archive()
+    check_fits()
     check_tiny_sr_simulation()
     print("verification complete")
 

@@ -11,31 +11,32 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SRC_DIR = PROJECT_ROOT / "src"
 PYTHON = sys.executable
 
 SMOKE_COMMANDS = [
-    ["src/figures/steepness_longevity/make_fig1d_new_steepness_longevity.py"],
-    ["src/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py"],
-    ["src/figures/Fig6_progeria/make_fig6_progeria.py"],
+    ["analysis/figures/steepness_longevity/make_fig1d_new_steepness_longevity.py"],
+    ["analysis/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py"],
+    ["analysis/figures/figure5_progeria/make_fig6_progeria.py"],
 ]
 
 MAIN_COMMANDS = [
-    ["src/figures/steepness_longevity/make_fig1d_new_steepness_longevity.py"],
-    ["src/figures/Fig2_new/make_fig2a_new.py"],
-    ["src/figures/Fig2_new/make_fig2bc_new.py"],
-    ["src/figures/Fig2_new/make_fig2de_new.py"],
-    ["src/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py"],
-    ["src/figures/steepness_longevity/make_fig3_exposure_projection.py"],
-    ["src/figures/Fig4_new/make_fig4_ab_sweden_period_projection.py"],
-    ["src/figures/Fig4_new/make_fig4_sr_contour_projection.py"],
-    ["src/figures/Fig6_progeria/make_fig6_progeria.py"],
+    ["analysis/figures/steepness_longevity/make_fig1d_new_steepness_longevity.py"],
+    ["analysis/figures/figure2/make_fig2a_new.py"],
+    ["analysis/figures/figure2/make_fig2bc_new.py"],
+    ["analysis/figures/figure2/make_fig2de_new.py"],
+    ["analysis/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py"],
+    ["analysis/figures/steepness_longevity/make_fig3_exposure_projection.py"],
+    ["analysis/figures/figure4/make_fig4_ab_sweden_period_projection.py"],
+    ["analysis/figures/figure4/make_fig4_sr_contour_projection.py"],
+    ["analysis/figures/figure5_progeria/make_fig6_progeria.py"],
 ]
 
 SUPPLEMENT_COMMANDS = [
-    ["src/figures/FigS1/make_parameter_distribution_supplement.py"],
-    ["src/figures/Supp_Figgs/make_supp_artificial_survival_composite.py"],
-    ["src/figures/Supp_Figgs/make_supp_model_comparison.py"],
-    ["src/figures/Supp_Figgs/make_supp_fig4_nhanes_exposure_groups.py"],
+    ["analysis/figures/supplementary_parameter_distributions/make_parameter_distribution_supplement.py"],
+    ["analysis/figures/supplementary/make_supp_artificial_survival_composite.py"],
+    ["analysis/figures/supplementary/make_supp_model_comparison.py"],
+    ["analysis/figures/supplementary/make_supp_fig4_nhanes_exposure_groups.py"],
 ]
 
 
@@ -57,7 +58,13 @@ def main() -> None:
     args = parse_args()
     env = os.environ.copy()
     env.setdefault("MPLBACKEND", "Agg")
-    env["PYTHONPATH"] = str(PROJECT_ROOT) + os.pathsep + env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = (
+        str(SRC_DIR)
+        + os.pathsep
+        + str(PROJECT_ROOT)
+        + os.pathsep
+        + env.get("PYTHONPATH", "")
+    )
 
     for command in commands_for(args.set):
         print("$", " ".join([PYTHON] + command), flush=True)

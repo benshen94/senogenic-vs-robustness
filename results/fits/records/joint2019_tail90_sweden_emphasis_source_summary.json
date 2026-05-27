@@ -1,0 +1,123 @@
+{
+  "constraint": "shared eta, beta, epsilon; country-specific Xc and Xc heterogeneity only",
+  "focus_age_window": [
+    65,
+    100
+  ],
+  "baseline": {
+    "eta": 0.54,
+    "beta": 54.75,
+    "kappa": 0.5,
+    "epsilon": 51.83,
+    "Xc": 21.0,
+    "xc_std_frac": 0.2
+  },
+  "parameter_names": [
+    "eta_log2",
+    "beta_log2",
+    "epsilon_log2",
+    "swe_xc_log2",
+    "swe_xc_std_log2",
+    "usa_xc_log2",
+    "usa_xc_std_log2"
+  ],
+  "best_vector_log2": [
+    0.12,
+    0.08,
+    -0.06,
+    0.05,
+    -0.49999999999999994,
+    0.02,
+    -0.18000000000000002
+  ],
+  "fitted_parameters": {
+    "eta": 0.5868368257640714,
+    "beta": 57.87173772073557,
+    "epsilon": 49.718659304628446,
+    "SWE_Xc": 21.74056340066893,
+    "SWE_xc_std_frac": 0.14142135623730953,
+    "USA_Xc": 21.293149075590613,
+    "USA_xc_std_frac": 0.17654059925813098
+  },
+  "fixed_h_ext": {
+    "SWE": 0.0003767783778403702,
+    "USA": 0.0008105166160951386
+  },
+  "metrics": {
+    "SWE": {
+      "hazard_log_rmse_65_100": 0.14513168571398138,
+      "hazard_median_fold_error_65_100": 1.1139729236009475,
+      "hazard_log_rmse_88_94": 0.15307436430085475,
+      "hazard_median_bias_88_94": -0.1007034836280305,
+      "survival_rmse_65_100": 0.021426444239857317
+    },
+    "USA": {
+      "hazard_log_rmse_65_100": 0.14996066979860473,
+      "hazard_median_fold_error_65_100": 1.0759617003956798,
+      "hazard_log_rmse_88_94": 0.08875682261395489,
+      "hazard_median_bias_88_94": -0.026144340526963905,
+      "survival_rmse_65_100": 0.033726165339276484
+    }
+  },
+  "ci": [
+    {
+      "parameter": "eta",
+      "estimate": 0.5868368257640714,
+      "ci95_lower": 0.5817969572940781,
+      "ci95_upper": 0.5919203525479771,
+      "log2_estimate": 0.12,
+      "log2_se": 0.00634880402279495
+    },
+    {
+      "parameter": "beta",
+      "estimate": 57.87173772073557,
+      "ci95_lower": 57.36423433272449,
+      "ci95_upper": 58.383731008975246,
+      "log2_estimate": 0.08,
+      "log2_se": 0.006483390008189294
+    },
+    {
+      "parameter": "epsilon",
+      "estimate": 49.718659304628446,
+      "ci95_lower": 49.22949632019708,
+      "ci95_upper": 50.21268279837281,
+      "log2_estimate": -0.06,
+      "log2_se": 0.0072777625832442855
+    },
+    {
+      "parameter": "SWE_Xc",
+      "estimate": 21.74056340066893,
+      "ci95_lower": 21.4117044932479,
+      "ci95_upper": 22.07447319887841,
+      "log2_estimate": 0.05,
+      "log2_se": 0.011219224938773252
+    },
+    {
+      "parameter": "SWE_xc_std_frac",
+      "estimate": 0.14142135623730953,
+      "ci95_lower": 0.13832240110899072,
+      "ci95_upper": 0.144589739909453,
+      "log2_estimate": -0.49999999999999994,
+      "log2_se": 0.016308766456634375
+    },
+    {
+      "parameter": "USA_Xc",
+      "estimate": 21.293149075590613,
+      "ci95_lower": 20.98633703040615,
+      "ci95_upper": 21.60444659296271,
+      "log2_estimate": 0.02,
+      "log2_se": 0.010683136870346097
+    },
+    {
+      "parameter": "USA_xc_std_frac",
+      "estimate": 0.17654059925813098,
+      "ci95_lower": 0.17381356336032763,
+      "ci95_upper": 0.17931042079730852,
+      "log2_estimate": -0.18000000000000002,
+      "log2_se": 0.01145884400537072
+    }
+  ],
+  "plot_path": "results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_fit_2019.png",
+  "ci_path": "results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_fit_2019_ci.csv",
+  "methods_path": "results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_methods.md"
+}

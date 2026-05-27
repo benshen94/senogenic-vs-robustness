@@ -1,0 +1,89 @@
+{
+  "name": "swehist_cohort1920_fixed_eta_beta",
+  "label": "SWE cohort 1920 fixed eta/beta",
+  "description": "Sweden 1920 cohort fit with eta and beta fixed from the 2019 hybrid model; fitted epsilon, Xc, Xc heterogeneity, and h_ext.",
+  "status": "completed",
+  "archive_created_utc": "2026-05-14T06:35:18Z",
+  "fitted_for": {
+    "countries": [
+      "SWE"
+    ],
+    "data_type": "cohort",
+    "year": 1920,
+    "sex": "both",
+    "age_window": [
+      65,
+      100
+    ]
+  },
+  "constraints": "fixed eta, beta, kappa; fit epsilon, Xc, Xc heterogeneity, and h_ext",
+  "source_script": "fit_sweden_historical_fixed_eta_beta.py",
+  "source_summary": null,
+  "source_png": "results/sweden_historical_fixed_eta_beta/swe_cohort_1920.png",
+  "source_ci": "results/sweden_historical_fixed_eta_beta/swe_cohort_1920_ci.csv",
+  "archive_paths": {
+    "record_json": "records/swehist_cohort1920_fixed_eta_beta.json",
+    "png": "pngs/swehist_cohort1920_fixed_eta_beta.png",
+    "ci_csv": "ci/swehist_cohort1920_fixed_eta_beta_ci.csv",
+    "source_summary_copy": null
+  },
+  "summary": {
+    "constraint": "fixed eta, beta, kappa; fit epsilon, Xc, Xc heterogeneity, and h_ext",
+    "fitted_parameters": {
+      "eta": 0.5868368257640714,
+      "beta": 57.87173772073557,
+      "kappa": 0.5,
+      "epsilon": 44.808964698686644,
+      "Xc": 18.795526489487422,
+      "xc_std_frac": 0.16245047927124714,
+      "h_ext": 0.002
+    },
+    "metrics": {
+      "hazard_log_rmse_65_100": 0.13853811837339783,
+      "hazard_median_fold_error_65_100": 1.1032971457087604,
+      "survival_rmse_65_100": 0.015062110505874601
+    },
+    "focus_age_window": [
+      65,
+      100
+    ],
+    "opt_n": 100000,
+    "final_n": 250000,
+    "ci_n": 200000
+  },
+  "ci": [
+    {
+      "parameter": "epsilon",
+      "estimate": 44.808964698686644,
+      "ci95_lower": 44.33036944516871,
+      "ci95_upper": 45.292726916061575,
+      "log2_estimate": -0.15,
+      "log2_se": 0.007904085654733982
+    },
+    {
+      "parameter": "Xc",
+      "estimate": 18.795526489487422,
+      "ci95_lower": 18.63548314990145,
+      "ci95_upper": 18.956944296820744,
+      "log2_estimate": -0.21000000000000002,
+      "log2_se": 0.006294441089461612
+    },
+    {
+      "parameter": "xc_std_frac",
+      "estimate": 0.16245047927124714,
+      "ci95_lower": 0.16099148481429465,
+      "ci95_upper": 0.16392269594816905,
+      "log2_estimate": 0.2,
+      "log2_se": 0.0066406208592539664
+    },
+    {
+      "parameter": "h_ext",
+      "estimate": 0.002,
+      "ci95_lower": 0.0019808688990453236,
+      "ci95_upper": 0.0020193158678637408,
+      "log2_estimate": 1.0,
+      "log2_se": 0.007074795564363296
+    }
+  ],
+  "notes": {}
+}

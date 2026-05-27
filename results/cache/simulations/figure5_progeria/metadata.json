@@ -1,0 +1,73 @@
+{
+  "baseline_fit_path": "results/fits/records/joint2019_tail90_sweden_emphasis.json",
+  "baseline_ci_path": "results/fits/ci/joint2019_tail90_sweden_emphasis_ci.csv",
+  "progeria_data_path": "results/progeria_data.pkl",
+  "fit_n": 4000,
+  "curve_n": 35000,
+  "bootstrap_n": 2000,
+  "tmax": 35.0,
+  "dt": 0.025,
+  "save_step": 0.25,
+  "single_fits": [
+    [
+      "eta"
+    ],
+    [
+      "beta"
+    ],
+    [
+      "Xc"
+    ],
+    [
+      "epsilon"
+    ]
+  ],
+  "pair_fits": [
+    [
+      "Xc",
+      "epsilon"
+    ],
+    [
+      "eta",
+      "Xc"
+    ],
+    [
+      "eta",
+      "epsilon"
+    ],
+    [
+      "beta",
+      "Xc"
+    ],
+    [
+      "beta",
+      "epsilon"
+    ],
+    [
+      "eta",
+      "beta"
+    ]
+  ],
+  "fit_bounds_log2": {
+    "eta": [
+      -1.0,
+      3.0
+    ],
+    "beta": [
+      -4.0,
+      1.0
+    ],
+    "Xc": [
+      -3.0,
+      0.5
+    ],
+    "epsilon": [
+      -4.0,
+      3.0
+    ]
+  },
+  "random_seed": 20260520,
+  "hgps_sample_size": 202,
+  "parallel": false,
+  "ci_method": "fitted_fold_factor_applied_to_sweden_2019_fit_ci_endpoint_combinations"
+}

@@ -55,7 +55,7 @@ Simulation grid:
 
 The completed grid contains 726 simulations. Long-form metrics are saved in:
 
-`saved_results/steepness_longevity_sweden2019_sensitivity/metrics_long.csv`
+`results/steepness_longevity_sweden2019_sensitivity/metrics_long.csv`
 
 For the new plotted Fig2 steepness-longevity panel, the plotted \(x\)-coordinate is:
 
@@ -113,11 +113,11 @@ The displayed axis window follows the current Fig. 1D geometry: a square normali
 
 The current revision output is saved under:
 
-`Figures_new/Fig1new/fig1d_new_steepness_longevity.png`
+`Figures/Figure1/fig1d_new_steepness_longevity.png`
 
 The corresponding vector output is:
 
-`Figures_new/Fig1new/fig1d_new_steepness_longevity.pdf`
+`Figures/Figure1/fig1d_new_steepness_longevity.pdf`
 
 Color mapping for this figure family:
 
@@ -213,18 +213,18 @@ The displayed shaded ribbons are derived from the empirical point-wise 2.5th to 
 
 The USA Fig. 3 outputs are saved under:
 
-`Figures_new/Fig3_new/fig3_usa_steepness_longevity.png`
+`Figures/Figure3/fig3_usa_steepness_longevity.png`
 
 and:
 
-`Figures_new/Fig3_new/fig3_usa_steepness_longevity.pdf`
+`Figures/Figure3/fig3_usa_steepness_longevity.pdf`
 
 The corresponding source tables are:
 
-- `saved_results/steepness_longevity_usa2019_sensitivity/metrics_long.csv`
-- `saved_results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_plot_data.csv`
-- `saved_results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_point_intervals.csv`
-- `saved_results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_shaded_envelopes.csv`
+- `results/steepness_longevity_usa2019_sensitivity/metrics_long.csv`
+- `results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_plot_data.csv`
+- `results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_point_intervals.csv`
+- `results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_shaded_envelopes.csv`
 
 ## 2026-05-20: Fig. 2 New Sweden-2019 Baseline Survival and Maximum-Lifespan Panels
 
@@ -242,11 +242,11 @@ X_c=21.7405634007.
 
 The baseline is loaded from:
 
-`saved_results/fit_archive/records/joint2019_tail90_sweden_emphasis.json`
+`results/fits/records/joint2019_tail90_sweden_emphasis.json`
 
 The fit-local curvature-based 95% intervals are loaded from:
 
-`saved_results/fit_archive/ci/joint2019_tail90_sweden_emphasis_ci.csv`
+`results/fits/ci/joint2019_tail90_sweden_emphasis_ci.csv`
 
 These intervals are small local fit intervals, not broad biological perturbations. For the Sweden fit used here, the approximate 95% intervals are:
 
@@ -282,12 +282,12 @@ The plotted parameter classes and colors follow the current Fig. 1D/Fig. 2 conve
 
 Source script:
 
-`src/figures/Fig2_new/make_fig2a_new.py`
+`analysis/figures/figure2/make_fig2a_new.py`
 
 Output files:
 
-- `Figures_new/Fig2_new/fig2a_new.png`
-- `Figures_new/Fig2_new/fig2a_new.pdf`
+- `Figures/Figure2/fig2a_new.png`
+- `Figures/Figure2/fig2a_new.pdf`
 
 Central SR curves:
 
@@ -341,19 +341,19 @@ This shaded region is therefore a fit-local baseline-uncertainty envelope. It is
 
 Source tables:
 
-- `saved_results/csv/fig2a_new_conditional_survival.csv`
-- `saved_results/csv/fig2a_new_fit_ci_envelopes.csv`
+- `results/tables/fig2a_new_conditional_survival.csv`
+- `results/tables/fig2a_new_fit_ci_envelopes.csv`
 
 ### Fig. 2B New: Maximum Lifespan Under Parameter Heterogeneity
 
 Source script:
 
-`src/figures/Fig2_new/make_fig2bc_new.py`
+`analysis/figures/figure2/make_fig2bc_new.py`
 
 Output files:
 
-- `Figures_new/Fig2_new/fig2b_new.png`
-- `Figures_new/Fig2_new/fig2b_new.pdf`
+- `Figures/Figure2/fig2b_new.png`
+- `Figures/Figure2/fig2b_new.pdf`
 
 Definition of maximum lifespan:
 
@@ -399,19 +399,19 @@ Important interpretation note: the very large rise in \(L_{\max}\) for heterogen
 
 Source tables:
 
-- `saved_results/csv/fig2b_new_max_lifespan_heterogeneity.csv`
-- `saved_results/csv/fig2b_new_fit_ci_envelopes.csv`
+- `results/tables/fig2b_new_max_lifespan_heterogeneity.csv`
+- `results/tables/fig2b_new_fit_ci_envelopes.csv`
 
 ### Fig. 2C New: Maximum Lifespan Under Mean-Parameter Shifts
 
 Source script:
 
-`src/figures/Fig2_new/make_fig2bc_new.py`
+`analysis/figures/figure2/make_fig2bc_new.py`
 
 Output files:
 
-- `Figures_new/Fig2_new/fig2c_new.png`
-- `Figures_new/Fig2_new/fig2c_new.pdf`
+- `Figures/Figure2/fig2c_new.png`
+- `Figures/Figure2/fig2c_new.pdf`
 
 Definition of maximum lifespan:
 
@@ -448,8 +448,8 @@ Fit-CI shaded bands:
 
 Source tables:
 
-- `saved_results/csv/fig2c_new_max_lifespan_factor.csv`
-- `saved_results/csv/fig2c_new_fit_ci_envelopes.csv`
+- `results/tables/fig2c_new_max_lifespan_factor.csv`
+- `results/tables/fig2c_new_fit_ci_envelopes.csv`
 
 ### Visual QA Notes
 
@@ -465,14 +465,14 @@ Goal: remake the progeria figure using the Sweden 2019 period SR fit as the base
 
 Source script:
 
-`src/figures/Fig6_progeria/make_fig6_progeria.py`
+`analysis/figures/figure5_progeria/make_fig6_progeria.py`
 
 Output files:
 
-- `Figures_new/Fig6_progeria/fig6a_progeria_hgps_survival.png`
-- `Figures_new/Fig6_progeria/fig6b_single_parameter_fits.png`
-- `Figures_new/Fig6_progeria/fig6c_two_parameter_fits.png`
-- `Figures_new/Fig6_progeria/fig6_progeria_composite.png`
+- `Figures/Figure5_progeria/fig6a_progeria_hgps_survival.png`
+- `Figures/Figure5_progeria/fig6b_single_parameter_fits.png`
+- `Figures/Figure5_progeria/fig6c_two_parameter_fits.png`
+- `Figures/Figure5_progeria/fig6_progeria_composite.png`
 
 Vector versions of the same panels are saved as PDFs in the same folder.
 
@@ -480,7 +480,7 @@ Vector versions of the same panels are saved as PDFs in the same folder.
 
 The central HGPS survival curve was loaded from:
 
-`saved_results/progeria_data.pkl`
+`results/progeria_data.pkl`
 
 Specifically, the script uses the smooth survival curve:
 
@@ -545,11 +545,11 @@ X_c=21.7405634007,\quad
 
 The baseline is loaded from:
 
-`saved_results/fit_archive/records/joint2019_tail90_sweden_emphasis.json`
+`results/fits/records/joint2019_tail90_sweden_emphasis.json`
 
 The fitted local 95% endpoint intervals are loaded from:
 
-`saved_results/fit_archive/ci/joint2019_tail90_sweden_emphasis_ci.csv`
+`results/fits/ci/joint2019_tail90_sweden_emphasis_ci.csv`
 
 The \(X_c\) heterogeneity term is held fixed at the Sweden 2019 value during HGPS fitting. For simulations, \(X_c\) is sampled from a positive Gaussian distribution with mean \(X_c\) and fractional standard deviation:
 
@@ -683,39 +683,39 @@ agents per objective evaluation.
 
 Source tables:
 
-- `saved_results/csv/fig6_progeria_hgps_bootstrap_envelope.csv`
-- `saved_results/csv/fig6_progeria_period_survival.csv`
-- `saved_results/csv/fig6_progeria_fit_results.csv`
-- `saved_results/csv/fig6_progeria_survival_curves.csv`
-- `saved_results/csv/fig6_progeria_model_ci_envelopes.csv`
+- `results/tables/fig6_progeria_hgps_bootstrap_envelope.csv`
+- `results/tables/fig6_progeria_period_survival.csv`
+- `results/tables/fig6_progeria_fit_results.csv`
+- `results/tables/fig6_progeria_survival_curves.csv`
+- `results/tables/fig6_progeria_model_ci_envelopes.csv`
 
 Simulation and fitting cache files:
 
-- `saved_results/cache/simulations/Fig6_progeria/fit_results.json`
-- `saved_results/cache/simulations/Fig6_progeria/survival_curves.csv`
-- `saved_results/cache/simulations/Fig6_progeria/model_ci_envelopes.csv`
-- `saved_results/cache/simulations/Fig6_progeria/metadata.json`
+- `results/cache/simulations/figure5_progeria/fit_results.json`
+- `results/cache/simulations/figure5_progeria/survival_curves.csv`
+- `results/cache/simulations/figure5_progeria/model_ci_envelopes.csv`
+- `results/cache/simulations/figure5_progeria/metadata.json`
 
 ## 2026-05-23: Current New-Figure Methods Audit
 
-This entry records the figure-generation methods currently implemented in the new manuscript and supplement scripts that were not already covered above. It is based on the code in `Figures_new/` and `src/figures/` as of this audit. Presentation-only Illustrator/assembly scripts are listed where they affect figure composition, but the methods below emphasize data generation, fitting, projection, and uncertainty calculations.
+This entry records the figure-generation methods currently implemented in the new manuscript and supplement scripts that were not already covered above. It is based on the code in `Figures/` and `analysis/figures/` as of this audit. Presentation-only Illustrator/assembly scripts are listed where they affect figure composition, but the methods below emphasize data generation, fitting, projection, and uncertainty calculations.
 
 General export rule used by the current figure scripts:
 
 - Matplotlib vector exports set `pdf.fonttype: 42`, `ps.fonttype: 42`, and usually `svg.fonttype: "none"` so PDF/SVG text remains editable whenever possible.
-- New figure outputs are written under `Figures_new/`.
-- Generated source tables and simulation caches are written under `saved_results/csv/`, `saved_results/fig*_*/`, and `saved_results/cache/simulations/`.
+- New figure outputs are written under `Figures/`.
+- Generated source tables and simulation caches are written under `results/tables/`, `results/fig*_*/`, and `results/cache/simulations/`.
 
 ## Fig. 1 New: Conceptual Panels and Sweden 2019 Response Plane
 
 Composite source script:
 
-`Figures_new/Fig1new/make_fig1_six_panel_composite.py`
+`Figures/Figure1/make_fig1_six_panel_composite.py`
 
 Composite outputs:
 
-- `Figures_new/Fig1new/Fig1_new.png`
-- `Figures_new/Fig1new/Fig1_new.pdf`
+- `Figures/Figure1/Fig1_new.png`
+- `Figures/Figure1/Fig1_new.pdf`
 
 The six-panel composite places separately generated PDF panels onto one fixed page using `pypdf`, then renders a PNG preview with `fitz`. The composite script is layout-only; the scientific content is generated by the panel scripts below.
 
@@ -723,16 +723,16 @@ The six-panel composite places separately generated PDF panels onto one fixed pa
 
 Source script:
 
-`Figures_new/Fig1new/make_fig1_panels_ab.py`
+`Figures/Figure1/make_fig1_panels_ab.py`
 
 Outputs:
 
-- `Figures_new/Fig1new/fig1_panel_a_stochastic_threshold.svg`
-- `Figures_new/Fig1new/fig1_panel_a_stochastic_threshold.pdf`
-- `Figures_new/Fig1new/fig1_panel_a_stochastic_threshold.png`
-- `Figures_new/Fig1new/fig1_panel_b_parameter_classes.svg`
-- `Figures_new/Fig1new/fig1_panel_b_parameter_classes.pdf`
-- `Figures_new/Fig1new/fig1_panel_b_parameter_classes.png`
+- `Figures/Figure1/fig1_panel_a_stochastic_threshold.svg`
+- `Figures/Figure1/fig1_panel_a_stochastic_threshold.pdf`
+- `Figures/Figure1/fig1_panel_a_stochastic_threshold.png`
+- `Figures/Figure1/fig1_panel_b_parameter_classes.svg`
+- `Figures/Figure1/fig1_panel_b_parameter_classes.pdf`
+- `Figures/Figure1/fig1_panel_b_parameter_classes.png`
 
 These are editable vector schematics. They are not simulation-derived analyses. Panel A illustrates stochastic damage/threshold trajectories and threshold crossing as a conceptual model diagram. Panel B illustrates the parameter-class mapping used throughout the figure family:
 
@@ -740,19 +740,19 @@ These are editable vector schematics. They are not simulation-derived analyses. 
 - Robustness parameters: threshold \(X_c\), noise \(\epsilon\).
 - Extrinsic mortality is kept visually separate from both classes.
 
-The script draws SVG primitives directly and embeds `Figures_new/Fig1new/clock.png` where needed.
+The script draws SVG primitives directly and embeds `Figures/Figure1/clock.png` where needed.
 
 ### Fig. 1C: Mortality-Signature Schematic
 
 Source script:
 
-`Figures_new/Fig1new/make_fig1_panel_c_mortality_signatures.py`
+`Figures/Figure1/make_fig1_panel_c_mortality_signatures.py`
 
 Outputs:
 
-- `Figures_new/Fig1new/fig1_panel_c_mortality_signatures.svg`
-- `Figures_new/Fig1new/fig1_panel_c_mortality_signatures.pdf`
-- `Figures_new/Fig1new/fig1_panel_c_mortality_signatures.png`
+- `Figures/Figure1/fig1_panel_c_mortality_signatures.svg`
+- `Figures/Figure1/fig1_panel_c_mortality_signatures.pdf`
+- `Figures/Figure1/fig1_panel_c_mortality_signatures.png`
 
 This is a schematic, not a fitted-data panel. It contrasts:
 
@@ -765,13 +765,13 @@ The panel uses prescribed line slopes, intercepts, and colors to explain the con
 
 Source script:
 
-`src/figures/Fig1_new/make_fig1_newc.py`
+`analysis/figures/figure1_schematic/make_fig1_newc.py`
 
 Outputs:
 
-- `Figures_new/Fig1new/fig1_panel_d_sr_model.png`
-- `Figures_new/Fig1new/fig1_panel_d_sr_model.pdf`
-- `Figures_new/Fig1new/fig1_panel_d_sr_model.svg`
+- `Figures/Figure1/fig1_panel_d_sr_model.png`
+- `Figures/Figure1/fig1_panel_d_sr_model.pdf`
+- `Figures/Figure1/fig1_panel_d_sr_model.svg`
 
 This is a model-equation schematic. It visually maps the SR model parameters onto the senogenic and robustness classes used in the response-plane figures. It is not a new numerical fit or simulation.
 
@@ -779,13 +779,13 @@ This is a model-equation schematic. It visually maps the SR model parameters ont
 
 Source script:
 
-`Figures_new/Fig1new/make_fig1_panel_e_survival_scaling.py`
+`Figures/Figure1/make_fig1_panel_e_survival_scaling.py`
 
 Outputs:
 
-- `Figures_new/Fig1new/fig1_panel_e_survival_scaling.png`
-- `Figures_new/Fig1new/fig1_panel_e_survival_scaling.pdf`
-- `Figures_new/Fig1new/fig1_panel_e_survival_scaling.svg`
+- `Figures/Figure1/fig1_panel_e_survival_scaling.png`
+- `Figures/Figure1/fig1_panel_e_survival_scaling.pdf`
+- `Figures/Figure1/fig1_panel_e_survival_scaling.svg`
 
 This panel uses illustrative Weibull-like survival curves:
 
@@ -811,10 +811,10 @@ After age normalization, the changed curve remains steeper, illustrating the dis
 
 The methodology for this panel is the Sweden 2019 sensitivity-plane entry above. Current outputs are:
 
-- `Figures_new/Fig1new/fig1_panel_f_steepness_longevity.png`
-- `Figures_new/Fig1new/fig1_panel_f_steepness_longevity.pdf`
-- `Figures_new/Fig1new/fig1d_new_steepness_longevity.png`
-- `Figures_new/Fig1new/fig1d_new_steepness_longevity.pdf`
+- `Figures/Figure1/fig1_panel_f_steepness_longevity.png`
+- `Figures/Figure1/fig1_panel_f_steepness_longevity.pdf`
+- `Figures/Figure1/fig1d_new_steepness_longevity.png`
+- `Figures/Figure1/fig1d_new_steepness_longevity.pdf`
 
 The panel uses the Sweden 2019 SR baseline, one-at-a-time focal parameter factors, scenario-normalized median lifespan and IQR steepness, and model-sensitivity ribbons derived from deterministic baseline perturbations. The ribbons are not statistical confidence intervals.
 
@@ -822,27 +822,27 @@ The panel uses the Sweden 2019 SR baseline, one-at-a-time focal parameter factor
 
 Source script:
 
-`src/figures/Fig2_new/make_fig2de_new.py`
+`analysis/figures/figure2/make_fig2de_new.py`
 
 Outputs:
 
-- `Figures_new/Fig2_new/fig2de_new.png`
-- `Figures_new/Fig2_new/fig2de_new.pdf`
+- `Figures/Figure2/fig2de_new.png`
+- `Figures/Figure2/fig2de_new.pdf`
 
 Source tables and caches:
 
-- `saved_results/csv/fig2de_new_mortality_curves.csv`
-- `saved_results/csv/fig2de_new_fit_ci_envelopes.csv`
-- `saved_results/csv/fig2d_raw_digitized_points.csv`
-- `saved_results/cache/simulations/Fig2_new/fig2de_new_plot_records.pkl`
-- `saved_results/cache/simulations/Fig2_new/fig2de_new_metadata.json`
+- `results/tables/fig2de_new_mortality_curves.csv`
+- `results/tables/fig2de_new_fit_ci_envelopes.csv`
+- `results/tables/fig2d_raw_digitized_points.csv`
+- `results/cache/simulations/figure2/fig2de_new_plot_records.pkl`
+- `results/cache/simulations/figure2/fig2de_new_metadata.json`
 
 Baseline:
 
 The Sweden 2019 SR baseline and fit-local CI endpoints are loaded from:
 
-- `saved_results/fit_archive/records/joint2019_tail90_sweden_emphasis.json`
-- `saved_results/fit_archive/ci/joint2019_tail90_sweden_emphasis_ci.csv`
+- `results/fits/records/joint2019_tail90_sweden_emphasis.json`
+- `results/fits/ci/joint2019_tail90_sweden_emphasis_ci.csv`
 
 The baseline uses:
 
@@ -895,36 +895,36 @@ Fit-CI shaded bands:
 
 Empirical comparison:
 
-The plotted brother/sister mortality points are digitized from the source sibling-mortality panel and saved to `saved_results/csv/fig2d_raw_digitized_points.csv` for auditability. The script stores the series name, sibling sex, proband group, age, and log10 mortality for every plotted point.
+The plotted brother/sister mortality points are digitized from the source sibling-mortality panel and saved to `results/tables/fig2d_raw_digitized_points.csv` for auditability. The script stores the series name, sibling sex, proband group, age, and log10 mortality for every plotted point.
 
 ## Fig. 3 New: NHANES Exposure Projection Onto the USA 2019 \(X_c\) Response Curve
 
 Source script:
 
-`src/figures/steepness_longevity/make_fig3_exposure_projection.py`
+`analysis/figures/steepness_longevity/make_fig3_exposure_projection.py`
 
 Outputs:
 
-- `Figures_new/Fig3_new/fig3_exposure_projection_panel_a.png`
-- `Figures_new/Fig3_new/fig3_exposure_projection_panel_b.png`
-- `Figures_new/Fig3_new/fig3_exposure_projection_panel_b.pdf`
-- `Figures_new/Fig3_new/fig3_exposure_projection_panel_c.png`
-- `Figures_new/Fig3_new/fig3_exposure_projection.png`
-- `Figures_new/Fig3_new/fig3_exposure_projection.pdf`
+- `Figures/Figure3/fig3_exposure_projection_panel_a.png`
+- `Figures/Figure3/fig3_exposure_projection_panel_b.png`
+- `Figures/Figure3/fig3_exposure_projection_panel_b.pdf`
+- `Figures/Figure3/fig3_exposure_projection_panel_c.png`
+- `Figures/Figure3/fig3_exposure_projection.png`
+- `Figures/Figure3/fig3_exposure_projection.pdf`
 
 Source tables:
 
-- `saved_results/fig3_exposure_projection/exposure_xc_projection.csv`
-- `saved_results/fig3_exposure_projection/fig3_panel_b_xc_factor_curves_fit_ci.csv`
-- `saved_results/fig3_exposure_projection/fig3_panel_b_xc_factor_curves_fit_ci_raw.csv`
-- `saved_results/fig3_exposure_projection/projected_xc_age_gain_curves.csv`
-- `saved_results/fig3_exposure_projection/fig3_panel_b_projection_uncertainty_ribbons.csv`
+- `results/fig3_exposure_projection/exposure_xc_projection.csv`
+- `results/fig3_exposure_projection/fig3_panel_b_xc_factor_curves_fit_ci.csv`
+- `results/fig3_exposure_projection/fig3_panel_b_xc_factor_curves_fit_ci_raw.csv`
+- `results/fig3_exposure_projection/projected_xc_age_gain_curves.csv`
+- `results/fig3_exposure_projection/fig3_panel_b_projection_uncertainty_ribbons.csv`
 
 ### Fig. 3A: Exposure Points on the Response Plane
 
 The USA 2019 response-plane underlay is loaded from the Fig. 3 USA sensitivity workflow described above. The exposure points are loaded from:
 
-`saved_results/exposure_groups_results.pkl`
+`results/exposure_groups_results.pkl`
 
 The baseline normalization uses the `without_extrinsic` NHANES baseline. For each exposure group:
 
@@ -963,8 +963,8 @@ Panel B simulates age-specific median remaining-lifespan gains from \(X_c\) fact
 
 Baseline:
 
-- The USA 2019 SR baseline is loaded from `saved_results/steepness_longevity_usa2019_sensitivity/manifest.json`.
-- Fit-local USA endpoints are loaded from `saved_results/fit_archive/ci/hybrid2019_swe_tail90_usa_refit_ci.csv`.
+- The USA 2019 SR baseline is loaded from `results/steepness_longevity_usa2019_sensitivity/manifest.json`.
+- Fit-local USA endpoints are loaded from `results/fits/ci/hybrid2019_swe_tail90_usa_refit_ci.csv`.
 - Only USA-specific \(X_c\) and fractional \(X_c\) heterogeneity endpoints are used for the fit-CI scenarios.
 
 Simulation settings:
@@ -1016,30 +1016,30 @@ The curves are smoothed for display with PCHIP interpolation from age 60 to 100.
 
 Primary source scripts:
 
-- `src/figures/Fig4_new/make_fig4_ab_sweden_period_projection.py`
-- `src/figures/Fig4_new/make_fig4_sr_contour_projection.py`
+- `analysis/figures/figure4/make_fig4_ab_sweden_period_projection.py`
+- `analysis/figures/figure4/make_fig4_sr_contour_projection.py`
 
 Assembly scripts:
 
-- `src/figures/Fig4_new/assemble_figure4_illustrator.jsx`
-- `src/figures/Fig4_new/assemble_figure4_illustrator_editable.jsx`
+- `analysis/figures/figure4/assemble_figure4_illustrator.jsx`
+- `analysis/figures/figure4/assemble_figure4_illustrator_editable.jsx`
 
 Outputs:
 
-- `Figures_new/Fig4_new/fig4_ab_sweden_period_projection.png`
-- `Figures_new/Fig4_new/fig4_ab_sweden_period_projection.pdf`
-- `Figures_new/Fig4_new/fig4_ab_denmark_period_projection.png`
-- `Figures_new/Fig4_new/fig4_ab_denmark_period_projection.pdf`
-- `Figures_new/Fig4_new/Fig4C.png`
-- `Figures_new/Fig4_new/Fig4C.pdf`
-- `Figures_new/Fig4_new/Fig4D.png`
-- `Figures_new/Fig4_new/Fig4D.pdf`
-- `Figures_new/Fig4_new/Fig4D_extrap.png`
-- `Figures_new/Fig4_new/Fig4D_extrap.pdf`
-- `Figures_new/Fig4_new/sweden_sr_contour_projection_1900_2100_n1m.png`
-- `Figures_new/Fig4_new/sweden_sr_contour_projection_1900_2100_n1m.pdf`
-- `Figures_new/Fig4_new/Figure4_new.png`
-- `Figures_new/Fig4_new/Figure4_new.pdf`
+- `Figures/Figure4/fig4_ab_sweden_period_projection.png`
+- `Figures/Figure4/fig4_ab_sweden_period_projection.pdf`
+- `Figures/Figure4/fig4_ab_denmark_period_projection.png`
+- `Figures/Figure4/fig4_ab_denmark_period_projection.pdf`
+- `Figures/Figure4/Fig4C.png`
+- `Figures/Figure4/Fig4C.pdf`
+- `Figures/Figure4/Fig4D.png`
+- `Figures/Figure4/Fig4D.pdf`
+- `Figures/Figure4/Fig4D_extrap.png`
+- `Figures/Figure4/Fig4D_extrap.pdf`
+- `Figures/Figure4/sweden_sr_contour_projection_1900_2100_n1m.png`
+- `Figures/Figure4/sweden_sr_contour_projection_1900_2100_n1m.pdf`
+- `Figures/Figure4/Figure4.png`
+- `Figures/Figure4/Figure4.pdf`
 
 ### Fig. 4A-B: Sweden and Denmark Period Coordinates on the SR Response Plane
 
@@ -1091,10 +1091,10 @@ Normalization:
 
 Source tables:
 
-- `saved_results/fig4_new/sweden_period_steepness_longevity_projection.csv`
-- `saved_results/fig4_new/denmark_period_steepness_longevity_projection.csv`
-- `saved_results/fig4_new/country_period_steepness_longevity_projection.csv`
-- `saved_results/fig4_new/README.md`
+- `results/figure4/sweden_period_steepness_longevity_projection.csv`
+- `results/figure4/denmark_period_steepness_longevity_projection.csv`
+- `results/figure4/country_period_steepness_longevity_projection.csv`
+- `results/figure4/README.md`
 
 ### Fig. 4C: Fitted Extrinsic Mortality Over Time
 
@@ -1115,8 +1115,8 @@ Nonfinite standard errors are linearly interpolated by year before the interval 
 
 Source tables:
 
-- `saved_results/fig4_new/sweden_period_makeham_m_fit_ci.csv`
-- `saved_results/fig4_new/fig4c_extrinsic_mortality_projection.csv`
+- `results/figure4/sweden_period_makeham_m_fit_ci.csv`
+- `results/figure4/fig4c_extrinsic_mortality_projection.csv`
 
 ### Fig. 4D: Historical Robustness Projection
 
@@ -1136,7 +1136,7 @@ Uncertainty:
 
 Source table:
 
-`saved_results/fig4_new/fig4d_robustness_projection.csv`
+`results/figure4/fig4d_robustness_projection.csv`
 
 ### Fig. 4D Extrapolation
 
@@ -1153,21 +1153,21 @@ Two projections are saved from 2020 to 2100:
 
 Source table:
 
-`saved_results/fig4_new/fig4d_robustness_extrapolation.csv`
+`results/figure4/fig4d_robustness_extrapolation.csv`
 
 ### Fig. 4 SR Contour Forecast
 
 Source script:
 
-`src/figures/Fig4_new/make_fig4_sr_contour_projection.py`
+`analysis/figures/figure4/make_fig4_sr_contour_projection.py`
 
 This panel combines the Fig. 4C extrinsic-mortality series and Fig. 4D robustness series into SR simulations of lifespan contours.
 
 Inputs:
 
-- `saved_results/fig4_new/fig4c_extrinsic_mortality_projection.csv`
-- `saved_results/fig4_new/fig4d_robustness_projection.csv`
-- `saved_results/fig4_new/sweden_period_both_conditional_age20_contours_1900_2020.csv`
+- `results/figure4/fig4c_extrinsic_mortality_projection.csv`
+- `results/figure4/fig4d_robustness_projection.csv`
+- `results/figure4/sweden_period_both_conditional_age20_contours_1900_2020.csv`
 
 Simulation settings:
 
@@ -1197,30 +1197,30 @@ S(t\mid 20)=0.5,\ 0.1,\ 0.01,\ 10^{-4}.
 
 Source tables:
 
-- `saved_results/fig4_new/sweden_sr_contour_projection_inputs_n1m.csv`
-- `saved_results/cache/simulations/Fig4_new/sweden_sr_contour_projection_full_n1m.csv`
-- `saved_results/fig4_new/sweden_sr_contour_projection_summary_n1m.csv`
-- `saved_results/fig4_new/sweden_fig4d_conservative_xc_envelope_1900_2020.csv`
+- `results/figure4/sweden_sr_contour_projection_inputs_n1m.csv`
+- `results/cache/simulations/figure4/sweden_sr_contour_projection_full_n1m.csv`
+- `results/figure4/sweden_sr_contour_projection_summary_n1m.csv`
+- `results/figure4/sweden_fig4d_conservative_xc_envelope_1900_2020.csv`
 
 ## Fig. S1 New: Parameter Distributions Among Lifespan Strata
 
 Source script:
 
-`src/figures/FigS1/make_parameter_distribution_supplement.py`
+`analysis/figures/supplementary_parameter_distributions/make_parameter_distribution_supplement.py`
 
 Outputs:
 
-- `Figures_new/FigS1/figs1_parameter_distributions_pretty.png`
-- `Figures_new/FigS1/figs1_parameter_distributions_pretty.pdf`
+- `Figures/Supplementary_Figure1/figs1_parameter_distributions_pretty.png`
+- `Figures/Supplementary_Figure1/figs1_parameter_distributions_pretty.pdf`
 
 Source cache:
 
-- `saved_results/cache/simulations/FigS1/parameter_distribution_supplement.npz`
-- `saved_results/cache/simulations/FigS1/parameter_distribution_supplement_metadata.json`
+- `results/cache/simulations/supplementary_figure1/parameter_distribution_supplement.npz`
+- `results/cache/simulations/supplementary_figure1/parameter_distribution_supplement_metadata.json`
 
 This figure rebuilds the legacy notebook analysis from:
 
-`src/notebooks/param_distributions_investigation.ipynb`
+`legacy-notebook:param_distributions_investigation.ipynb`
 
 Baseline:
 
@@ -1277,22 +1277,22 @@ Right-column mortality curves:
 
 Primary scripts:
 
-- `src/exploration/artificial_survival_time/make_artificial_survival_time_exploration.py`
-- `src/exploration/artificial_survival_time/make_threshold_schematic.py`
-- `src/figures/Supp_Figgs/make_supp_artificial_survival_composite.py`
+- `analysis/artificial_survival_time/make_artificial_survival_time_exploration.py`
+- `analysis/artificial_survival_time/make_threshold_schematic.py`
+- `analysis/figures/supplementary/make_supp_artificial_survival_composite.py`
 
 Outputs:
 
-- `Figures_new/Supp_Figgs/supp_artificial_survival_time_xdisease_075.png`
-- `Figures_new/Supp_Figgs/supp_artificial_survival_composite.png`
-- `Figures_new/Supp_Figgs/supp_artificial_survival_composite.pdf`
+- `Figures/Supplementary/supp_artificial_survival_time_xdisease_075.png`
+- `Figures/Supplementary/supp_artificial_survival_composite.png`
+- `Figures/Supplementary/supp_artificial_survival_composite.pdf`
 
 Source tables and caches:
 
-- `saved_results/cache/simulations/artificial_survival_time/matched_sweden2019_event_times.npz`
-- `saved_results/cache/simulations/artificial_survival_time/matched_sweden2019_metadata.json`
-- `saved_results/csv/artificial_survival_time_summary.csv`
-- `saved_results/csv/artificial_survival_time_state_composition.csv`
+- `results/cache/simulations/artificial_survival_time/matched_sweden2019_event_times.npz`
+- `results/cache/simulations/artificial_survival_time/matched_sweden2019_metadata.json`
+- `results/tables/artificial_survival_time_summary.csv`
+- `results/tables/artificial_survival_time_state_composition.csv`
 
 Baseline:
 
@@ -1352,23 +1352,23 @@ The composite figure combines the schematic threshold-row, state-composition row
 
 Source script:
 
-`src/figures/Supp_Figgs/make_supp_model_comparison.py`
+`analysis/figures/supplementary/make_supp_model_comparison.py`
 
 Outputs:
 
-- `Figures_new/Supp_Figgs/supp_model_comparison.png`
-- `Figures_new/Supp_Figgs/supp_model_comparison.pdf`
+- `Figures/Supplementary/supp_model_comparison.png`
+- `Figures/Supplementary/supp_model_comparison.pdf`
 
 Source tables:
 
-- `saved_results/csv/supp_model_comparison_max_lifespan.csv`
-- `saved_results/csv/supp_model_comparison_shape_response.csv`
+- `results/tables/supp_model_comparison_max_lifespan.csv`
+- `results/tables/supp_model_comparison_shape_response.csv`
 
 Input caches:
 
-- `saved_results/gamma_factor_sweep.pkl`
-- `saved_results/fedichev_model_steepness_longevity_data.pkl`
-- `src/notebooks/fedichev_gompertz_models.ipynb`
+- `results/gamma_factor_sweep.pkl`
+- `results/fedichev_model_steepness_longevity_data.pkl`
+- `legacy-notebook:fedichev_gompertz_models.ipynb`
 
 ### Gompertz-Makeham Extreme-Lifespan Panel
 
@@ -1440,7 +1440,7 @@ Fedichev-Gruber senogenic parameters are drawn with distinct blue/teal colors fr
 
 ### Shape-Response Panels
 
-Gompertz shape-response data are loaded from `saved_results/gamma_factor_sweep.pkl`. The baseline is `payload["results"]["baseline"][0]`, and all points are normalized as:
+Gompertz shape-response data are loaded from `results/gamma_factor_sweep.pkl`. The baseline is `payload["results"]["baseline"][0]`, and all points are normalized as:
 
 \[
 x=\frac{t_{50}}{t_{50,\mathrm{baseline}}},
@@ -1448,7 +1448,7 @@ x=\frac{t_{50}}{t_{50,\mathrm{baseline}}},
 y=\frac{\text{IQR steepness}}{\text{IQR steepness}_{\mathrm{baseline}}}.
 \]
 
-Fedichev-Gruber shape-response data are loaded from `saved_results/fedichev_model_steepness_longevity_data.pkl`. Factor values are:
+Fedichev-Gruber shape-response data are loaded from `results/fedichev_model_steepness_longevity_data.pkl`. Factor values are:
 
 \[
 0.6,0.7,\ldots,1.4.
@@ -1460,17 +1460,17 @@ No fit-CI or model-sensitivity envelope is drawn in this supplement because comp
 
 Source script:
 
-`src/figures/Supp_Figgs/make_supp_fig4_nhanes_exposure_groups.py`
+`analysis/figures/supplementary/make_supp_fig4_nhanes_exposure_groups.py`
 
 Output:
 
-`Figures_new/Supp_Figgs/supp_fig4_nhanes_exposure_groups.png`
+`Figures/Supplementary/supp_fig4_nhanes_exposure_groups.png`
 
 Data source:
 
 NHANES source tables under:
 
-`saved_data/nhanes/`
+`data/nhanes/`
 
 The script uses `ageing_packages.hetero_analysis.nhanes_analysis` to load the NHANES core table and each exposure topic, applying the same topic grouping strategies as the original notebook/helper code.
 

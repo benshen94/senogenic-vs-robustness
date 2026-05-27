@@ -1,0 +1,70 @@
+{
+  "run_label": "usa2019_hybrid_zero_hext_sensitivity",
+  "baseline": {
+    "eta": 0.5868368257640714,
+    "beta": 57.87173772073557,
+    "kappa": 0.5,
+    "epsilon": 49.718659304628446,
+    "Xc": 20.854942404177756,
+    "xc_std_frac": 0.1918528238650529
+  },
+  "baseline_h_ext": 0.0,
+  "h_ext_curve_values": [
+    0.0001,
+    0.0001668100537200059,
+    0.0002782559402207126,
+    0.00046415888336127773,
+    0.000774263682681127,
+    0.001291549665014884,
+    0.002154434690031882,
+    0.003593813663804626,
+    0.005994842503189409,
+    0.01
+  ],
+  "nuisance_params": [
+    "eta",
+    "beta",
+    "epsilon",
+    "Xc",
+    "xc_std_frac"
+  ],
+  "nuisance_factors": [
+    0.8,
+    1.2
+  ],
+  "params_to_vary": [
+    "eta",
+    "beta",
+    "epsilon",
+    "Xc"
+  ],
+  "factor_values": [
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+    1.1,
+    1.2,
+    1.3,
+    1.4,
+    1.5
+  ],
+  "from_t_values": [
+    0,
+    15,
+    20,
+    30,
+    40,
+    50
+  ],
+  "n": 100000,
+  "tmax": 140.0,
+  "dt": 0.025,
+  "save_times": 140.0,
+  "parallel": true,
+  "simulation_count": 605,
+  "metrics_path": "results/steepness_longevity_usa2019_sensitivity/metrics_long.csv",
+  "scenarios_path": "results/steepness_longevity_usa2019_sensitivity/baseline_scenarios.csv"
+}
