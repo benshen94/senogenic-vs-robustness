@@ -1,0 +1,86 @@
+{
+  "constraint": "fixed eta, beta, kappa; fit epsilon, Xc, Xc heterogeneity, and h_ext per Sweden historical target",
+  "fixed": {
+    "eta": 0.5868368257640714,
+    "beta": 57.87173772073557,
+    "kappa": 0.5
+  },
+  "baseline": {
+    "epsilon": 49.718659304628446,
+    "Xc": 21.74056340066893,
+    "xc_std_frac": 0.14142135623730953,
+    "h_ext": 0.001
+  },
+  "focus_age_window": [
+    65,
+    100
+  ],
+  "opt_n": 100000,
+  "final_n": 250000,
+  "ci_n": 200000,
+  "targets": {
+    "swe_period_1900": {
+      "label": "Sweden 1900 period",
+      "country": "SWE",
+      "gender": "both",
+      "data_type": "period",
+      "year": 1900,
+      "best_vector_log2": [
+        -0.06999999999999999,
+        -0.45,
+        0.08000000000000002,
+        0.92
+      ],
+      "fitted_parameters": {
+        "eta": 0.5868368257640714,
+        "beta": 57.87173772073557,
+        "kappa": 0.5,
+        "epsilon": 47.36388406538982,
+        "Xc": 15.915023948359181,
+        "xc_std_frac": 0.14948492486349388,
+        "h_ext": 0.0018921152934511917
+      },
+      "metrics": {
+        "hazard_log_rmse_65_100": 0.2807743695687025,
+        "hazard_median_fold_error_65_100": 1.1512513411894691,
+        "survival_rmse_65_100": 0.024520435936704194
+      },
+      "ci": [
+        {
+          "parameter": "epsilon",
+          "estimate": 47.36388406538982,
+          "ci95_lower": 46.7884517213596,
+          "ci95_upper": 47.94639342031428,
+          "log2_estimate": -0.06999999999999999,
+          "log2_se": 0.00899740026393192
+        },
+        {
+          "parameter": "Xc",
+          "estimate": 15.915023948359181,
+          "ci95_lower": 15.664240786444962,
+          "ci95_upper": 16.1698221273532,
+          "log2_estimate": -0.45,
+          "log2_se": 0.011691061709842765
+        },
+        {
+          "parameter": "xc_std_frac",
+          "estimate": 0.14948492486349388,
+          "ci95_lower": 0.14562513149326464,
+          "ci95_upper": 0.15344702203738733,
+          "log2_estimate": 0.08000000000000002,
+          "log2_se": 0.01925543241866499
+        },
+        {
+          "parameter": "h_ext",
+          "estimate": 0.0018921152934511917,
+          "ci95_lower": 0.0018547777023430725,
+          "ci95_upper": 0.001930204508707044,
+          "log2_estimate": 0.92,
+          "log2_se": 0.014670261110522597
+        }
+      ],
+      "plot_path": "saved_results/sweden_historical_fixed_eta_beta/swe_period_1900.png",
+      "ci_path": "saved_results/sweden_historical_fixed_eta_beta/swe_period_1900_ci.csv"
+    }
+  }
+}

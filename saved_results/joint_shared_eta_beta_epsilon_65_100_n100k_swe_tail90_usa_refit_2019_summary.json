@@ -1,0 +1,96 @@
+{
+  "constraint": "eta, beta, epsilon and Sweden Xc/heterogeneity fixed from tail90; USA Xc and heterogeneity refit",
+  "fixed_anchor_log2": [
+    0.12,
+    0.08,
+    -0.06,
+    0.05,
+    -0.5,
+    0.02,
+    -0.18
+  ],
+  "refit_parameter_names": [
+    "usa_xc_log2",
+    "usa_xc_std_log2"
+  ],
+  "focus_age_window": [
+    65,
+    100
+  ],
+  "baseline": {
+    "eta": 0.54,
+    "beta": 54.75,
+    "kappa": 0.5,
+    "epsilon": 51.83,
+    "Xc": 21.0,
+    "xc_std_frac": 0.2
+  },
+  "parameter_names": [
+    "eta_log2",
+    "beta_log2",
+    "epsilon_log2",
+    "swe_xc_log2",
+    "swe_xc_std_log2",
+    "usa_xc_log2",
+    "usa_xc_std_log2"
+  ],
+  "best_vector_log2": [
+    0.12,
+    0.08,
+    -0.06,
+    0.05,
+    -0.5,
+    -0.010000000000000002,
+    -0.059999999999999984
+  ],
+  "fitted_parameters": {
+    "eta": 0.5868368257640714,
+    "beta": 57.87173772073557,
+    "epsilon": 49.718659304628446,
+    "SWE_Xc": 21.74056340066893,
+    "SWE_xc_std_frac": 0.14142135623730953,
+    "USA_Xc": 20.854942404177756,
+    "USA_xc_std_frac": 0.1918528238650529
+  },
+  "fixed_h_ext": {
+    "SWE": 0.0003767783778403702,
+    "USA": 0.0008105166160951386
+  },
+  "metrics": {
+    "SWE": {
+      "hazard_log_rmse_65_100": 0.14513168571398138,
+      "hazard_median_fold_error_65_100": 1.1139729236009475,
+      "hazard_log_rmse_88_94": 0.15307436430085475,
+      "hazard_median_bias_88_94": -0.1007034836280305,
+      "survival_rmse_65_100": 0.021426444239857317
+    },
+    "USA": {
+      "hazard_log_rmse_65_100": 0.11944057948843104,
+      "hazard_median_fold_error_65_100": 1.0963433817758705,
+      "hazard_log_rmse_88_94": 0.06605819755598133,
+      "hazard_median_bias_88_94": -0.03203130320978542,
+      "survival_rmse_65_100": 0.019080535204801984
+    }
+  },
+  "ci": [
+    {
+      "parameter": "USA_Xc",
+      "estimate": 20.854942404177756,
+      "ci95_lower": 20.713297043269428,
+      "ci95_upper": 20.997556389647634,
+      "log2_estimate": -0.010000000000000002,
+      "log2_se": 0.005016385090762058
+    },
+    {
+      "parameter": "USA_xc_std_frac",
+      "estimate": 0.1918528238650529,
+      "ci95_lower": 0.18886716898690362,
+      "ci95_upper": 0.19488567665006568,
+      "log2_estimate": -0.059999999999999984,
+      "log2_se": 0.011544929560556213
+    }
+  ],
+  "plot_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_2019.png",
+  "ci_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_2019_ci.csv",
+  "methods_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_methods.md"
+}

@@ -1,0 +1,1921 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SR Fit Explorer</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --panel: #ffffff;
+      --ink: #181818;
+      --muted: #6b665e;
+      --line: #d7d0c3;
+      --accent: #146c78;
+      --accent-2: #953f2f;
+      --soft: #e8f1f2;
+      --warn: #f6e3b5;
+      --shadow: 0 10px 28px rgba(35, 30, 20, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.45 Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      padding: 22px 28px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #fffaf0;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 920px;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+      gap: 18px;
+      padding: 18px;
+      min-height: calc(100vh - 92px);
+    }
+
+    .sidebar,
+    .details {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      padding: 14px;
+      align-self: start;
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+    }
+
+    .controls {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      padding: 9px 10px;
+    }
+
+    .fit-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .fit-button {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .fit-button:hover {
+      border-color: var(--accent);
+    }
+
+    .fit-button.active {
+      border-color: var(--accent);
+      background: var(--soft);
+    }
+
+    .fit-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .fit-meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .serial {
+      display: inline-block;
+      border-radius: 999px;
+      background: #f0ebe2;
+      color: #39352f;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 7px;
+      white-space: nowrap;
+    }
+
+    .details {
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .details-head {
+      display: grid;
+      gap: 10px;
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .description {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 8px;
+      background: #fbfaf8;
+      color: #38332d;
+      font-size: 13px;
+    }
+
+    .tag.warn {
+      background: var(--warn);
+      border-color: #dfbf68;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+      padding: 18px 20px 22px;
+    }
+
+    .image-wrap {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfaf8;
+      padding: 10px;
+      min-height: 260px;
+    }
+
+    .image-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    .missing-image {
+      display: grid;
+      place-items: center;
+      min-height: 260px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    section {
+      min-width: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    th,
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      width: 42%;
+      color: var(--muted);
+      font-weight: 700;
+      background: #fbfaf8;
+    }
+
+    tr:last-child th,
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      overflow-wrap: anywhere;
+      color: var(--accent-2);
+      font-family: Menlo, Consolas, monospace;
+      font-size: 13px;
+    }
+
+    .empty {
+      color: var(--muted);
+      padding: 14px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fbfaf8;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        max-height: none;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SR Fit Explorer</h1>
+    <p>Double-clickable browser for the archived fits. Pick a fitted curve, check the fitted region and constraints, then use the serial name in code.</p>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <div class="controls">
+        <label>
+          Search
+          <input id="search" type="search" placeholder="USA, cohort, 1920, tail90...">
+        </label>
+        <label>
+          Data type
+          <select id="dataType"></select>
+        </label>
+        <label>
+          Country
+          <select id="country"></select>
+        </label>
+        <label>
+          Status
+          <select id="status"></select>
+        </label>
+      </div>
+      <div id="fitList" class="fit-list"></div>
+    </aside>
+
+    <article class="details">
+      <div class="details-head">
+        <h2 id="title"></h2>
+        <p id="description" class="description"></p>
+        <div id="tags" class="tag-row"></div>
+      </div>
+      <div class="content">
+        <div id="imageWrap" class="image-wrap"></div>
+        <div class="grid">
+          <section>
+            <h3>Fitted For</h3>
+            <table id="fittedFor"></table>
+          </section>
+          <section>
+            <h3>Parameters</h3>
+            <table id="parameters"></table>
+          </section>
+          <section>
+            <h3>Metrics</h3>
+            <table id="metrics"></table>
+          </section>
+          <section>
+            <h3>Files and References</h3>
+            <table id="files"></table>
+          </section>
+          <section>
+            <h3>Confidence Intervals</h3>
+            <table id="ci"></table>
+          </section>
+          <section>
+            <h3>Procedure</h3>
+            <table id="procedure"></table>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const DATA = {
+  "archive": {
+    "archive_name": "thresholds_noise_fit_archive",
+    "archive_created_utc": "2026-05-14T06:35:18Z",
+    "project_cwd": "/Users/benshenhar/Library/CloudStorage/GoogleDrive-benshenhar@gmail.com/My Drive/Weizmann/Alon Lab/Aging/python/notebooks/thresholds, noise",
+    "record_count": 9,
+    "completed_record_count": 8
+  },
+  "records": [
+    {
+      "name": "joint2019_initial_shared_eta_beta",
+      "label": "2019 initial joint USA/SWE",
+      "description": "Initial joint 2019 period fit. Shared eta and beta; country-specific epsilon, Xc, Xc heterogeneity, and h_ext factors.",
+      "status": "completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          30,
+          100
+        ]
+      },
+      "constraints": "Shared eta and beta; separate epsilon, Xc, Xc heterogeneity, and h_ext factor.",
+      "source_script": "joint_usa_sweden_sr_fit_2019.py",
+      "source_summary": "saved_results/joint_usa_sweden_sr_fit_2019_summary.json",
+      "source_png": "saved_results/joint_usa_sweden_sr_fit_2019.png",
+      "source_ci": null,
+      "archive_paths": {
+        "record_json": "records/joint2019_initial_shared_eta_beta.json",
+        "png": "pngs/joint2019_initial_shared_eta_beta.png",
+        "ci_csv": null,
+        "source_summary_copy": "records/joint2019_initial_shared_eta_beta_source_summary.json"
+      },
+      "summary": {
+        "objective": "Jointly fit Sweden and USA HMD 2019 period both-gender hazard curves with shared eta and beta, separate epsilon, Xc, and Xc heterogeneity.",
+        "baseline": {
+          "eta": 0.54,
+          "beta": 54.75,
+          "kappa": 0.5,
+          "epsilon": 51.83,
+          "Xc": 21.0,
+          "xc_std_frac": 0.2
+        },
+        "age_window": [
+          30,
+          100
+        ],
+        "extra_hazard_weight_window": [
+          60,
+          90
+        ],
+        "parameter_names": [
+          "eta_log2",
+          "beta_log2",
+          "swe_epsilon_log2",
+          "swe_xc_log2",
+          "swe_xc_std_log2",
+          "swe_h_ext_log2",
+          "usa_epsilon_log2",
+          "usa_xc_log2",
+          "usa_xc_std_log2",
+          "usa_h_ext_log2"
+        ],
+        "best_vector_log2_folds": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.15,
+          0.0,
+          0.0,
+          0.0,
+          0.075,
+          0.0
+        ],
+        "fitted_parameters": {
+          "shared": {
+            "eta": 0.54,
+            "beta": 54.75,
+            "kappa": 0.5
+          },
+          "SWE": {
+            "epsilon": 51.83,
+            "Xc": 21.0,
+            "xc_std_frac": 0.18025009252216606,
+            "h_ext_factor": 1.0
+          },
+          "USA": {
+            "epsilon": 51.83,
+            "Xc": 21.0,
+            "xc_std_frac": 0.21067220719096716,
+            "h_ext_factor": 1.0
+          }
+        },
+        "countries": {
+          "SWE": {
+            "h_ext_initial_from_ggm": 0.0003767783778403702,
+            "h_ext_fitted": 0.0003767783778403702,
+            "joint_score": 1.9869355304566674,
+            "hazard_log_rmse_60_90": 0.29772233702252804,
+            "hazard_median_fold_error_60_90": 1.241157837837838,
+            "survival_rmse": 0.042973320900145835
+          },
+          "USA": {
+            "h_ext_initial_from_ggm": 0.0008105166160951386,
+            "h_ext_fitted": 0.0008105166160951386,
+            "joint_score": 0.0807660182380989,
+            "hazard_log_rmse_60_90": 0.186226475212137,
+            "hazard_median_fold_error_60_90": 1.1498054637096773,
+            "survival_rmse": 0.013059780517521559
+          }
+        },
+        "plot_path": "saved_results/joint_usa_sweden_sr_fit_2019.png"
+      },
+      "ci": null,
+      "notes": {},
+      "explorer_png": "pngs/joint2019_initial_shared_eta_beta.png",
+      "explorer_record_json": "records/joint2019_initial_shared_eta_beta.json"
+    },
+    {
+      "name": "seq2019_usa_first_then_sweden_70_100",
+      "label": "2019 sequential 70-100",
+      "description": "USA was fit first, then Sweden was fit after fixing USA eta and beta.",
+      "status": "completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "USA",
+          "SWE"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          70,
+          100
+        ]
+      },
+      "constraints": "USA first; Sweden inherits USA eta and beta.",
+      "source_script": "fit_sr_70_100_sequential.py",
+      "source_summary": "saved_results/sequential_70_100_usa_sweden_sr_fit_2019_summary.json",
+      "source_png": "saved_results/sequential_70_100_usa_sweden_sr_fit_2019.png",
+      "source_ci": null,
+      "archive_paths": {
+        "record_json": "records/seq2019_usa_first_then_sweden_70_100.json",
+        "png": "pngs/seq2019_usa_first_then_sweden_70_100.png",
+        "ci_csv": null,
+        "source_summary_copy": "records/seq2019_usa_first_then_sweden_70_100_source_summary.json"
+      },
+      "summary": {
+        "workflow": "USA first; Sweden fitted after fixing USA eta and beta.",
+        "focus_age_window": [
+          70,
+          100
+        ],
+        "baseline": {
+          "eta": 0.54,
+          "beta": 54.75,
+          "kappa": 0.5,
+          "epsilon": 51.83,
+          "Xc": 21.0,
+          "xc_std_frac": 0.2
+        },
+        "vectors_log2": {
+          "USA": [
+            0.08,
+            0.08,
+            0.09,
+            0.0,
+            -0.36,
+            -0.135
+          ],
+          "SWE": [
+            0.0,
+            0.0,
+            -0.39999999999999997,
+            0.0
+          ]
+        },
+        "fitted_parameters": {
+          "USA": {
+            "eta": 0.5707897419031454,
+            "beta": 57.87173772073557,
+            "epsilon": 55.166306556557636,
+            "Xc": 21.0,
+            "xc_std_frac": 0.1558329159321,
+            "h_ext": 0.0007381130319028933
+          },
+          "SWE": {
+            "eta": 0.5707897419031454,
+            "beta": 57.87173772073557,
+            "epsilon": 51.83,
+            "Xc": 21.0,
+            "xc_std_frac": 0.15157165665103983,
+            "h_ext": 0.0003767783778403702
+          }
+        },
+        "metrics": {
+          "SWE": {
+            "hazard_log_rmse_70_100": 0.232302542455084,
+            "hazard_median_fold_error_70_100": 1.1519948872180452,
+            "survival_rmse_70_100": 0.029894992438630242
+          },
+          "USA": {
+            "hazard_log_rmse_70_100": 0.16449559216193416,
+            "hazard_median_fold_error_70_100": 1.121259685444884,
+            "survival_rmse_70_100": 0.01525279691080509
+          }
+        },
+        "plot_path": "saved_results/sequential_70_100_usa_sweden_sr_fit_2019.png"
+      },
+      "ci": null,
+      "notes": {},
+      "explorer_png": "pngs/seq2019_usa_first_then_sweden_70_100.png",
+      "explorer_record_json": "records/seq2019_usa_first_then_sweden_70_100.json"
+    },
+    {
+      "name": "joint2019_shared_eta_beta_epsilon_60_100",
+      "label": "2019 shared eta/beta/epsilon 60-100",
+      "description": "Joint USA/Sweden 2019 period fit. Shared eta, beta, epsilon; only Xc and Xc heterogeneity differ by country.",
+      "status": "completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          60,
+          100
+        ]
+      },
+      "constraints": "shared eta, beta, epsilon; country-specific Xc and Xc heterogeneity only",
+      "source_script": "joint_shared_eta_beta_epsilon_60_100.py",
+      "source_summary": "saved_results/joint_shared_eta_beta_epsilon_60_100_fit_2019_summary.json",
+      "source_png": "saved_results/joint_shared_eta_beta_epsilon_60_100_fit_2019.png",
+      "source_ci": "saved_results/joint_shared_eta_beta_epsilon_60_100_fit_2019_ci.csv",
+      "archive_paths": {
+        "record_json": "records/joint2019_shared_eta_beta_epsilon_60_100.json",
+        "png": "pngs/joint2019_shared_eta_beta_epsilon_60_100.png",
+        "ci_csv": "ci/joint2019_shared_eta_beta_epsilon_60_100_ci.csv",
+        "source_summary_copy": "records/joint2019_shared_eta_beta_epsilon_60_100_source_summary.json"
+      },
+      "summary": {
+        "constraint": "shared eta, beta, epsilon; country-specific Xc and Xc heterogeneity only",
+        "focus_age_window": [
+          60,
+          100
+        ],
+        "baseline": {
+          "eta": 0.54,
+          "beta": 54.75,
+          "kappa": 0.5,
+          "epsilon": 51.83,
+          "Xc": 21.0,
+          "xc_std_frac": 0.2
+        },
+        "parameter_names": [
+          "eta_log2",
+          "beta_log2",
+          "epsilon_log2",
+          "swe_xc_log2",
+          "swe_xc_std_log2",
+          "usa_xc_log2",
+          "usa_xc_std_log2"
+        ],
+        "best_vector_log2": [
+          0.08,
+          0.08,
+          0.045,
+          0.05500000000000001,
+          -0.315,
+          -0.05,
+          -0.12
+        ],
+        "fitted_parameters": {
+          "eta": 0.5707897419031454,
+          "beta": 57.87173772073557,
+          "epsilon": 53.472139183189434,
+          "SWE_Xc": 21.81604116925095,
+          "SWE_xc_std_frac": 0.1607701981486303,
+          "USA_Xc": 20.284662907421758,
+          "USA_xc_std_frac": 0.18403753012497504
+        },
+        "fixed_h_ext": {
+          "SWE": 0.0003767783778403702,
+          "USA": 0.0008105166160951386
+        },
+        "metrics": {
+          "SWE": {
+            "hazard_log_rmse_60_100": 0.245048262933647,
+            "hazard_median_fold_error_60_100": 1.189949418803419,
+            "survival_rmse_60_100": 0.020943070612807438
+          },
+          "USA": {
+            "hazard_log_rmse_60_100": 0.19869348525065136,
+            "hazard_median_fold_error_60_100": 1.1814818750000002,
+            "survival_rmse_60_100": 0.021184112572470656
+          }
+        },
+        "ci": [
+          {
+            "parameter": "eta",
+            "estimate": 0.5707897419031454,
+            "ci95_lower": 0.5658439545199689,
+            "ci95_upper": 0.5757787581882908,
+            "log2_estimate": 0.08,
+            "log2_se": 0.006405692982715667
+          },
+          {
+            "parameter": "beta",
+            "estimate": 57.87173772073557,
+            "ci95_lower": 57.32479315430274,
+            "ci95_upper": 58.42390076842739,
+            "log2_estimate": 0.08,
+            "log2_se": 0.006989653362820032
+          },
+          {
+            "parameter": "epsilon",
+            "estimate": 53.472139183189434,
+            "ci95_lower": 52.82974947117906,
+            "ci95_upper": 54.12234011040008,
+            "log2_estimate": 0.045,
+            "log2_se": 0.008896339465891774
+          },
+          {
+            "parameter": "SWE_Xc",
+            "estimate": 21.81604116925095,
+            "ci95_lower": 21.451890369149616,
+            "ci95_upper": 22.186373513399573,
+            "log2_estimate": 0.05500000000000001,
+            "log2_se": 0.01239007263075997
+          },
+          {
+            "parameter": "SWE_xc_std_frac",
+            "estimate": 0.1607701981486303,
+            "ci95_lower": 0.158351325135062,
+            "ci95_upper": 0.16322602031087655,
+            "log2_estimate": -0.315,
+            "log2_se": 0.011158703900537758
+          },
+          {
+            "parameter": "USA_Xc",
+            "estimate": 20.284662907421758,
+            "ci95_lower": 19.936259836529615,
+            "ci95_upper": 20.639154617848213,
+            "log2_estimate": -0.05,
+            "log2_se": 0.012752322002458901
+          },
+          {
+            "parameter": "USA_xc_std_frac",
+            "estimate": 0.18403753012497504,
+            "ci95_lower": 0.18085634324581737,
+            "ci95_upper": 0.18727467274103693,
+            "log2_estimate": -0.12,
+            "log2_se": 0.012834592299527993
+          }
+        ],
+        "plot_path": "saved_results/joint_shared_eta_beta_epsilon_60_100_fit_2019.png",
+        "ci_path": "saved_results/joint_shared_eta_beta_epsilon_60_100_fit_2019_ci.csv",
+        "methods_path": "saved_results/joint_shared_eta_beta_epsilon_60_100_methods.md"
+      },
+      "ci": [
+        {
+          "parameter": "eta",
+          "estimate": 0.5707897419031454,
+          "ci95_lower": 0.5658439545199689,
+          "ci95_upper": 0.5757787581882908,
+          "log2_estimate": 0.08,
+          "log2_se": 0.006405692982715667
+        },
+        {
+          "parameter": "beta",
+          "estimate": 57.87173772073557,
+          "ci95_lower": 57.32479315430274,
+          "ci95_upper": 58.42390076842739,
+          "log2_estimate": 0.08,
+          "log2_se": 0.006989653362820032
+        },
+        {
+          "parameter": "epsilon",
+          "estimate": 53.472139183189434,
+          "ci95_lower": 52.82974947117906,
+          "ci95_upper": 54.12234011040008,
+          "log2_estimate": 0.045,
+          "log2_se": 0.008896339465891774
+        },
+        {
+          "parameter": "SWE_Xc",
+          "estimate": 21.81604116925095,
+          "ci95_lower": 21.451890369149616,
+          "ci95_upper": 22.186373513399573,
+          "log2_estimate": 0.05500000000000001,
+          "log2_se": 0.01239007263075997
+        },
+        {
+          "parameter": "SWE_xc_std_frac",
+          "estimate": 0.1607701981486303,
+          "ci95_lower": 0.158351325135062,
+          "ci95_upper": 0.16322602031087655,
+          "log2_estimate": -0.315,
+          "log2_se": 0.011158703900537758
+        },
+        {
+          "parameter": "USA_Xc",
+          "estimate": 20.284662907421758,
+          "ci95_lower": 19.936259836529615,
+          "ci95_upper": 20.639154617848213,
+          "log2_estimate": -0.05,
+          "log2_se": 0.012752322002458901
+        },
+        {
+          "parameter": "USA_xc_std_frac",
+          "estimate": 0.18403753012497504,
+          "ci95_lower": 0.18085634324581737,
+          "ci95_upper": 0.18727467274103693,
+          "log2_estimate": -0.12,
+          "log2_se": 0.012834592299527993
+        }
+      ],
+      "notes": {},
+      "explorer_png": "pngs/joint2019_shared_eta_beta_epsilon_60_100.png",
+      "explorer_record_json": "records/joint2019_shared_eta_beta_epsilon_60_100.json"
+    },
+    {
+      "name": "joint2019_shared_eta_beta_epsilon_65_100_n100k",
+      "label": "2019 shared eta/beta/epsilon 65-100 n100k",
+      "description": "Joint USA/Sweden 2019 period refit using n=100000 during optimization and age focus 65-100.",
+      "status": "completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "constraints": "shared eta, beta, epsilon; country-specific Xc and Xc heterogeneity only",
+      "source_script": "joint_shared_eta_beta_epsilon_65_100_n100k.py",
+      "source_summary": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_fit_2019_summary.json",
+      "source_png": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_fit_2019.png",
+      "source_ci": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_fit_2019_ci.csv",
+      "archive_paths": {
+        "record_json": "records/joint2019_shared_eta_beta_epsilon_65_100_n100k.json",
+        "png": "pngs/joint2019_shared_eta_beta_epsilon_65_100_n100k.png",
+        "ci_csv": "ci/joint2019_shared_eta_beta_epsilon_65_100_n100k_ci.csv",
+        "source_summary_copy": "records/joint2019_shared_eta_beta_epsilon_65_100_n100k_source_summary.json"
+      },
+      "summary": {
+        "constraint": "shared eta, beta, epsilon; country-specific Xc and Xc heterogeneity only",
+        "focus_age_window": [
+          65,
+          100
+        ],
+        "baseline": {
+          "eta": 0.54,
+          "beta": 54.75,
+          "kappa": 0.5,
+          "epsilon": 51.83,
+          "Xc": 21.0,
+          "xc_std_frac": 0.2
+        },
+        "parameter_names": [
+          "eta_log2",
+          "beta_log2",
+          "epsilon_log2",
+          "swe_xc_log2",
+          "swe_xc_std_log2",
+          "usa_xc_log2",
+          "usa_xc_std_log2"
+        ],
+        "best_vector_log2": [
+          0.1,
+          0.08,
+          0.030000000000000002,
+          0.05,
+          -0.64,
+          0.0,
+          -0.3
+        ],
+        "fitted_parameters": {
+          "eta": 0.5787576697695983,
+          "beta": 57.87173772073557,
+          "epsilon": 52.91905847540383,
+          "SWE_Xc": 21.74056340066893,
+          "SWE_xc_std_frac": 0.12834258975629043,
+          "USA_Xc": 21.0,
+          "USA_xc_std_frac": 0.16245047927124712
+        },
+        "fixed_h_ext": {
+          "SWE": 0.0003767783778403702,
+          "USA": 0.0008105166160951386
+        },
+        "metrics": {
+          "SWE": {
+            "hazard_log_rmse_65_100": 0.1874105800736947,
+            "hazard_median_fold_error_65_100": 1.1877547214971287,
+            "hazard_log_rmse_88_94": 0.13038883721233216,
+            "hazard_median_bias_88_94": -0.11260047045656396,
+            "survival_rmse_65_100": 0.02764494711289409
+          },
+          "USA": {
+            "hazard_log_rmse_65_100": 0.15590477278239392,
+            "hazard_median_fold_error_65_100": 1.1193782347350945,
+            "hazard_log_rmse_88_94": 0.11989968252066384,
+            "hazard_median_bias_88_94": -0.08477803035142184,
+            "survival_rmse_65_100": 0.02198942330578256
+          }
+        },
+        "ci": [
+          {
+            "parameter": "eta",
+            "estimate": 0.5787576697695983,
+            "ci95_lower": 0.5736634183129995,
+            "ci95_upper": 0.5838971592474386,
+            "log2_estimate": 0.1,
+            "log2_se": 0.006507594352293999
+          },
+          {
+            "parameter": "beta",
+            "estimate": 57.87173772073557,
+            "ci95_lower": 57.41518317586128,
+            "ci95_upper": 58.33192269994651,
+            "log2_estimate": 0.08,
+            "log2_se": 0.005829930317938905
+          },
+          {
+            "parameter": "epsilon",
+            "estimate": 52.91905847540383,
+            "ci95_lower": 52.29450470080176,
+            "ci95_upper": 53.55107130176671,
+            "log2_estimate": 0.030000000000000002,
+            "log2_se": 0.00873879744640873
+          },
+          {
+            "parameter": "SWE_Xc",
+            "estimate": 21.74056340066893,
+            "ci95_lower": 21.44914954501228,
+            "ci95_upper": 22.035936482545264,
+            "log2_estimate": 0.05,
+            "log2_se": 0.00993310287546159
+          },
+          {
+            "parameter": "SWE_xc_std_frac",
+            "estimate": 0.12834258975629043,
+            "ci95_lower": 0.12604004355265283,
+            "ci95_upper": 0.13068719972689005,
+            "log2_estimate": -0.64,
+            "log2_se": 0.013325429599027903
+          },
+          {
+            "parameter": "USA_Xc",
+            "estimate": 21.0,
+            "ci95_lower": 20.730047173295077,
+            "ci95_upper": 21.27346823253284,
+            "log2_estimate": 0.0,
+            "log2_se": 0.009523432879346245
+          },
+          {
+            "parameter": "USA_xc_std_frac",
+            "estimate": 0.16245047927124712,
+            "ci95_lower": 0.15962996319854328,
+            "ci95_upper": 0.1653208312942762,
+            "log2_estimate": -0.3,
+            "log2_se": 0.012892103697709597
+          }
+        ],
+        "plot_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_fit_2019.png",
+        "ci_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_fit_2019_ci.csv",
+        "methods_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_methods.md"
+      },
+      "ci": [
+        {
+          "parameter": "eta",
+          "estimate": 0.5787576697695983,
+          "ci95_lower": 0.5736634183129995,
+          "ci95_upper": 0.5838971592474386,
+          "log2_estimate": 0.1,
+          "log2_se": 0.006507594352293999
+        },
+        {
+          "parameter": "beta",
+          "estimate": 57.87173772073557,
+          "ci95_lower": 57.41518317586128,
+          "ci95_upper": 58.33192269994651,
+          "log2_estimate": 0.08,
+          "log2_se": 0.005829930317938905
+        },
+        {
+          "parameter": "epsilon",
+          "estimate": 52.91905847540383,
+          "ci95_lower": 52.29450470080176,
+          "ci95_upper": 53.55107130176671,
+          "log2_estimate": 0.030000000000000002,
+          "log2_se": 0.00873879744640873
+        },
+        {
+          "parameter": "SWE_Xc",
+          "estimate": 21.74056340066893,
+          "ci95_lower": 21.44914954501228,
+          "ci95_upper": 22.035936482545264,
+          "log2_estimate": 0.05,
+          "log2_se": 0.00993310287546159
+        },
+        {
+          "parameter": "SWE_xc_std_frac",
+          "estimate": 0.12834258975629043,
+          "ci95_lower": 0.12604004355265283,
+          "ci95_upper": 0.13068719972689005,
+          "log2_estimate": -0.64,
+          "log2_se": 0.013325429599027903
+        },
+        {
+          "parameter": "USA_Xc",
+          "estimate": 21.0,
+          "ci95_lower": 20.730047173295077,
+          "ci95_upper": 21.27346823253284,
+          "log2_estimate": 0.0,
+          "log2_se": 0.009523432879346245
+        },
+        {
+          "parameter": "USA_xc_std_frac",
+          "estimate": 0.16245047927124712,
+          "ci95_lower": 0.15962996319854328,
+          "ci95_upper": 0.1653208312942762,
+          "log2_estimate": -0.3,
+          "log2_se": 0.012892103697709597
+        }
+      ],
+      "notes": {},
+      "explorer_png": "pngs/joint2019_shared_eta_beta_epsilon_65_100_n100k.png",
+      "explorer_record_json": "records/joint2019_shared_eta_beta_epsilon_65_100_n100k.json"
+    },
+    {
+      "name": "joint2019_tail90_sweden_emphasis",
+      "label": "2019 tail90 Sweden emphasis",
+      "description": "Joint 65-100 fit with extra Sweden age 88-96 hazard weight to improve the Sweden age-90 hazard.",
+      "status": "completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "constraints": "shared eta, beta, epsilon; country-specific Xc and Xc heterogeneity only",
+      "source_script": "joint_shared_eta_beta_epsilon_65_100_n100k_tail90.py",
+      "source_summary": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_fit_2019_summary.json",
+      "source_png": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_fit_2019.png",
+      "source_ci": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_fit_2019_ci.csv",
+      "archive_paths": {
+        "record_json": "records/joint2019_tail90_sweden_emphasis.json",
+        "png": "pngs/joint2019_tail90_sweden_emphasis.png",
+        "ci_csv": "ci/joint2019_tail90_sweden_emphasis_ci.csv",
+        "source_summary_copy": "records/joint2019_tail90_sweden_emphasis_source_summary.json"
+      },
+      "summary": {
+        "constraint": "shared eta, beta, epsilon; country-specific Xc and Xc heterogeneity only",
+        "focus_age_window": [
+          65,
+          100
+        ],
+        "baseline": {
+          "eta": 0.54,
+          "beta": 54.75,
+          "kappa": 0.5,
+          "epsilon": 51.83,
+          "Xc": 21.0,
+          "xc_std_frac": 0.2
+        },
+        "parameter_names": [
+          "eta_log2",
+          "beta_log2",
+          "epsilon_log2",
+          "swe_xc_log2",
+          "swe_xc_std_log2",
+          "usa_xc_log2",
+          "usa_xc_std_log2"
+        ],
+        "best_vector_log2": [
+          0.12,
+          0.08,
+          -0.06,
+          0.05,
+          -0.49999999999999994,
+          0.02,
+          -0.18000000000000002
+        ],
+        "fitted_parameters": {
+          "eta": 0.5868368257640714,
+          "beta": 57.87173772073557,
+          "epsilon": 49.718659304628446,
+          "SWE_Xc": 21.74056340066893,
+          "SWE_xc_std_frac": 0.14142135623730953,
+          "USA_Xc": 21.293149075590613,
+          "USA_xc_std_frac": 0.17654059925813098
+        },
+        "fixed_h_ext": {
+          "SWE": 0.0003767783778403702,
+          "USA": 0.0008105166160951386
+        },
+        "metrics": {
+          "SWE": {
+            "hazard_log_rmse_65_100": 0.14513168571398138,
+            "hazard_median_fold_error_65_100": 1.1139729236009475,
+            "hazard_log_rmse_88_94": 0.15307436430085475,
+            "hazard_median_bias_88_94": -0.1007034836280305,
+            "survival_rmse_65_100": 0.021426444239857317
+          },
+          "USA": {
+            "hazard_log_rmse_65_100": 0.14996066979860473,
+            "hazard_median_fold_error_65_100": 1.0759617003956798,
+            "hazard_log_rmse_88_94": 0.08875682261395489,
+            "hazard_median_bias_88_94": -0.026144340526963905,
+            "survival_rmse_65_100": 0.033726165339276484
+          }
+        },
+        "ci": [
+          {
+            "parameter": "eta",
+            "estimate": 0.5868368257640714,
+            "ci95_lower": 0.5817969572940781,
+            "ci95_upper": 0.5919203525479771,
+            "log2_estimate": 0.12,
+            "log2_se": 0.00634880402279495
+          },
+          {
+            "parameter": "beta",
+            "estimate": 57.87173772073557,
+            "ci95_lower": 57.36423433272449,
+            "ci95_upper": 58.383731008975246,
+            "log2_estimate": 0.08,
+            "log2_se": 0.006483390008189294
+          },
+          {
+            "parameter": "epsilon",
+            "estimate": 49.718659304628446,
+            "ci95_lower": 49.22949632019708,
+            "ci95_upper": 50.21268279837281,
+            "log2_estimate": -0.06,
+            "log2_se": 0.0072777625832442855
+          },
+          {
+            "parameter": "SWE_Xc",
+            "estimate": 21.74056340066893,
+            "ci95_lower": 21.4117044932479,
+            "ci95_upper": 22.07447319887841,
+            "log2_estimate": 0.05,
+            "log2_se": 0.011219224938773252
+          },
+          {
+            "parameter": "SWE_xc_std_frac",
+            "estimate": 0.14142135623730953,
+            "ci95_lower": 0.13832240110899072,
+            "ci95_upper": 0.144589739909453,
+            "log2_estimate": -0.49999999999999994,
+            "log2_se": 0.016308766456634375
+          },
+          {
+            "parameter": "USA_Xc",
+            "estimate": 21.293149075590613,
+            "ci95_lower": 20.98633703040615,
+            "ci95_upper": 21.60444659296271,
+            "log2_estimate": 0.02,
+            "log2_se": 0.010683136870346097
+          },
+          {
+            "parameter": "USA_xc_std_frac",
+            "estimate": 0.17654059925813098,
+            "ci95_lower": 0.17381356336032763,
+            "ci95_upper": 0.17931042079730852,
+            "log2_estimate": -0.18000000000000002,
+            "log2_se": 0.01145884400537072
+          }
+        ],
+        "plot_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_fit_2019.png",
+        "ci_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_fit_2019_ci.csv",
+        "methods_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_tail90_methods.md"
+      },
+      "ci": [
+        {
+          "parameter": "eta",
+          "estimate": 0.5868368257640714,
+          "ci95_lower": 0.5817969572940781,
+          "ci95_upper": 0.5919203525479771,
+          "log2_estimate": 0.12,
+          "log2_se": 0.00634880402279495
+        },
+        {
+          "parameter": "beta",
+          "estimate": 57.87173772073557,
+          "ci95_lower": 57.36423433272449,
+          "ci95_upper": 58.383731008975246,
+          "log2_estimate": 0.08,
+          "log2_se": 0.006483390008189294
+        },
+        {
+          "parameter": "epsilon",
+          "estimate": 49.718659304628446,
+          "ci95_lower": 49.22949632019708,
+          "ci95_upper": 50.21268279837281,
+          "log2_estimate": -0.06,
+          "log2_se": 0.0072777625832442855
+        },
+        {
+          "parameter": "SWE_Xc",
+          "estimate": 21.74056340066893,
+          "ci95_lower": 21.4117044932479,
+          "ci95_upper": 22.07447319887841,
+          "log2_estimate": 0.05,
+          "log2_se": 0.011219224938773252
+        },
+        {
+          "parameter": "SWE_xc_std_frac",
+          "estimate": 0.14142135623730953,
+          "ci95_lower": 0.13832240110899072,
+          "ci95_upper": 0.144589739909453,
+          "log2_estimate": -0.49999999999999994,
+          "log2_se": 0.016308766456634375
+        },
+        {
+          "parameter": "USA_Xc",
+          "estimate": 21.293149075590613,
+          "ci95_lower": 20.98633703040615,
+          "ci95_upper": 21.60444659296271,
+          "log2_estimate": 0.02,
+          "log2_se": 0.010683136870346097
+        },
+        {
+          "parameter": "USA_xc_std_frac",
+          "estimate": 0.17654059925813098,
+          "ci95_lower": 0.17381356336032763,
+          "ci95_upper": 0.17931042079730852,
+          "log2_estimate": -0.18000000000000002,
+          "log2_se": 0.01145884400537072
+        }
+      ],
+      "notes": {},
+      "explorer_png": "pngs/joint2019_tail90_sweden_emphasis.png",
+      "explorer_record_json": "records/joint2019_tail90_sweden_emphasis.json"
+    },
+    {
+      "name": "hybrid2019_swe_tail90_usa_refit",
+      "label": "2019 hybrid SWE tail90 plus USA refit",
+      "description": "Hybrid model: keep the good Sweden tail90/shared fit, then refit only USA Xc and Xc heterogeneity.",
+      "status": "completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "constraints": "eta, beta, epsilon and Sweden Xc/heterogeneity fixed from tail90; USA Xc and heterogeneity refit",
+      "source_script": "joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit.py",
+      "source_summary": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_2019_summary.json",
+      "source_png": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_2019.png",
+      "source_ci": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_2019_ci.csv",
+      "archive_paths": {
+        "record_json": "records/hybrid2019_swe_tail90_usa_refit.json",
+        "png": "pngs/hybrid2019_swe_tail90_usa_refit.png",
+        "ci_csv": "ci/hybrid2019_swe_tail90_usa_refit_ci.csv",
+        "source_summary_copy": "records/hybrid2019_swe_tail90_usa_refit_source_summary.json"
+      },
+      "summary": {
+        "constraint": "eta, beta, epsilon and Sweden Xc/heterogeneity fixed from tail90; USA Xc and heterogeneity refit",
+        "fixed_anchor_log2": [
+          0.12,
+          0.08,
+          -0.06,
+          0.05,
+          -0.5,
+          0.02,
+          -0.18
+        ],
+        "refit_parameter_names": [
+          "usa_xc_log2",
+          "usa_xc_std_log2"
+        ],
+        "focus_age_window": [
+          65,
+          100
+        ],
+        "baseline": {
+          "eta": 0.54,
+          "beta": 54.75,
+          "kappa": 0.5,
+          "epsilon": 51.83,
+          "Xc": 21.0,
+          "xc_std_frac": 0.2
+        },
+        "parameter_names": [
+          "eta_log2",
+          "beta_log2",
+          "epsilon_log2",
+          "swe_xc_log2",
+          "swe_xc_std_log2",
+          "usa_xc_log2",
+          "usa_xc_std_log2"
+        ],
+        "best_vector_log2": [
+          0.12,
+          0.08,
+          -0.06,
+          0.05,
+          -0.5,
+          -0.010000000000000002,
+          -0.059999999999999984
+        ],
+        "fitted_parameters": {
+          "eta": 0.5868368257640714,
+          "beta": 57.87173772073557,
+          "epsilon": 49.718659304628446,
+          "SWE_Xc": 21.74056340066893,
+          "SWE_xc_std_frac": 0.14142135623730953,
+          "USA_Xc": 20.854942404177756,
+          "USA_xc_std_frac": 0.1918528238650529
+        },
+        "fixed_h_ext": {
+          "SWE": 0.0003767783778403702,
+          "USA": 0.0008105166160951386
+        },
+        "metrics": {
+          "SWE": {
+            "hazard_log_rmse_65_100": 0.14513168571398138,
+            "hazard_median_fold_error_65_100": 1.1139729236009475,
+            "hazard_log_rmse_88_94": 0.15307436430085475,
+            "hazard_median_bias_88_94": -0.1007034836280305,
+            "survival_rmse_65_100": 0.021426444239857317
+          },
+          "USA": {
+            "hazard_log_rmse_65_100": 0.11944057948843104,
+            "hazard_median_fold_error_65_100": 1.0963433817758705,
+            "hazard_log_rmse_88_94": 0.06605819755598133,
+            "hazard_median_bias_88_94": -0.03203130320978542,
+            "survival_rmse_65_100": 0.019080535204801984
+          }
+        },
+        "ci": [
+          {
+            "parameter": "USA_Xc",
+            "estimate": 20.854942404177756,
+            "ci95_lower": 20.713297043269428,
+            "ci95_upper": 20.997556389647634,
+            "log2_estimate": -0.010000000000000002,
+            "log2_se": 0.005016385090762058
+          },
+          {
+            "parameter": "USA_xc_std_frac",
+            "estimate": 0.1918528238650529,
+            "ci95_lower": 0.18886716898690362,
+            "ci95_upper": 0.19488567665006568,
+            "log2_estimate": -0.059999999999999984,
+            "log2_se": 0.011544929560556213
+          }
+        ],
+        "plot_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_2019.png",
+        "ci_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_2019_ci.csv",
+        "methods_path": "saved_results/joint_shared_eta_beta_epsilon_65_100_n100k_swe_tail90_usa_refit_methods.md"
+      },
+      "ci": [
+        {
+          "parameter": "USA_Xc",
+          "estimate": 20.854942404177756,
+          "ci95_lower": 20.713297043269428,
+          "ci95_upper": 20.997556389647634,
+          "log2_estimate": -0.010000000000000002,
+          "log2_se": 0.005016385090762058
+        },
+        {
+          "parameter": "USA_xc_std_frac",
+          "estimate": 0.1918528238650529,
+          "ci95_lower": 0.18886716898690362,
+          "ci95_upper": 0.19488567665006568,
+          "log2_estimate": -0.059999999999999984,
+          "log2_se": 0.011544929560556213
+        }
+      ],
+      "notes": {},
+      "explorer_png": "pngs/hybrid2019_swe_tail90_usa_refit.png",
+      "explorer_record_json": "records/hybrid2019_swe_tail90_usa_refit.json"
+    },
+    {
+      "name": "swehist_cohort1900_fixed_eta_beta",
+      "label": "SWE cohort 1900 fixed eta/beta",
+      "description": "Sweden 1900 cohort fit with eta and beta fixed from the 2019 hybrid model; fitted epsilon, Xc, Xc heterogeneity, and h_ext.",
+      "status": "completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "SWE"
+        ],
+        "data_type": "cohort",
+        "year": 1900,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "constraints": "fixed eta, beta, kappa; fit epsilon, Xc, Xc heterogeneity, and h_ext",
+      "source_script": "fit_sweden_historical_fixed_eta_beta.py",
+      "source_summary": null,
+      "source_png": "saved_results/sweden_historical_fixed_eta_beta/swe_cohort_1900.png",
+      "source_ci": "saved_results/sweden_historical_fixed_eta_beta/swe_cohort_1900_ci.csv",
+      "archive_paths": {
+        "record_json": "records/swehist_cohort1900_fixed_eta_beta.json",
+        "png": "pngs/swehist_cohort1900_fixed_eta_beta.png",
+        "ci_csv": "ci/swehist_cohort1900_fixed_eta_beta_ci.csv",
+        "source_summary_copy": null
+      },
+      "summary": {
+        "constraint": "fixed eta, beta, kappa; fit epsilon, Xc, Xc heterogeneity, and h_ext",
+        "fitted_parameters": {
+          "eta": 0.5868368257640714,
+          "beta": 57.87173772073557,
+          "kappa": 0.5,
+          "epsilon": 42.391863695049786,
+          "Xc": 16.822467429382066,
+          "xc_std_frac": 0.16245047927124714,
+          "h_ext": 0.002
+        },
+        "metrics": {
+          "hazard_log_rmse_65_100": 0.09965900658729025,
+          "hazard_median_fold_error_65_100": 1.059557748588535,
+          "survival_rmse_65_100": 0.010893435633349425
+        },
+        "focus_age_window": [
+          65,
+          100
+        ],
+        "opt_n": 100000,
+        "final_n": 250000,
+        "ci_n": 200000
+      },
+      "ci": [
+        {
+          "parameter": "epsilon",
+          "estimate": 42.391863695049786,
+          "ci95_lower": 41.874731664840965,
+          "ci95_upper": 42.91538204765486,
+          "log2_estimate": -0.22999999999999998,
+          "log2_se": 0.009034412290694512
+        },
+        {
+          "parameter": "Xc",
+          "estimate": 16.822467429382066,
+          "ci95_lower": 16.63122956548374,
+          "ci95_upper": 17.015904284067233,
+          "log2_estimate": -0.37,
+          "log2_se": 0.008415558805260766
+        },
+        {
+          "parameter": "xc_std_frac",
+          "estimate": 0.16245047927124714,
+          "ci95_lower": 0.16010436863154234,
+          "ci95_upper": 0.16483096895495167,
+          "log2_estimate": 0.2,
+          "log2_se": 0.010707819396912278
+        },
+        {
+          "parameter": "h_ext",
+          "estimate": 0.002,
+          "ci95_lower": 0.0019700168048747578,
+          "ci95_upper": 0.00203043953234414,
+          "log2_estimate": 1.0,
+          "log2_se": 0.01111839980344883
+        }
+      ],
+      "notes": {},
+      "explorer_png": "pngs/swehist_cohort1900_fixed_eta_beta.png",
+      "explorer_record_json": "records/swehist_cohort1900_fixed_eta_beta.json"
+    },
+    {
+      "name": "swehist_cohort1920_fixed_eta_beta",
+      "label": "SWE cohort 1920 fixed eta/beta",
+      "description": "Sweden 1920 cohort fit with eta and beta fixed from the 2019 hybrid model; fitted epsilon, Xc, Xc heterogeneity, and h_ext.",
+      "status": "completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "SWE"
+        ],
+        "data_type": "cohort",
+        "year": 1920,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "constraints": "fixed eta, beta, kappa; fit epsilon, Xc, Xc heterogeneity, and h_ext",
+      "source_script": "fit_sweden_historical_fixed_eta_beta.py",
+      "source_summary": null,
+      "source_png": "saved_results/sweden_historical_fixed_eta_beta/swe_cohort_1920.png",
+      "source_ci": "saved_results/sweden_historical_fixed_eta_beta/swe_cohort_1920_ci.csv",
+      "archive_paths": {
+        "record_json": "records/swehist_cohort1920_fixed_eta_beta.json",
+        "png": "pngs/swehist_cohort1920_fixed_eta_beta.png",
+        "ci_csv": "ci/swehist_cohort1920_fixed_eta_beta_ci.csv",
+        "source_summary_copy": null
+      },
+      "summary": {
+        "constraint": "fixed eta, beta, kappa; fit epsilon, Xc, Xc heterogeneity, and h_ext",
+        "fitted_parameters": {
+          "eta": 0.5868368257640714,
+          "beta": 57.87173772073557,
+          "kappa": 0.5,
+          "epsilon": 44.808964698686644,
+          "Xc": 18.795526489487422,
+          "xc_std_frac": 0.16245047927124714,
+          "h_ext": 0.002
+        },
+        "metrics": {
+          "hazard_log_rmse_65_100": 0.13853811837339783,
+          "hazard_median_fold_error_65_100": 1.1032971457087604,
+          "survival_rmse_65_100": 0.015062110505874601
+        },
+        "focus_age_window": [
+          65,
+          100
+        ],
+        "opt_n": 100000,
+        "final_n": 250000,
+        "ci_n": 200000
+      },
+      "ci": [
+        {
+          "parameter": "epsilon",
+          "estimate": 44.808964698686644,
+          "ci95_lower": 44.33036944516871,
+          "ci95_upper": 45.292726916061575,
+          "log2_estimate": -0.15,
+          "log2_se": 0.007904085654733982
+        },
+        {
+          "parameter": "Xc",
+          "estimate": 18.795526489487422,
+          "ci95_lower": 18.63548314990145,
+          "ci95_upper": 18.956944296820744,
+          "log2_estimate": -0.21000000000000002,
+          "log2_se": 0.006294441089461612
+        },
+        {
+          "parameter": "xc_std_frac",
+          "estimate": 0.16245047927124714,
+          "ci95_lower": 0.16099148481429465,
+          "ci95_upper": 0.16392269594816905,
+          "log2_estimate": 0.2,
+          "log2_se": 0.0066406208592539664
+        },
+        {
+          "parameter": "h_ext",
+          "estimate": 0.002,
+          "ci95_lower": 0.0019808688990453236,
+          "ci95_upper": 0.0020193158678637408,
+          "log2_estimate": 1.0,
+          "log2_se": 0.007074795564363296
+        }
+      ],
+      "notes": {},
+      "explorer_png": "pngs/swehist_cohort1920_fixed_eta_beta.png",
+      "explorer_record_json": "records/swehist_cohort1920_fixed_eta_beta.json"
+    },
+    {
+      "name": "swehist_period1900_fixed_eta_beta_attempt",
+      "label": "SWE period 1900 fixed eta/beta attempt",
+      "description": "Sweden 1900 period fit was started with eta and beta fixed, fitting epsilon, Xc, Xc heterogeneity, and h_ext, but was interrupted before final output files were written.",
+      "status": "attempted_not_completed",
+      "archive_created_utc": "2026-05-14T06:35:18Z",
+      "fitted_for": {
+        "countries": [
+          "SWE"
+        ],
+        "data_type": "period",
+        "year": 1900,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "constraints": "fixed eta, beta, kappa; intended to fit epsilon, Xc, Xc heterogeneity, and h_ext",
+      "source_script": "fit_sweden_historical_fixed_eta_beta.py",
+      "source_summary": null,
+      "source_png": null,
+      "source_ci": null,
+      "archive_paths": {
+        "record_json": "records/swehist_period1900_fixed_eta_beta_attempt.json",
+        "png": null,
+        "ci_csv": null,
+        "source_summary_copy": null
+      },
+      "summary": {
+        "status_detail": "interrupted before final summary/png/ci were written"
+      },
+      "ci": null,
+      "notes": {},
+      "explorer_png": null,
+      "explorer_record_json": "records/swehist_period1900_fixed_eta_beta_attempt.json"
+    }
+  ]
+};
+
+    const state = {
+      selectedName: DATA.records.find((record) => record.status === "completed")?.name || DATA.records[0]?.name,
+      search: "",
+      dataType: "all",
+      country: "all",
+      status: "all",
+    };
+
+    const nodes = {
+      search: document.getElementById("search"),
+      dataType: document.getElementById("dataType"),
+      country: document.getElementById("country"),
+      status: document.getElementById("status"),
+      fitList: document.getElementById("fitList"),
+      title: document.getElementById("title"),
+      description: document.getElementById("description"),
+      tags: document.getElementById("tags"),
+      imageWrap: document.getElementById("imageWrap"),
+      fittedFor: document.getElementById("fittedFor"),
+      parameters: document.getElementById("parameters"),
+      metrics: document.getElementById("metrics"),
+      files: document.getElementById("files"),
+      ci: document.getElementById("ci"),
+      procedure: document.getElementById("procedure"),
+    };
+
+    function unique(values) {
+      return Array.from(new Set(values.filter(Boolean))).sort();
+    }
+
+    function formatValue(value) {
+      if (value === null || value === undefined || value === "") {
+        return "";
+      }
+
+      if (typeof value === "number") {
+        if (Math.abs(value) >= 1000) {
+          return value.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        }
+        return Number.parseFloat(value.toPrecision(7)).toString();
+      }
+
+      if (Array.isArray(value)) {
+        return value.map(formatValue).join(", ");
+      }
+
+      if (typeof value === "object") {
+        return Object.entries(value)
+          .map(([key, nestedValue]) => `${key}: ${formatValue(nestedValue)}`)
+          .join("<br>");
+      }
+
+      return String(value);
+    }
+
+    function makeOption(value, label) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      return option;
+    }
+
+    function setOptions(select, values, allLabel) {
+      select.innerHTML = "";
+      select.appendChild(makeOption("all", allLabel));
+      for (const value of values) {
+        select.appendChild(makeOption(value, value));
+      }
+    }
+
+    function setupFilters() {
+      const dataTypes = unique(DATA.records.map((record) => record.fitted_for?.data_type));
+      const countries = unique(DATA.records.flatMap((record) => record.fitted_for?.countries || []));
+      const statuses = unique(DATA.records.map((record) => record.status));
+
+      setOptions(nodes.dataType, dataTypes, "All data types");
+      setOptions(nodes.country, countries, "All countries");
+      setOptions(nodes.status, statuses, "All statuses");
+
+      nodes.search.addEventListener("input", () => {
+        state.search = nodes.search.value.trim().toLowerCase();
+        render();
+      });
+
+      nodes.dataType.addEventListener("change", () => {
+        state.dataType = nodes.dataType.value;
+        render();
+      });
+
+      nodes.country.addEventListener("change", () => {
+        state.country = nodes.country.value;
+        render();
+      });
+
+      nodes.status.addEventListener("change", () => {
+        state.status = nodes.status.value;
+        render();
+      });
+    }
+
+    function recordMatches(record) {
+      const fittedFor = record.fitted_for || {};
+      const searchText = [
+        record.name,
+        record.label,
+        record.description,
+        record.constraints,
+        fittedFor.data_type,
+        fittedFor.year,
+        fittedFor.sex,
+        ...(fittedFor.countries || []),
+      ].join(" ").toLowerCase();
+
+      if (state.search && !searchText.includes(state.search)) {
+        return false;
+      }
+
+      if (state.dataType !== "all" && fittedFor.data_type !== state.dataType) {
+        return false;
+      }
+
+      if (state.country !== "all" && !(fittedFor.countries || []).includes(state.country)) {
+        return false;
+      }
+
+      if (state.status !== "all" && record.status !== state.status) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function getVisibleRecords() {
+      return DATA.records.filter(recordMatches);
+    }
+
+    function makeRows(table, rows) {
+      table.innerHTML = "";
+
+      if (!rows.length) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 2;
+        cell.className = "empty";
+        cell.textContent = "No saved values for this fit.";
+        row.appendChild(cell);
+        table.appendChild(row);
+        return;
+      }
+
+      for (const [key, value] of rows) {
+        const row = document.createElement("tr");
+        const head = document.createElement("th");
+        const cell = document.createElement("td");
+        head.textContent = key;
+        cell.innerHTML = formatValue(value);
+        row.appendChild(head);
+        row.appendChild(cell);
+        table.appendChild(row);
+      }
+    }
+
+    function parameterRows(record) {
+      const params = record.summary?.fitted_parameters || {};
+      return Object.entries(params);
+    }
+
+    function metricRows(record) {
+      const metrics = record.summary?.metrics || {};
+
+      if (Object.values(metrics).some((value) => typeof value === "object" && value !== null)) {
+        return Object.entries(metrics).flatMap(([group, values]) => (
+          Object.entries(values || {}).map(([key, value]) => [`${group} ${key}`, value])
+        ));
+      }
+
+      return Object.entries(metrics);
+    }
+
+    function ciRows(record) {
+      const ci = record.ci || record.summary?.ci || [];
+      return ci.map((item) => [
+        item.parameter,
+        `${formatValue(item.estimate)} [${formatValue(item.ci95_lower)}, ${formatValue(item.ci95_upper)}]`,
+      ]);
+    }
+
+    function fileRows(record) {
+      const rows = [
+        ["serial name", `<code>${record.name}</code>`],
+        ["record JSON", `<code>${record.explorer_record_json || record.archive_paths?.record_json || ""}</code>`],
+        ["PNG", record.explorer_png ? `<code>${record.explorer_png}</code>` : ""],
+        ["CI CSV", record.archive_paths?.ci_csv ? `<code>${record.archive_paths.ci_csv}</code>` : ""],
+        ["source script", record.source_script ? `<code>${record.source_script}</code>` : ""],
+        ["source summary", record.source_summary ? `<code>${record.source_summary}</code>` : ""],
+      ];
+
+      return rows.filter(([, value]) => value);
+    }
+
+    function procedureRows(record) {
+      const summary = record.summary || {};
+      return [
+        ["constraints", record.constraints || summary.constraint],
+        ["focus age window", summary.focus_age_window || record.fitted_for?.age_window],
+        ["optimization n", summary.opt_n],
+        ["final n", summary.final_n],
+        ["CI n", summary.ci_n],
+        ["archive created UTC", record.archive_created_utc],
+      ].filter(([, value]) => value !== undefined && value !== null && value !== "");
+    }
+
+    function fittedForRows(record) {
+      const fittedFor = record.fitted_for || {};
+      return [
+        ["countries", fittedFor.countries],
+        ["data type", fittedFor.data_type],
+        ["year", fittedFor.year],
+        ["sex", fittedFor.sex],
+        ["age window", fittedFor.age_window],
+      ].filter(([, value]) => value !== undefined && value !== null && value !== "");
+    }
+
+    function tag(label, isWarning = false) {
+      const span = document.createElement("span");
+      span.className = isWarning ? "tag warn" : "tag";
+      span.textContent = label;
+      return span;
+    }
+
+    function renderList(visibleRecords) {
+      nodes.fitList.innerHTML = "";
+
+      if (!visibleRecords.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "No fits match these filters.";
+        nodes.fitList.appendChild(empty);
+        return;
+      }
+
+      if (!visibleRecords.some((record) => record.name === state.selectedName)) {
+        state.selectedName = visibleRecords[0].name;
+      }
+
+      visibleRecords.forEach((record, index) => {
+        const fittedFor = record.fitted_for || {};
+        const button = document.createElement("button");
+        button.className = record.name === state.selectedName ? "fit-button active" : "fit-button";
+        button.type = "button";
+        button.addEventListener("click", () => {
+          state.selectedName = record.name;
+          render();
+        });
+
+        button.innerHTML = `
+          <div class="fit-title">
+            <span>${record.label || record.name}</span>
+            <span class="serial">#${index + 1}</span>
+          </div>
+          <div class="fit-meta">
+            ${record.name}<br>
+            ${formatValue(fittedFor.countries)} · ${fittedFor.data_type || ""} · ${fittedFor.year || ""} · ages ${formatValue(fittedFor.age_window)}
+          </div>
+        `;
+
+        nodes.fitList.appendChild(button);
+      });
+    }
+
+    function renderDetails(record) {
+      const fittedFor = record.fitted_for || {};
+      nodes.title.textContent = record.label || record.name;
+      nodes.description.textContent = record.description || "";
+
+      nodes.tags.innerHTML = "";
+      nodes.tags.appendChild(tag(record.status || "unknown", record.status !== "completed"));
+      nodes.tags.appendChild(tag(record.name));
+      if (fittedFor.data_type) nodes.tags.appendChild(tag(fittedFor.data_type));
+      if (fittedFor.year) nodes.tags.appendChild(tag(String(fittedFor.year)));
+      if (fittedFor.age_window) nodes.tags.appendChild(tag(`ages ${formatValue(fittedFor.age_window)}`));
+      for (const country of fittedFor.countries || []) nodes.tags.appendChild(tag(country));
+
+      nodes.imageWrap.innerHTML = "";
+      if (record.explorer_png) {
+        const img = document.createElement("img");
+        img.alt = `${record.label || record.name} fit plot`;
+        img.src = record.explorer_png;
+        nodes.imageWrap.appendChild(img);
+      } else {
+        const missing = document.createElement("div");
+        missing.className = "missing-image";
+        missing.textContent = "No completed PNG was saved for this record.";
+        nodes.imageWrap.appendChild(missing);
+      }
+
+      makeRows(nodes.fittedFor, fittedForRows(record));
+      makeRows(nodes.parameters, parameterRows(record));
+      makeRows(nodes.metrics, metricRows(record));
+      makeRows(nodes.files, fileRows(record));
+      makeRows(nodes.ci, ciRows(record));
+      makeRows(nodes.procedure, procedureRows(record));
+    }
+
+    function render() {
+      const visibleRecords = getVisibleRecords();
+      renderList(visibleRecords);
+
+      const record = DATA.records.find((item) => item.name === state.selectedName) || visibleRecords[0] || DATA.records[0];
+      if (record) {
+        renderDetails(record);
+      }
+    }
+
+    setupFilters();
+    render();
+  </script>
+</body>
+</html>

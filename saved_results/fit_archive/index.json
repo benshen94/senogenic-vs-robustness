@@ -1,0 +1,195 @@
+{
+  "archive_name": "thresholds_noise_fit_archive",
+  "archive_created_utc": "2026-05-14T06:35:18Z",
+  "project_cwd": ".",
+  "record_count": 9,
+  "completed_record_count": 8,
+  "records": [
+    {
+      "name": "joint2019_initial_shared_eta_beta",
+      "label": "2019 initial joint USA/SWE",
+      "status": "completed",
+      "description": "Initial joint 2019 period fit. Shared eta and beta; country-specific epsilon, Xc, Xc heterogeneity, and h_ext factors.",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          30,
+          100
+        ]
+      },
+      "record_json": "records/joint2019_initial_shared_eta_beta.json",
+      "png": "pngs/joint2019_initial_shared_eta_beta.png"
+    },
+    {
+      "name": "seq2019_usa_first_then_sweden_70_100",
+      "label": "2019 sequential 70-100",
+      "status": "completed",
+      "description": "USA was fit first, then Sweden was fit after fixing USA eta and beta.",
+      "fitted_for": {
+        "countries": [
+          "USA",
+          "SWE"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          70,
+          100
+        ]
+      },
+      "record_json": "records/seq2019_usa_first_then_sweden_70_100.json",
+      "png": "pngs/seq2019_usa_first_then_sweden_70_100.png"
+    },
+    {
+      "name": "joint2019_shared_eta_beta_epsilon_60_100",
+      "label": "2019 shared eta/beta/epsilon 60-100",
+      "status": "completed",
+      "description": "Joint USA/Sweden 2019 period fit. Shared eta, beta, epsilon; only Xc and Xc heterogeneity differ by country.",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          60,
+          100
+        ]
+      },
+      "record_json": "records/joint2019_shared_eta_beta_epsilon_60_100.json",
+      "png": "pngs/joint2019_shared_eta_beta_epsilon_60_100.png"
+    },
+    {
+      "name": "joint2019_shared_eta_beta_epsilon_65_100_n100k",
+      "label": "2019 shared eta/beta/epsilon 65-100 n100k",
+      "status": "completed",
+      "description": "Joint USA/Sweden 2019 period refit using n=100000 during optimization and age focus 65-100.",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "record_json": "records/joint2019_shared_eta_beta_epsilon_65_100_n100k.json",
+      "png": "pngs/joint2019_shared_eta_beta_epsilon_65_100_n100k.png"
+    },
+    {
+      "name": "joint2019_tail90_sweden_emphasis",
+      "label": "2019 tail90 Sweden emphasis",
+      "status": "completed",
+      "description": "Joint 65-100 fit with extra Sweden age 88-96 hazard weight to improve the Sweden age-90 hazard.",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "record_json": "records/joint2019_tail90_sweden_emphasis.json",
+      "png": "pngs/joint2019_tail90_sweden_emphasis.png"
+    },
+    {
+      "name": "hybrid2019_swe_tail90_usa_refit",
+      "label": "2019 hybrid SWE tail90 plus USA refit",
+      "status": "completed",
+      "description": "Hybrid model: keep the good Sweden tail90/shared fit, then refit only USA Xc and Xc heterogeneity.",
+      "fitted_for": {
+        "countries": [
+          "SWE",
+          "USA"
+        ],
+        "data_type": "period",
+        "year": 2019,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "record_json": "records/hybrid2019_swe_tail90_usa_refit.json",
+      "png": "pngs/hybrid2019_swe_tail90_usa_refit.png"
+    },
+    {
+      "name": "swehist_cohort1900_fixed_eta_beta",
+      "label": "SWE cohort 1900 fixed eta/beta",
+      "status": "completed",
+      "description": "Sweden 1900 cohort fit with eta and beta fixed from the 2019 hybrid model; fitted epsilon, Xc, Xc heterogeneity, and h_ext.",
+      "fitted_for": {
+        "countries": [
+          "SWE"
+        ],
+        "data_type": "cohort",
+        "year": 1900,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "record_json": "records/swehist_cohort1900_fixed_eta_beta.json",
+      "png": "pngs/swehist_cohort1900_fixed_eta_beta.png"
+    },
+    {
+      "name": "swehist_cohort1920_fixed_eta_beta",
+      "label": "SWE cohort 1920 fixed eta/beta",
+      "status": "completed",
+      "description": "Sweden 1920 cohort fit with eta and beta fixed from the 2019 hybrid model; fitted epsilon, Xc, Xc heterogeneity, and h_ext.",
+      "fitted_for": {
+        "countries": [
+          "SWE"
+        ],
+        "data_type": "cohort",
+        "year": 1920,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "record_json": "records/swehist_cohort1920_fixed_eta_beta.json",
+      "png": "pngs/swehist_cohort1920_fixed_eta_beta.png"
+    },
+    {
+      "name": "swehist_period1900_fixed_eta_beta_attempt",
+      "label": "SWE period 1900 fixed eta/beta attempt",
+      "status": "attempted_not_completed",
+      "description": "Sweden 1900 period fit was started with eta and beta fixed, fitting epsilon, Xc, Xc heterogeneity, and h_ext, but was interrupted before final output files were written.",
+      "fitted_for": {
+        "countries": [
+          "SWE"
+        ],
+        "data_type": "period",
+        "year": 1900,
+        "sex": "both",
+        "age_window": [
+          65,
+          100
+        ]
+      },
+      "record_json": "records/swehist_period1900_fixed_eta_beta_attempt.json",
+      "png": null
+    }
+  ]
+}

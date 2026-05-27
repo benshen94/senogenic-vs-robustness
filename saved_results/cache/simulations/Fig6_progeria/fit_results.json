@@ -1,0 +1,315 @@
+{
+  "metadata": {
+    "baseline_fit_path": "saved_results/fit_archive/records/joint2019_tail90_sweden_emphasis.json",
+    "baseline_ci_path": "saved_results/fit_archive/ci/joint2019_tail90_sweden_emphasis_ci.csv",
+    "progeria_data_path": "saved_results/progeria_data.pkl",
+    "fit_n": 4000,
+    "curve_n": 35000,
+    "bootstrap_n": 2000,
+    "tmax": 35.0,
+    "dt": 0.025,
+    "save_step": 0.25,
+    "single_fits": [
+      [
+        "eta"
+      ],
+      [
+        "beta"
+      ],
+      [
+        "Xc"
+      ],
+      [
+        "epsilon"
+      ]
+    ],
+    "pair_fits": [
+      [
+        "Xc",
+        "epsilon"
+      ],
+      [
+        "eta",
+        "Xc"
+      ],
+      [
+        "eta",
+        "epsilon"
+      ],
+      [
+        "beta",
+        "Xc"
+      ],
+      [
+        "beta",
+        "epsilon"
+      ],
+      [
+        "eta",
+        "beta"
+      ]
+    ],
+    "fit_bounds_log2": {
+      "eta": [
+        -1.0,
+        3.0
+      ],
+      "beta": [
+        -4.0,
+        1.0
+      ],
+      "Xc": [
+        -3.0,
+        0.5
+      ],
+      "epsilon": [
+        -4.0,
+        3.0
+      ]
+    },
+    "random_seed": 20260520,
+    "hgps_sample_size": 202,
+    "parallel": false,
+    "ci_method": "fitted_fold_factor_applied_to_sweden_2019_fit_ci_endpoint_combinations"
+  },
+  "fits": [
+    {
+      "fit_name": "eta",
+      "fit_params": [
+        "eta"
+      ],
+      "log2_factors": {
+        "eta": 2.75
+      },
+      "factors": {
+        "eta": 6.727171322029716
+      },
+      "params": {
+        "eta": 3.94775186499101,
+        "beta": 57.87173772073557,
+        "kappa": 0.5,
+        "epsilon": 49.718659304628446,
+        "Xc": 21.74056340066893,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.10551086987762956,
+      "contains_senogenic": true
+    },
+    {
+      "fit_name": "beta",
+      "fit_params": [
+        "beta"
+      ],
+      "log2_factors": {
+        "beta": -2.175148
+      },
+      "factors": {
+        "beta": 0.22141916415219565
+      },
+      "params": {
+        "eta": 0.5868368257640714,
+        "beta": 12.813911794160362,
+        "kappa": 0.5,
+        "epsilon": 49.718659304628446,
+        "Xc": 21.74056340066893,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.08165863569511873,
+      "contains_senogenic": true
+    },
+    {
+      "fit_name": "Xc",
+      "fit_params": [
+        "Xc"
+      ],
+      "log2_factors": {
+        "Xc": -1.572906
+      },
+      "factors": {
+        "Xc": 0.336130648697763
+      },
+      "params": {
+        "eta": 0.5868368257640714,
+        "beta": 57.87173772073557,
+        "kappa": 0.5,
+        "epsilon": 49.718659304628446,
+        "Xc": 7.307669678921691,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.188430039744019,
+      "contains_senogenic": false
+    },
+    {
+      "fit_name": "epsilon",
+      "fit_params": [
+        "epsilon"
+      ],
+      "log2_factors": {
+        "epsilon": 2.055959
+      },
+      "factors": {
+        "epsilon": 4.158199567005383
+      },
+      "params": {
+        "eta": 0.5868368257640714,
+        "beta": 57.87173772073557,
+        "kappa": 0.5,
+        "epsilon": 206.74010759259414,
+        "Xc": 21.74056340066893,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.17875431509795556,
+      "contains_senogenic": false
+    },
+    {
+      "fit_name": "Xc+epsilon",
+      "fit_params": [
+        "Xc",
+        "epsilon"
+      ],
+      "log2_factors": {
+        "Xc": 0.0,
+        "epsilon": 2.0625
+      },
+      "factors": {
+        "Xc": 1.0,
+        "epsilon": 4.177095129709655
+      },
+      "params": {
+        "eta": 0.5868368257640714,
+        "beta": 57.87173772073557,
+        "kappa": 0.5,
+        "epsilon": 207.6795696370571,
+        "Xc": 21.74056340066893,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.18561465378279352,
+      "contains_senogenic": false
+    },
+    {
+      "fit_name": "eta+Xc",
+      "fit_params": [
+        "eta",
+        "Xc"
+      ],
+      "log2_factors": {
+        "eta": 1.702483,
+        "Xc": -1.219175
+      },
+      "factors": {
+        "eta": 3.254606220057062,
+        "Xc": 0.4295282722090531
+      },
+      "params": {
+        "eta": 1.909922783290289,
+        "beta": 57.87173772073557,
+        "kappa": 0.5,
+        "epsilon": 49.718659304628446,
+        "Xc": 9.338186634340701,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.05627639270703362,
+      "contains_senogenic": true
+    },
+    {
+      "fit_name": "eta+epsilon",
+      "fit_params": [
+        "eta",
+        "epsilon"
+      ],
+      "log2_factors": {
+        "eta": 2.138196,
+        "epsilon": 1.375
+      },
+      "factors": {
+        "eta": 4.402112453961162,
+        "epsilon": 2.5936791093020193
+      },
+      "params": {
+        "eta": 2.583321699139055,
+        "beta": 57.87173772073557,
+        "kappa": 0.5,
+        "epsilon": 128.95424798091926,
+        "Xc": 21.74056340066893,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.027692352341070564,
+      "contains_senogenic": true
+    },
+    {
+      "fit_name": "beta+Xc",
+      "fit_params": [
+        "beta",
+        "Xc"
+      ],
+      "log2_factors": {
+        "beta": -2.8125,
+        "Xc": 0.5
+      },
+      "factors": {
+        "beta": 0.14234857934458645,
+        "Xc": 1.4142135623730951
+      },
+      "params": {
+        "eta": 0.5868368257640714,
+        "beta": 8.237959648749223,
+        "kappa": 0.5,
+        "epsilon": 49.718659304628446,
+        "Xc": 30.74579961485814,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.053843764295848084,
+      "contains_senogenic": true
+    },
+    {
+      "fit_name": "beta+epsilon",
+      "fit_params": [
+        "beta",
+        "epsilon"
+      ],
+      "log2_factors": {
+        "beta": -3.125,
+        "epsilon": -1.409837
+      },
+      "factors": {
+        "beta": 0.1146255054005839,
+        "epsilon": 0.37635420607441084
+      },
+      "params": {
+        "eta": 0.5868368257640714,
+        "beta": 6.63357718464935,
+        "kappa": 0.5,
+        "epsilon": 18.711826549677557,
+        "Xc": 21.74056340066893,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.020915599211778445,
+      "contains_senogenic": true
+    },
+    {
+      "fit_name": "eta+beta",
+      "fit_params": [
+        "eta",
+        "beta"
+      ],
+      "log2_factors": {
+        "eta": 1.0625,
+        "beta": -1.5
+      },
+      "factors": {
+        "eta": 2.0885475648548275,
+        "beta": 0.3535533905932738
+      },
+      "params": {
+        "eta": 1.225636623416688,
+        "beta": 20.46074909069072,
+        "kappa": 0.5,
+        "epsilon": 49.718659304628446,
+        "Xc": 21.74056340066893,
+        "xc_std_frac": 0.14142135623730953
+      },
+      "cost": 0.01877021305169112,
+      "contains_senogenic": true
+    }
+  ]
+}
