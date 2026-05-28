@@ -12,6 +12,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = PROJECT_ROOT / "src"
+OUTPUT_INDEX = PROJECT_ROOT / "results" / "index" / "outputs.csv"
 PYTHON = sys.executable
 
 SMOKE_COMMANDS = [
@@ -58,6 +59,7 @@ def main() -> None:
     args = parse_args()
     env = os.environ.copy()
     env.setdefault("MPLBACKEND", "Agg")
+    env.setdefault("SOURCE_DATE_EPOCH", "0")
     env["PYTHONPATH"] = (
         str(SRC_DIR)
         + os.pathsep
@@ -66,9 +68,14 @@ def main() -> None:
         + env.get("PYTHONPATH", "")
     )
 
-    for command in commands_for(args.set):
-        print("$", " ".join([PYTHON] + command), flush=True)
-        subprocess.run([PYTHON] + command, cwd=PROJECT_ROOT, env=env, check=True)
+    original_index = OUTPUT_INDEX.read_bytes() if OUTPUT_INDEX.exists() else None
+    try:
+        for command in commands_for(args.set):
+            print("$", " ".join([PYTHON] + command), flush=True)
+            subprocess.run([PYTHON] + command, cwd=PROJECT_ROOT, env=env, check=True)
+    finally:
+        if original_index is not None:
+            OUTPUT_INDEX.write_bytes(original_index)
 
 
 if __name__ == "__main__":

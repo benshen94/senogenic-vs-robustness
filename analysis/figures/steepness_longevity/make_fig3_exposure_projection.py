@@ -958,6 +958,7 @@ def draw_exposure_overlay(ax: plt.Axes, projections: pd.DataFrame) -> None:
         texts.append(text)
 
     if adjust_text is not None:
+        np.random.seed(RNG_SEED)
         with open(Path("/dev/null"), "w") as devnull:
             with contextlib.redirect_stdout(devnull), contextlib.redirect_stderr(devnull):
                 adjust_text(
@@ -966,6 +967,7 @@ def draw_exposure_overlay(ax: plt.Axes, projections: pd.DataFrame) -> None:
                     expand=(1.7, 1.9),
                     force_text=(0.9, 1.0),
                     force_explode=(0.55, 0.8),
+                    iter_lim=250,
                     arrowprops=dict(arrowstyle="-", color="#777777", lw=0.45, alpha=0.55),
                 )
 
