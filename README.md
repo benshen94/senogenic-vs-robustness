@@ -21,6 +21,8 @@ The repository is organized as a small research compendium:
 - `results/fits/`: archived SR baseline fits, fit confidence intervals, source summaries, and previews.
 - `Figures/`: current generated PDF/PNG figure outputs.
 - `docs/methods_log.md`: code-grounded methods notes for the figure and model workflows.
+- `docs/repo_update_workflow.md`: checklist for updating this public repo from ongoing private analysis work.
+- `docs/figure_methods/`: home for detailed per-figure methods dossiers.
 
 ## Setup
 
