@@ -20,7 +20,7 @@ The repository is organized as a small research compendium:
 - `results/`: cached simulations, source tables, fitted parameter records, confidence intervals, and output indices.
 - `results/tables/`: manuscript-facing source tables, including Extended Data Table 1 for the Fig. 3 NHANES projection audit.
 - `results/fits/`: archived SR baseline fits, fit confidence intervals, source summaries, and previews.
-- `Figures/`: current generated PDF/PNG figure outputs.
+- `Figures/`: tracked PNG previews of current figure outputs. PDF, AI, SVG, and notebook artifacts are intentionally not tracked; the scripts regenerate figure PDFs locally when needed.
 - `docs/methods_log.md`: code-grounded methods notes for the figure and model workflows.
 - `docs/repo_update_workflow.md`: checklist for updating this public repo from ongoing private analysis work.
 - `docs/figure_methods/`: home for detailed per-figure methods dossiers.
@@ -71,7 +71,7 @@ To include the supplementary figure scripts as well:
 python3 scripts/reproduce_figures.py --set all
 ```
 
-Outputs are written under `Figures/` and source tables under `results/`, matching the manuscript workflow. Some scripts can recompute missing simulation caches, but the repository includes the saved caches used for the current figures.
+Outputs are written under `Figures/` and source tables under `results/`, matching the manuscript workflow. The repository tracks PNG previews and the source data/caches needed to regenerate the figures. Generated PDFs are ignored by git so a clone stays lighter; rerun the figure scripts to create local PDF versions for submission or editing.
 
 ## Important figure/data scripts
 
