@@ -49,11 +49,18 @@ OUTPUT_INDEX_PATH = RESULTS_DIR / "index" / "outputs.csv"
 
 RANDOM_SEED = 20260520
 GOMPERTZ_N = 300_000
+GOMPERTZ_SHAPE_N = 150_000
+GOMPERTZ_SHAPE_DT = 0.5
+GOMPERTZ_SHAPE_TMAX = 1000.0
+GOMPERTZ_SHAPE_MIN_SAMPLES = 500
+SM_COMPENSATION_AGE = 105.0
 FEDICHEV_N = 300_000
 FEDICHEV_DT = 0.05
 FEDICHEV_TMAX = 1000.0
 TAIL_SURVIVAL_FRACTION = 1e-4
 GOMPERTZ_STD_VALUES = np.arange(0.0, 0.2001, 0.025)
+GOMPERTZ_SHAPE_FACTORS = np.round(np.arange(0.6, 1.4001, 0.1), 1)
+GOMPERTZ_M_VALUES = np.concatenate(([0.0], np.logspace(-4, -2, 20)))
 FEDICHEV_STD_VALUES = np.arange(0.0, 0.2001, 0.025)
 FEDICHEV_FACTORS = np.arange(0.6, 1.4001, 0.1)
 
@@ -149,7 +156,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--force-sim",
         action="store_true",
-        help="Regenerate the expensive Gompertz/Fedichev extreme-lifespan simulations instead of using cached CSVs.",
+        help="Regenerate Gompertz-Makeham simulations instead of using cached CSVs; Fedichev-Gruber max rows are reused when available.",
     )
     return parser.parse_args()
 
@@ -192,6 +199,16 @@ def sample_gompertz_m0_deaths(
     return np.log1p((b_values * thresholds) / a_values) / b_values
 
 
+def sm_coupled_intercept(
+    base_a: float,
+    base_b: float,
+    b_values: np.ndarray | float,
+    compensation_age: float = SM_COMPENSATION_AGE,
+) -> np.ndarray | float:
+    """Set Gompertz intercepts along the Strehler-Mildvan compensation line."""
+    return base_a * np.exp(-compensation_age * (b_values - base_b))
+
+
 def tail_survivor_rank(n: int) -> int:
     """Return the empirical rank corresponding to S(t)=0.0001."""
     return max(1, int(round(n * TAIL_SURVIVAL_FRACTION)))
@@ -227,8 +244,7 @@ def gompertz_parameter_values(
 
     if param_name == "coupled_ab":
         b_values = positive_normal(rng, model.b, std, n)
-        relative_b = b_values / model.b
-        return model.a**relative_b, b_values
+        return sm_coupled_intercept(model.a, model.b, b_values), b_values
 
     raise ValueError(f"Unknown Gompertz parameter: {param_name}")
 
@@ -268,7 +284,7 @@ def load_or_make_max_lifespan_data(force_sim: bool) -> pd.DataFrame:
         return pd.read_csv(MAX_DATA_PATH)
 
     max_data = pd.concat(
-        [make_gompertz_max_lifespan_data(), make_fedichev_max_lifespan_data()],
+        [make_gompertz_max_lifespan_data(), load_fedichev_max_lifespan_data()],
         ignore_index=True,
     )
     return add_smoothed_max_lifespan(max_data)
@@ -412,6 +428,17 @@ def make_fedichev_max_lifespan_data() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def load_fedichev_max_lifespan_data() -> pd.DataFrame:
+    """Load existing Fedichev-Gruber max-lifespan rows, regenerating only if missing."""
+    if MAX_DATA_PATH.exists():
+        data = pd.read_csv(MAX_DATA_PATH)
+        fedichev_rows = data[data["model"] == "Fedichev-Gruber"].copy()
+        if not fedichev_rows.empty:
+            return fedichev_rows.drop(columns=["max_lifespan_smoothed"], errors="ignore")
+
+    return make_fedichev_max_lifespan_data()
+
+
 def add_smoothed_max_lifespan(data: pd.DataFrame) -> pd.DataFrame:
     """Add the smoothed curves used for display."""
     smoothed = []
@@ -422,15 +449,131 @@ def add_smoothed_max_lifespan(data: pd.DataFrame) -> pd.DataFrame:
     return pd.concat(smoothed, ignore_index=True)
 
 
+def sample_gompertz_makeham_deaths(
+    rng: np.random.Generator,
+    model: gg,
+    params: dict[str, float],
+    n: int,
+) -> np.ndarray:
+    """Sample death times from one scalar Gompertz-Makeham parameter set."""
+    t = np.arange(0, GOMPERTZ_SHAPE_TMAX, GOMPERTZ_SHAPE_DT)
+    hazard = model.hazard_function(t, params["a"], params["b"], params["c"], params["m"])
+    cumulative_hazard = np.cumsum(hazard * GOMPERTZ_SHAPE_DT)
+    thresholds = -np.log(rng.random(n))
+    ch_full = np.concatenate(([0.0], cumulative_hazard))
+    t_full = np.concatenate(([t[0]], t))
+    return np.interp(thresholds, ch_full, t_full)
+
+
+def summarize_death_times(death_times: np.ndarray, from_t: int) -> dict[str, float] | None:
+    """Summarize median lifespan and IQR steepness after an age filter."""
+    values = np.asarray(death_times, dtype=float)
+    values = values[(np.isfinite(values)) & (values >= from_t)]
+    if values.size < GOMPERTZ_SHAPE_MIN_SAMPLES:
+        return None
+
+    relative = values - from_t
+    q25, q50, q75 = np.percentile(relative, [25, 50, 75])
+    iqr = q75 - q25
+    if iqr <= 0:
+        return None
+
+    return {
+        "t_median_absolute": float(q50 + from_t),
+        "t_median_relative": float(q50),
+        "steepness_iqr_absolute": float((q50 + from_t) / iqr),
+        "steepness_iqr_relative": float(q50 / iqr),
+        "iqr": float(iqr),
+        "n_at_risk": int(values.size),
+    }
+
+
+def gompertz_shape_params(base: dict[str, float], param_name: str, value: float) -> dict[str, float]:
+    """Return scalar Gompertz-Makeham parameters for one shape-response point."""
+    if param_name == "intercept_a_linear":
+        return {**base, "a": base["a"] * value}
+
+    if param_name == "intercept_a_exp":
+        return {**base, "a": base["a"] ** value}
+
+    if param_name == "slope_b":
+        return {**base, "b": base["b"] * value}
+
+    if param_name == "coupled_intercept_slope":
+        b_value = base["b"] * value
+        return {**base, "a": float(sm_coupled_intercept(base["a"], base["b"], b_value)), "b": b_value}
+
+    if param_name == "makeham_m":
+        return {**base, "m": value}
+
+    raise ValueError(f"Unknown Gompertz shape parameter: {param_name}")
+
+
+def make_gompertz_shape_payload(model: gg) -> tuple[dict[str, object], pd.DataFrame]:
+    """Regenerate and save the Gompertz-Makeham steepness-longevity cache."""
+    base_params = {"a": float(model.a), "b": float(model.b), "c": float(model.c), "m": float(model.m)}
+    results: dict[str, object] = {
+        "meta": {
+            "factors": [float(value) for value in GOMPERTZ_SHAPE_FACTORS],
+            "m_values": [float(value) for value in GOMPERTZ_M_VALUES],
+            "from_t_values": [0],
+            "n_samples": GOMPERTZ_SHAPE_N,
+            "min_samples_after_filter": GOMPERTZ_SHAPE_MIN_SAMPLES,
+            "sm_compensation_age": SM_COMPENSATION_AGE,
+            "coupled_intercept_formula": "a_i = a_0 * exp[-t_comp * (b_i - b_0)]",
+        },
+        "baseline": {},
+    }
+
+    rng = np.random.default_rng(stable_seed("gompertz_shape", "baseline"))
+    baseline_deaths = sample_gompertz_makeham_deaths(rng, model, base_params, GOMPERTZ_SHAPE_N)
+    results["baseline"][0] = summarize_death_times(baseline_deaths, 0)
+
+    summary_rows = []
+    for param_name in GOMPERTZ_SHAPE_PARAMS:
+        param_results = {}
+        sweep_values = GOMPERTZ_M_VALUES if param_name == "makeham_m" else GOMPERTZ_SHAPE_FACTORS
+        for value in sweep_values:
+            numeric_value = float(value)
+            rng = np.random.default_rng(stable_seed("gompertz_shape", param_name, round(numeric_value, 8)))
+            params = gompertz_shape_params(base_params, param_name, numeric_value)
+            deaths = sample_gompertz_makeham_deaths(rng, model, params, GOMPERTZ_SHAPE_N)
+            stats = summarize_death_times(deaths, 0)
+            param_results[numeric_value] = {0: stats}
+            if stats is None:
+                continue
+            summary_rows.append(
+                {
+                    "parameter": param_name,
+                    "label": GOMPERTZ_LABELS[param_name],
+                    "color": GOMPERTZ_COLORS[param_name],
+                    "linestyle": "-",
+                    "factor": numeric_value,
+                    "from_t": 0,
+                    "t_median_abs": stats["t_median_absolute"],
+                    "t_median_rel": stats["t_median_relative"],
+                    "steepness_abs": stats["steepness_iqr_absolute"],
+                    "steepness_rel": stats["steepness_iqr_relative"],
+                }
+            )
+
+        results[param_name] = param_results
+
+    summary = pd.DataFrame(summary_rows)
+    GOMPERTZ_SHAPE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with GOMPERTZ_SHAPE_PATH.open("wb") as handle:
+        import pickle
+
+        pickle.dump({"results": results, "summary": summary}, handle)
+
+    return results, summary
+
+
 def make_gompertz_shape_data() -> pd.DataFrame:
-    """Load the cached Gompertz steepness-longevity data."""
-    import pickle
-
-    with GOMPERTZ_SHAPE_PATH.open("rb") as handle:
-        payload = pickle.load(handle)
-
-    baseline = payload["results"]["baseline"][0]
-    summary = payload["summary"].copy()
+    """Regenerate the Gompertz-Makeham steepness-longevity data."""
+    model = fit_legacy_gompertz_model()
+    results, summary = make_gompertz_shape_payload(model)
+    baseline = results["baseline"][0]
     summary = summary[summary["parameter"].isin(GOMPERTZ_SHAPE_PARAMS)].copy()
     summary["x_norm"] = summary["t_median_abs"] / baseline["t_median_absolute"]
     summary["y_norm"] = summary["steepness_abs"] / baseline["steepness_iqr_absolute"]
@@ -808,7 +951,7 @@ def update_output_index() -> None:
             "source_script": source_script,
             "input_paths": input_paths,
             "description": "Central maximum-lifespan source data for the supplementary model comparison.",
-            "notes": "Gompertz-Makeham and Fedichev-Gruber maximum-lifespan data regenerated deterministically at N=300000.",
+            "notes": "Gompertz-Makeham maximum-lifespan data regenerated deterministically at N=300000; coupled Gompertz a+b uses Strehler-Mildvan compensation at age 105; Fedichev-Gruber rows are reused from the existing source table when available.",
         },
         {
             "date": date.today().isoformat(),
@@ -818,7 +961,7 @@ def update_output_index() -> None:
             "source_script": source_script,
             "input_paths": input_paths,
             "description": "Central steepness-longevity source data for the supplementary model comparison.",
-            "notes": "Loaded from the cached legacy Gompertz and Fedichev-Gruber shape-response runs.",
+            "notes": "Gompertz-Makeham shape-response cache regenerated with Strehler-Mildvan compensation at age 105; Fedichev-Gruber shape response loaded from the legacy cache.",
         },
     ]
 
