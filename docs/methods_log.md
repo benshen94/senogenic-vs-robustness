@@ -226,6 +226,51 @@ The corresponding source tables are:
 - `results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_point_intervals.csv`
 - `results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_shaded_envelopes.csv`
 
+## 2026-05-31: Fig. 3 NHANES Coordinate Projection Uncertainty
+
+Goal: quantify the Fig. 3a visual comparison by projecting each NHANES exposure group onto the full SR coordinate response curves and propagating uncertainty into Extended Data Table 1.
+
+The runnable script is:
+
+`analysis/figures/steepness_longevity/make_fig3_coordinate_projection_uncertainty.py`
+
+For each exposure group, the analysis uses:
+
+\[
+z_i=(\log(M_i/M_0),\log(S_i/S_0)),
+\]
+
+where \(M_i\) is median lifespan, \(S_i\) is IQR steepness, and \(M_0,S_0\) are the zero-Makeham NHANES baseline values. The distance to a coordinate \(p\) is the minimum Euclidean distance to the full model response curve:
+
+\[
+D_{i,p}=\min_q ||z_i-C_p(q)||_2.
+\]
+
+The compared coordinates are \(\eta,\beta,X_c,\epsilon\), and extrinsic mortality, reported in manuscript tables as \(m_{ex}\). Coordinate assignments are summarized into senogenic, robustness, and extrinsic classes.
+
+Uncertainty propagation:
+
+- 300 participant-level bootstrap resamples, seed `20260528`.
+- The full NHANES baseline and each exposure group are resampled with replacement.
+- Left-truncated Kaplan-Meier survival is recomputed for each group.
+- One-year central death rates in the full NHANES baseline are refit to a Makeham-Gamma-Gompertz model, and the Makeham term is set to zero for the baseline normalization.
+- Bootstrap points are projected to all coordinate curves.
+- Assignment fractions are recomputed across the deterministic baseline-sensitivity curve sets used for the Fig. 3a shaded regions.
+
+One row is excluded and logged: bootstrap replicate 146 for `income / Q4 (Highest)` produced non-finite normalized steepness.
+
+The main outputs are:
+
+- `results/figure3_exposure_projection/exposure_coordinate_projection_paper_summary.csv`
+- `results/figure3_exposure_projection/exposure_coordinate_projection_full_bootstrap_assignments.csv`
+- `results/figure3_exposure_projection/exposure_coordinate_projection_model_sensitivity_summary.csv`
+- `results/figure3_exposure_projection/exposure_coordinate_projection_full_bootstrap_failures.csv`
+- `results/figure3_exposure_projection/exposure_coordinate_projection_methods_log.md`
+- `results/figure3_exposure_projection/extended_data_table_projection_with_ranges.csv`
+- `results/tables/extended_data_table1_fig3_projection.csv`
+
+The detailed panel and table notes are in `docs/figure_methods/figure_3.md`.
+
 ## 2026-05-20: Fig. 2 New Sweden-2019 Baseline Survival and Maximum-Lifespan Panels
 
 Goal: remake the Fig. 2 survival-tail and maximum-lifespan parameter panels using one explicit Sweden 2019 baseline fit, with shaded regions that reflect local fit uncertainty in the baseline parameters.

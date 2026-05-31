@@ -18,6 +18,7 @@ The repository is organized as a small research compendium:
 - `src/ageing_packages/`: vendored SR simulation, HMD loading, fitting, and NHANES helper code used by the analyses.
 - `data/`: bundled inputs needed to rerun the paper scripts, including HMD and NHANES files.
 - `results/`: cached simulations, source tables, fitted parameter records, confidence intervals, and output indices.
+- `results/tables/`: manuscript-facing source tables, including Extended Data Table 1 for the Fig. 3 NHANES projection audit.
 - `results/fits/`: archived SR baseline fits, fit confidence intervals, source summaries, and previews.
 - `Figures/`: current generated PDF/PNG figure outputs.
 - `docs/methods_log.md`: code-grounded methods notes for the figure and model workflows.
@@ -76,7 +77,7 @@ Outputs are written under `Figures/` and source tables under `results/`, matchin
 
 - Fig. 1 steepness-longevity response plane: `analysis/figures/steepness_longevity/make_fig1d_new_steepness_longevity.py`
 - Fig. 2 tail and sibling panels: `analysis/figures/figure2/`
-- Fig. 3 NHANES/exposure projections: `analysis/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py` and `make_fig3_exposure_projection.py`
+- Fig. 3 NHANES/exposure projections: `analysis/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py`, `make_fig3_exposure_projection.py`, and `make_fig3_coordinate_projection_uncertainty.py`
 - Fig. 4 historical HMD/extrapolation analyses: `analysis/figures/figure4/`
 - Fig. 5 progeria analyses: `analysis/figures/figure5_progeria/make_fig6_progeria.py`
 - Supplementary parameter heterogeneity: `analysis/figures/supplementary_parameter_distributions/make_parameter_distribution_supplement.py`
@@ -87,7 +88,7 @@ Outputs are written under `Figures/` and source tables under `results/`, matchin
 
 HMD period and cohort files needed by the figure scripts are included so the HMD-based analyses can run without an external machine path. The original source is the Human Mortality Database, cited in the manuscript.
 
-NHANES files are public source files and linked mortality tables used for the exposure-group Kaplan-Meier analyses. Manuscript-level summaries are also saved under `results/tables/`.
+NHANES files are public source files and linked mortality tables used for the exposure-group Kaplan-Meier analyses. Manuscript-level summaries are saved under `results/tables/`; `extended_data_table1_fig3_projection.csv` is the current Extended Data Table 1 source for the coordinate-wise Fig. 3 projection analysis.
 
 HGPS/progeria inputs and fit outputs are saved under `results/progeria*`, `results/cache/simulations/figure5_progeria/`, and `results/tables/fig6_progeria_*`.
 

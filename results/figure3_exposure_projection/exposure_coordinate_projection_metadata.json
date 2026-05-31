@@ -1,0 +1,37 @@
+{
+  "analysis": "Fig. 3 coordinate-wise NHANES projection uncertainty",
+  "coordinate_space": "log(median_lifespan / zero-Makeham NHANES baseline), log(steepness / zero-Makeham NHANES baseline)",
+  "distance_metric": "minimum Euclidean distance from each exposure point to the nearest point on each full SR coordinate response curve",
+  "coordinate_names": "internal source files use h_ext for the extrinsic curve; manuscript-facing outputs label this coordinate m_ex",
+  "statistical_bootstrap": {
+    "n_requested": 300,
+    "seed": 20260528,
+    "participant_resampling": "baseline and each exposure group sampled with replacement",
+    "survival_estimator": "left-truncated Kaplan-Meier",
+    "extrinsic_correction": "fit one-year NHANES central death rates to Makeham-Gamma-Gompertz, then set Makeham m=0",
+    "projection_assignment": "nearest response curve by Euclidean distance in log-normalized median/steepness space",
+    "failed_rows": 1
+  },
+  "model_curve_sensitivity": {
+    "mean_curve_set": "mean_model_curve",
+    "scenario_curve_sets": "deterministic baseline perturbation scenarios from Fig. 3 saved metrics",
+    "interpretation": "bootstrap assignment probabilities are recomputed for each scenario curve set; min-max ranges across curve sets quantify shaded-region sensitivity"
+  },
+  "xc_equivalent_factor_ranges": {
+    "source": "cached_current_manuscript_table",
+    "note": "The manuscript table uses the cached Fig. 3 Xc-equivalent factor-range source when present for the default 300-bootstrap run. Pass --recompute-xc-factor-ranges to regenerate the direct nearest-Xc-curve fallback."
+  },
+  "outputs": {
+    "point_distances": "results/figure3_exposure_projection/exposure_coordinate_projection_distances.csv",
+    "point_mc": null,
+    "full_bootstrap_assignments": "results/figure3_exposure_projection/exposure_coordinate_projection_full_bootstrap_assignments.csv",
+    "full_bootstrap_summary": "results/figure3_exposure_projection/exposure_coordinate_projection_full_bootstrap_summary.csv",
+    "model_sensitivity_summary": "results/figure3_exposure_projection/exposure_coordinate_projection_model_sensitivity_summary.csv",
+    "paper_summary": "results/figure3_exposure_projection/exposure_coordinate_projection_paper_summary.csv",
+    "xc_equivalent_summary": "results/figure3_exposure_projection/exposure_xc_equivalent_projection_full_uncertainty.csv",
+    "extended_data_table": "results/figure3_exposure_projection/extended_data_table_projection_with_ranges.csv",
+    "extended_data_table_public_copy": "results/tables/extended_data_table1_fig3_projection.csv",
+    "failures": "results/figure3_exposure_projection/exposure_coordinate_projection_full_bootstrap_failures.csv",
+    "methods_log": "results/figure3_exposure_projection/exposure_coordinate_projection_methods_log.md"
+  }
+}

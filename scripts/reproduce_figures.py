@@ -28,6 +28,7 @@ MAIN_COMMANDS = [
     ["analysis/figures/figure2/make_fig2de_new.py"],
     ["analysis/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py"],
     ["analysis/figures/steepness_longevity/make_fig3_exposure_projection.py"],
+    ["analysis/figures/steepness_longevity/make_fig3_coordinate_projection_uncertainty.py", "--skip-point-mc"],
     ["analysis/figures/figure4/make_fig4_ab_sweden_period_projection.py"],
     ["analysis/figures/figure4/make_fig4_sr_contour_projection.py"],
     ["analysis/figures/figure5_progeria/make_fig6_progeria.py"],
