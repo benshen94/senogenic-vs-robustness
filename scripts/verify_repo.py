@@ -37,6 +37,9 @@ REQUIRED_FILES = [
     RESULTS_DIR / "figure3_exposure_projection" / "exposure_coordinate_projection_full_bootstrap_failures.csv",
     RESULTS_DIR / "figure3_exposure_projection" / "exposure_xc_equivalent_projection_full_uncertainty.csv",
     RESULTS_DIR / "tables" / "extended_data_table1_fig3_projection.csv",
+    RESULTS_DIR / "tau_wide_refit_profile" / "tau_wide_refit_profile_candidates.csv",
+    RESULTS_DIR / "tau_wide_refit_profile" / "figS_tau_spread_constraint_panel_b_curves_n1000000_age55.csv",
+    RESULTS_DIR / "tables" / "extended_data_figure1_tau_spread_constraint_source_data.csv",
 ]
 
 
@@ -105,6 +108,25 @@ def check_fig3_projection_table() -> None:
     print("ok Fig. 3 projection table: 23 rows, one logged Q4-income bootstrap exclusion")
 
 
+def check_extended_data_fig1_tau_profile() -> None:
+    candidates = pd.read_csv(RESULTS_DIR / "tau_wide_refit_profile" / "tau_wide_refit_profile_candidates.csv")
+    required = {"candidate_id", "source", "eval_score", "tau_cv", "tau_sd"}
+    if not required.issubset(candidates.columns):
+        raise RuntimeError(f"Tau-profile candidates missing columns: {required - set(candidates.columns)}")
+    profile = candidates[candidates["source"] == "profile_tau_sd"].copy()
+    if len(profile) != 9:
+        raise RuntimeError(f"Expected 9 tau-profile grid rows, found {len(profile)}")
+    if abs(float(profile["tau_cv"].min())) > 1e-12 or float(profile["tau_cv"].max()) < 0.24:
+        raise RuntimeError("Tau-profile CV grid does not span 0 to about 25%")
+
+    source = pd.read_csv(RESULTS_DIR / "tables" / "extended_data_figure1_tau_spread_constraint_source_data.csv")
+    panels = set(source["panel"].dropna())
+    expected_panels = {"A_fit_objective", "B_mortality_curves", "B_baseline_fit_ci_envelope"}
+    if not expected_panels.issubset(panels):
+        raise RuntimeError(f"Extended Data Fig. 1 source panels changed: {sorted(panels)}")
+    print("ok Extended Data Fig. 1 tau profile: 9 grid rows and source data panels present")
+
+
 def check_tiny_sr_simulation() -> None:
     params = {
         "eta": np.full(64, 0.5868368258),
@@ -135,6 +157,7 @@ def main() -> None:
     check_nhanes()
     check_fits()
     check_fig3_projection_table()
+    check_extended_data_fig1_tau_profile()
     check_tiny_sr_simulation()
     print("verification complete")
 

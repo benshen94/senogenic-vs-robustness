@@ -1,0 +1,81 @@
+{
+  "acceptance_multiplier": 2.5,
+  "config": {
+    "curve_dt": 0.1,
+    "curve_n": 1000000,
+    "de_maxiter": 4,
+    "de_popsize": 4,
+    "eval_n": 60000,
+    "eval_repeats": 3,
+    "fit_dt": 0.08,
+    "fit_n": 5000,
+    "no_parallel": true,
+    "screen_keep": 8,
+    "screen_n": 1500,
+    "screen_random": 20
+  },
+  "description": "All-CV stress-grid refits; canonical wide outputs overwritten with best candidate per forced CV.",
+  "local_steps": [
+    0.25,
+    0.125,
+    0.0625,
+    0.03125
+  ],
+  "local_sweeps": 3,
+  "parameter_columns": [
+    "eta_log2",
+    "tau_log2",
+    "kappa_log2",
+    "epsilon_log2",
+    "SWE_Xc_log2",
+    "SWE_xc_std_log2",
+    "USA_Xc_log2",
+    "USA_xc_std_log2"
+  ],
+  "task": "tau_wide_refit_profile_stress_grid",
+  "tau_sd_grid": [
+    0.0,
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.13,
+    0.16,
+    0.2,
+    0.25
+  ],
+  "wide_bounds": [
+    [
+      -1.5,
+      1.5
+    ],
+    [
+      -2.0,
+      2.0
+    ],
+    [
+      -1.5,
+      1.5
+    ],
+    [
+      -1.5,
+      1.5
+    ],
+    [
+      -1.2,
+      1.2
+    ],
+    [
+      -2.0,
+      1.5
+    ],
+    [
+      -1.2,
+      1.2
+    ],
+    [
+      -2.0,
+      1.5
+    ]
+  ]
+}

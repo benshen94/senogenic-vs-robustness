@@ -18,8 +18,9 @@ The repository is organized as a small research compendium:
 - `src/ageing_packages/`: vendored SR simulation, HMD loading, fitting, and NHANES helper code used by the analyses.
 - `data/`: bundled inputs needed to rerun the paper scripts, including HMD and NHANES files.
 - `results/`: cached simulations, source tables, fitted parameter records, confidence intervals, and output indices.
-- `results/tables/`: manuscript-facing source tables, including Extended Data Table 1 for the Fig. 3 NHANES projection audit.
+- `results/tables/`: manuscript-facing source tables, including Extended Data Table 1 for the Fig. 3 NHANES projection audit and the Extended Data Fig. 1 tau-spread source data.
 - `results/fits/`: archived SR baseline fits, fit confidence intervals, source summaries, and previews.
+- `results/tau_wide_refit_profile/`: saved tau-senogenic heterogeneity refits and high-\(n\) mortality curves used for Extended Data Fig. 1.
 - `Figures/`: tracked PNG previews of current figure outputs. PDF, AI, SVG, and notebook artifacts are intentionally not tracked; the scripts regenerate figure PDFs locally when needed.
 - `docs/methods_log.md`: code-grounded methods notes for the figure and model workflows.
 - `docs/repo_update_workflow.md`: checklist for updating this public repo from ongoing private analysis work.
@@ -65,7 +66,13 @@ For a faster smoke test:
 python3 scripts/reproduce_figures.py --set smoke
 ```
 
-To include the supplementary figure scripts as well:
+To rerun only the Extended Data Fig. 1 tau-senogenic heterogeneity figure:
+
+```bash
+python3 scripts/reproduce_figures.py --set extended
+```
+
+To include the extended-data and supplementary figure scripts as well:
 
 ```bash
 python3 scripts/reproduce_figures.py --set all
@@ -80,6 +87,7 @@ Outputs are written under `Figures/` and source tables under `results/`, matchin
 - Fig. 3 NHANES/exposure projections: `analysis/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py`, `make_fig3_exposure_projection.py`, and `make_fig3_coordinate_projection_uncertainty.py`
 - Fig. 4 historical HMD/extrapolation analyses: `analysis/figures/figure4/`
 - Fig. 5 progeria analyses: `analysis/figures/figure5_progeria/make_fig6_progeria.py`
+- Extended Data Fig. 1 tau-senogenic heterogeneity: `analysis/figures/extended_data/make_extended_data_figure1_tau_spread_constraint.py`; fitting scripts live in `analysis/model_fits/tau_wide_refit_profile/`.
 - Supplementary parameter heterogeneity: `analysis/figures/supplementary_parameter_distributions/make_parameter_distribution_supplement.py`
 - Supplementary model comparison: `analysis/figures/supplementary/make_supp_model_comparison.py` uses saved source CSVs by default; pass `--force-sim` to rerun the expensive extreme-lifespan simulations.
 - Supplementary NHANES survival curves: `analysis/figures/supplementary/make_supp_fig4_nhanes_exposure_groups.py`
@@ -89,6 +97,8 @@ Outputs are written under `Figures/` and source tables under `results/`, matchin
 HMD period and cohort files needed by the figure scripts are included so the HMD-based analyses can run without an external machine path. The original source is the Human Mortality Database, cited in the manuscript.
 
 NHANES files are public source files and linked mortality tables used for the exposure-group Kaplan-Meier analyses. Manuscript-level summaries are saved under `results/tables/`; `extended_data_table1_fig3_projection.csv` is the current Extended Data Table 1 source for the coordinate-wise Fig. 3 projection analysis.
+
+Extended Data Fig. 1 uses saved Sweden 2019 SR refits with imposed \(\tau_{\rm sen}=\beta/\eta\) heterogeneity. The final best-per-CV candidate table, all refined candidates, high-\(n\) mortality curves, and targeted 10% stress-refit outputs are saved under `results/tau_wide_refit_profile/`.
 
 HGPS/progeria inputs and fit outputs are saved under `results/progeria*`, `results/cache/simulations/figure5_progeria/`, and `results/tables/fig6_progeria_*`.
 

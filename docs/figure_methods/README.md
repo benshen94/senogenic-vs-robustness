@@ -12,6 +12,7 @@ docs/figure_methods/figure_2.md
 docs/figure_methods/figure_3.md
 docs/figure_methods/figure_4.md
 docs/figure_methods/figure_5_progeria.md
+docs/figure_methods/extended_data_figure_1.md
 docs/figure_methods/supplementary_figure_1.md
 docs/figure_methods/supplementary_model_comparison.md
 docs/figure_methods/supplementary_nhanes_exposure_groups.md

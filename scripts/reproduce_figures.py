@@ -34,6 +34,10 @@ MAIN_COMMANDS = [
     ["analysis/figures/figure5_progeria/make_fig6_progeria.py"],
 ]
 
+EXTENDED_DATA_COMMANDS = [
+    ["analysis/figures/extended_data/make_extended_data_figure1_tau_spread_constraint.py"],
+]
+
 SUPPLEMENT_COMMANDS = [
     ["analysis/figures/supplementary_parameter_distributions/make_parameter_distribution_supplement.py"],
     ["analysis/figures/supplementary/make_supp_artificial_survival_composite.py"],
@@ -44,7 +48,7 @@ SUPPLEMENT_COMMANDS = [
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--set", choices=("smoke", "main", "all"), default="smoke")
+    parser.add_argument("--set", choices=("smoke", "main", "extended", "all"), default="smoke")
     return parser.parse_args()
 
 
@@ -53,7 +57,9 @@ def commands_for(command_set: str) -> list[list[str]]:
         return SMOKE_COMMANDS
     if command_set == "main":
         return MAIN_COMMANDS
-    return MAIN_COMMANDS + SUPPLEMENT_COMMANDS
+    if command_set == "extended":
+        return EXTENDED_DATA_COMMANDS
+    return MAIN_COMMANDS + EXTENDED_DATA_COMMANDS + SUPPLEMENT_COMMANDS
 
 
 def main() -> None:

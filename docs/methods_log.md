@@ -1557,3 +1557,67 @@ Panels:
 - Education level.
 
 The shaded bands are the Kaplan-Meier confidence intervals from `lifelines`. They are survival-curve confidence intervals for the grouped NHANES data, not SR-model endpoint envelopes.
+
+## Extended Data Fig. 1: Imposed Tau-Senogenic Heterogeneity
+
+Source figure script:
+
+`analysis/figures/extended_data/make_extended_data_figure1_tau_spread_constraint.py`
+
+Source fitting scripts:
+
+- `analysis/model_fits/tau_wide_refit_profile/run_tau_wide_refit_profile.py`
+- `analysis/model_fits/tau_wide_refit_profile/run_tau_cv010_stress_refit.py`
+- `analysis/model_fits/tau_wide_refit_profile/run_tau_stress_grid_refit.py`
+
+Figure output:
+
+`Figures/ExtendedDataFigure1/extended_data_figure1_tau_spread_constraint.png`
+
+Source data:
+
+`results/tables/extended_data_figure1_tau_spread_constraint_source_data.csv`
+
+The analysis imposes smooth individual heterogeneity in the senogenic timescale
+
+\[
+\tau_{\rm sen}=\frac{\beta}{\eta}.
+\]
+
+Individual variation is introduced as
+
+\[
+\eta_i=\eta_0 e^{-v_i/2},\qquad \beta_i=\beta_0 e^{v_i/2},\qquad v_i\sim N(0,\sigma_v^2),
+\]
+
+so that \(\tau_i=\beta_i/\eta_i\) has log-spread \(\sigma_v\) while the fitted median \(\tau_0\) can move.
+
+The final profile uses:
+
+\[
+\sigma_v=0,\ 0.025,\ 0.05,\ 0.075,\ 0.10,\ 0.13,\ 0.16,\ 0.20,\ 0.25.
+\]
+
+For each fixed spread, the stress-grid fit lets \(\eta\), median \(\tau_{\rm sen}\), \(\kappa\), \(\epsilon\), Sweden and USA \(X_c\), and Sweden and USA \(X_c\) heterogeneity move over wide bounds. The external Makeham-like term \(h_{\rm ext}\) remains fixed from the HMD/GGM preprocessing.
+
+The canonical best-per-CV candidate table is:
+
+`results/tau_wide_refit_profile/tau_wide_refit_profile_candidates.csv`
+
+The full refined-candidate table is:
+
+`results/tau_wide_refit_profile/tau_wide_refit_profile_all_candidates.csv`
+
+The targeted forced-10% rescue-search candidates are:
+
+`results/tau_wide_refit_profile/tau_cv010_stress_refit_candidates.csv`
+
+Those targeted 10% candidates were included as priority starts in the final all-CV stress grid.
+
+Panel a plots the best evaluated zero-heterogeneity baseline/free-spread fit at 0% imposed heterogeneity and the best fixed-spread profile objective at each positive imposed heterogeneity value. The dashed line marks the same best evaluated baseline/free-spread Sweden-oriented fit score.
+
+Panel b plots Sweden 2019 HMD mortality, the baseline Sweden SR fit, and the \(n=1000000\) regenerated best wide-refit mortality curves labelled 2.5%, 5%, 10%, and 15% imposed \(\tau_{\rm sen}\) heterogeneity over ages 55--100. The 15% curve uses the nearest available stress-grid point, \(\mathrm{CV}(\tau)\approx0.161\).
+
+The orange shaded band in panel b is a fit-local endpoint envelope for the baseline Sweden fit. It is the pointwise min/max across the central baseline and one-at-a-time 95% CI endpoint perturbations of \(\eta\), \(\beta\), \(\epsilon\), and Sweden \(X_c\), with fitted Sweden \(X_c\) heterogeneity held fixed.
+
+The manuscript-safe conclusion is that human late-life mortality constrains broad smooth favorable-tail variation in \(\tau_{\rm sen}\). The numerical stress grid does not prove a global optimum, and it should not be worded as excluding every possible truncated or non-smooth senogenic heterogeneity distribution.
