@@ -7,16 +7,22 @@ This folder is for detailed, code-grounded methods notes for each manuscript fig
 Use one Markdown file per figure:
 
 ```text
+docs/figure_methods/current_figure_inventory.md
 docs/figure_methods/figure_1.md
 docs/figure_methods/figure_2.md
 docs/figure_methods/figure_3.md
 docs/figure_methods/figure_4.md
 docs/figure_methods/figure_5_progeria.md
 docs/figure_methods/extended_data_figure_1.md
+docs/figure_methods/extended_data_figure_2.md
+docs/figure_methods/extended_data_figure_3.md
 docs/figure_methods/supplementary_figure_1.md
-docs/figure_methods/supplementary_model_comparison.md
-docs/figure_methods/supplementary_nhanes_exposure_groups.md
+docs/figure_methods/supplementary_figure_2.md
+docs/figure_methods/supplementary_figure_3.md
+docs/figure_methods/supplementary_figure_4.md
 ```
+
+Only `current_figure_inventory.md`, `figure_3.md`, and `extended_data_figure_1.md` are currently written as full dossiers. Use the inventory file as the live manuscript-to-repo map when updating this public repository.
 
 ## Required sections for each figure
 

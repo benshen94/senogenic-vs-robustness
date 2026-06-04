@@ -66,13 +66,13 @@ For a faster smoke test:
 python3 scripts/reproduce_figures.py --set smoke
 ```
 
-To rerun only the Extended Data Fig. 1 tau-senogenic heterogeneity figure:
+To rerun the Extended Data figures:
 
 ```bash
 python3 scripts/reproduce_figures.py --set extended
 ```
 
-To include the extended-data and supplementary figure scripts as well:
+To include the main, Extended Data, and Supplementary figure scripts:
 
 ```bash
 python3 scripts/reproduce_figures.py --set all
@@ -80,17 +80,26 @@ python3 scripts/reproduce_figures.py --set all
 
 Outputs are written under `Figures/` and source tables under `results/`, matching the manuscript workflow. The repository tracks PNG previews and the source data/caches needed to regenerate the figures. Generated PDFs are ignored by git so a clone stays lighter; rerun the figure scripts to create local PDF versions for submission or editing.
 
-## Important figure/data scripts
+## Current manuscript figure map
 
-- Fig. 1 steepness-longevity response plane: `analysis/figures/steepness_longevity/make_fig1d_new_steepness_longevity.py`
-- Fig. 2 tail and sibling panels: `analysis/figures/figure2/`
-- Fig. 3 NHANES/exposure projections: `analysis/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py`, `make_fig3_exposure_projection.py`, and `make_fig3_coordinate_projection_uncertainty.py`
-- Fig. 4 historical HMD/extrapolation analyses: `analysis/figures/figure4/`
-- Fig. 5 progeria analyses: `analysis/figures/figure5_progeria/make_fig6_progeria.py`
-- Extended Data Fig. 1 tau-senogenic heterogeneity: `analysis/figures/extended_data/make_extended_data_figure1_tau_spread_constraint.py`; fitting scripts live in `analysis/model_fits/tau_wide_refit_profile/`.
-- Supplementary parameter heterogeneity: `analysis/figures/supplementary_parameter_distributions/make_parameter_distribution_supplement.py`
-- Supplementary model comparison: `analysis/figures/supplementary/make_supp_model_comparison.py` uses saved source CSVs by default; pass `--force-sim` to rerun the expensive extreme-lifespan simulations.
-- Supplementary NHANES survival curves: `analysis/figures/supplementary/make_supp_fig4_nhanes_exposure_groups.py`
+These are the figure outputs intentionally tracked in `Figures/`. Intermediate panel PNGs/PDFs are regenerated locally but ignored by git.
+
+| Manuscript item | Tracked preview | Reproduction script |
+| --- | --- | --- |
+| Fig. 1 | `Figures/Figure1/Fig1_alt.png` | `analysis/figures/figure1_schematic/make_fig1_alt.py`; quantitative panel from `analysis/figures/steepness_longevity/make_fig1d_new_steepness_longevity.py` |
+| Fig. 2 | `Figures/Figure2/Figure2.png` | `analysis/figures/figure2/make_fig2a_new.py`, `make_fig2bc_new.py`, `make_fig2de_new.py`, `assemble_figure2.py` |
+| Fig. 3 | `Figures/Figure3/fig3_exposure_projection.png` | `analysis/figures/steepness_longevity/make_fig3_exposure_projection.py`; Extended Data Table 1 from `make_fig3_coordinate_projection_uncertainty.py` |
+| Fig. 4 | `Figures/Figure4/Figure4.png` | `analysis/figures/figure4/make_fig4_ab_sweden_period_projection.py`, `make_fig4_sr_contour_projection.py`, `make_fig4_age0_mean_lifespan_projection.py`, `assemble_figure4.py` |
+| Fig. 5 | `Figures/Figure5_progeria/fig6_progeria_composite.png` | `analysis/figures/figure5_progeria/make_fig6_progeria.py` |
+| Extended Data Fig. 1 | `Figures/ExtendedDataFigure1/extended_data_figure1_tau_spread_constraint.png` | `analysis/figures/extended_data/make_extended_data_figure1_tau_spread_constraint.py` |
+| Extended Data Fig. 2 | `Figures/ExtendedDataFigure2/extended_data_figure2_denmark_robustness.png` | `analysis/figures/extended_data/make_extended_data_figure2_denmark_robustness.py` |
+| Extended Data Fig. 3 | `Figures/ExtendedDataFigure3/extended_data_figure3_model_comparison.png` | `analysis/figures/extended_data/make_extended_data_figure3_model_comparison.py` |
+| Supplementary Fig. 1 | `Figures/Supplementary/supp_figure1_gompertz_constraint.png` | `analysis/figures/supplementary/make_supp_figure1_gompertz_constraint.py` |
+| Supplementary Fig. 2 | `Figures/Supplementary/supp_figure2_fedichev_minimal_model.png` | `analysis/figures/supplementary/make_supp_figure2_fedichev_minimal_model.py` |
+| Supplementary Fig. 3 | `Figures/Supplementary/supp_figure3_nhanes_exposure_groups.png` | `analysis/figures/supplementary/make_supp_figure3_nhanes_exposure_groups.py` |
+| Supplementary Fig. 4 | `Figures/Supplementary/supp_figure4_healthspan_morbidity.png` | `analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py` |
+
+Figure-specific methods notes live in `docs/figure_methods/current_figure_inventory.md`, with deeper dossiers for Fig. 3 and Extended Data Fig. 1.
 
 ## Data notes
 

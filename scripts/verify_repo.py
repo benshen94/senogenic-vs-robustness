@@ -20,7 +20,7 @@ for path in (SRC_DIR, PROJECT_ROOT):
 from ageing_packages.mortality_data_analysis.HMD_lifetables import HMD
 from ageing_packages.hetero_analysis import nhanes_analysis as nhanes
 from ageing_packages.utils.sr_utils import create_sr_simulation
-from senogenic_vs_robustness.paths import HMD_DATA_DIR, NHANES_DATA_DIR, RESULTS_DIR
+from senogenic_vs_robustness.paths import FIGURES_DIR, HMD_DATA_DIR, NHANES_DATA_DIR, RESULTS_DIR
 
 
 REQUIRED_FILES = [
@@ -40,6 +40,37 @@ REQUIRED_FILES = [
     RESULTS_DIR / "tau_wide_refit_profile" / "tau_wide_refit_profile_candidates.csv",
     RESULTS_DIR / "tau_wide_refit_profile" / "figS_tau_spread_constraint_panel_b_curves_n1000000_age55.csv",
     RESULTS_DIR / "tables" / "extended_data_figure1_tau_spread_constraint_source_data.csv",
+    RESULTS_DIR / "tables" / "supplementary_figure1" / "sweden2019_decade_slopes.csv",
+    RESULTS_DIR / "tables" / "supplementary_figure1" / "allowed_parameter_cv_vs_slope_distortion.csv",
+    RESULTS_DIR / "tables" / "supplementary_figure1" / "survivor_parameter_means.csv",
+    RESULTS_DIR / "tables" / "supplementary_figure1" / "senogenic_heterogeneity_hazards.csv",
+    RESULTS_DIR / "tables" / "supp_figure2_fedichev_minimal_model_source.csv",
+]
+
+REQUIRED_FIGURE_PREVIEWS = [
+    FIGURES_DIR / "Figure1" / "Fig1_alt.png",
+    FIGURES_DIR / "Figure2" / "Figure2.png",
+    FIGURES_DIR / "Figure3" / "fig3_exposure_projection.png",
+    FIGURES_DIR / "Figure4" / "Figure4.png",
+    FIGURES_DIR / "Figure5_progeria" / "fig6_progeria_composite.png",
+    FIGURES_DIR / "ExtendedDataFigure1" / "extended_data_figure1_tau_spread_constraint.png",
+    FIGURES_DIR / "ExtendedDataFigure2" / "extended_data_figure2_denmark_robustness.png",
+    FIGURES_DIR / "ExtendedDataFigure3" / "extended_data_figure3_model_comparison.png",
+    FIGURES_DIR / "Supplementary" / "supp_figure1_gompertz_constraint.png",
+    FIGURES_DIR / "Supplementary" / "supp_figure2_fedichev_minimal_model.png",
+    FIGURES_DIR / "Supplementary" / "supp_figure3_nhanes_exposure_groups.png",
+    FIGURES_DIR / "Supplementary" / "supp_figure4_healthspan_morbidity.png",
+]
+
+STALE_PUBLIC_ARTIFACTS = [
+    FIGURES_DIR / "Figure1" / "Fig1_new.png",
+    FIGURES_DIR / "Figure3" / "fig3_new.png",
+    FIGURES_DIR / "Figure3" / "fig3_usa_steepness_longevity.png",
+    FIGURES_DIR / "Figure4" / "denmark Fig4.png",
+    FIGURES_DIR / "Supplementary" / "supp_model_comparison.png",
+    FIGURES_DIR / "Supplementary" / "supp_fig4_nhanes_exposure_groups.png",
+    FIGURES_DIR / "Supplementary" / "supp_artificial_survival_composite.png",
+    FIGURES_DIR / "Supplementary_Figure1" / "figs1_parameter_distributions_pretty.png",
 ]
 
 
@@ -48,6 +79,22 @@ def check_required_files() -> None:
     if missing:
         raise FileNotFoundError("Missing required files:\n" + "\n".join(str(path) for path in missing))
     print(f"ok required files: {len(REQUIRED_FILES)}")
+
+
+def check_current_figure_previews() -> None:
+    missing = [path for path in REQUIRED_FIGURE_PREVIEWS if not path.exists()]
+    if missing:
+        raise FileNotFoundError(
+            "Missing current manuscript figure previews:\n" + "\n".join(str(path) for path in missing)
+        )
+    print(f"ok current figure previews: {len(REQUIRED_FIGURE_PREVIEWS)}")
+
+
+def check_no_stale_public_artifacts() -> None:
+    stale = [path for path in STALE_PUBLIC_ARTIFACTS if path.exists()]
+    if stale:
+        raise RuntimeError("Stale figure artifacts still present:\n" + "\n".join(str(path) for path in stale))
+    print("ok stale figure artifacts absent")
 
 
 def check_hmd() -> None:
@@ -127,6 +174,31 @@ def check_extended_data_fig1_tau_profile() -> None:
     print("ok Extended Data Fig. 1 tau profile: 9 grid rows and source data panels present")
 
 
+def check_supplementary_fig1_sources() -> None:
+    allowed = pd.read_csv(RESULTS_DIR / "tables" / "supplementary_figure1" / "allowed_parameter_cv_vs_slope_distortion.csv")
+    if set(allowed["parameter"]) != {"eta", "beta", "Xc", "epsilon"}:
+        raise RuntimeError("Supplementary Fig. 1 allowed-heterogeneity parameters changed")
+    hazards = pd.read_csv(RESULTS_DIR / "tables" / "supplementary_figure1" / "senogenic_heterogeneity_hazards.csv")
+    expected_hazard_cols = {"parameter", "age", "mortality_rate"}
+    if set(hazards.columns) != expected_hazard_cols:
+        raise RuntimeError("Supplementary Fig. 1 hazard source columns changed")
+    if set(hazards["parameter"]) != {"eta", "beta"}:
+        raise RuntimeError("Supplementary Fig. 1 hazard source should contain eta and beta scenarios")
+    slopes = pd.read_csv(RESULTS_DIR / "tables" / "supplementary_figure1" / "sweden2019_decade_slopes.csv")
+    if len(slopes) != 5 or "slope_ratio_to_mean" not in slopes.columns:
+        raise RuntimeError("Supplementary Fig. 1 decade-slope source changed")
+    print("ok Supplementary Fig. 1 Gompertz-constraint sources")
+
+
+def check_supplementary_fig2_source() -> None:
+    source = pd.read_csv(RESULTS_DIR / "tables" / "supp_figure2_fedichev_minimal_model_source.csv")
+    if set(source["series"]) != {"survival", "mortality"}:
+        raise RuntimeError("Supplementary Fig. 2 source should contain survival and mortality series")
+    if source["value"].isna().any() or (source["value"] < 0).any():
+        raise RuntimeError("Supplementary Fig. 2 source contains invalid values")
+    print("ok Supplementary Fig. 2 Fedichev-Gruber source")
+
+
 def check_tiny_sr_simulation() -> None:
     params = {
         "eta": np.full(64, 0.5868368258),
@@ -153,11 +225,15 @@ def check_tiny_sr_simulation() -> None:
 
 def main() -> None:
     check_required_files()
+    check_current_figure_previews()
+    check_no_stale_public_artifacts()
     check_hmd()
     check_nhanes()
     check_fits()
     check_fig3_projection_table()
     check_extended_data_fig1_tau_profile()
+    check_supplementary_fig1_sources()
+    check_supplementary_fig2_source()
     check_tiny_sr_simulation()
     print("verification complete")
 

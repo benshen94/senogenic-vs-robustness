@@ -22,27 +22,32 @@ SMOKE_COMMANDS = [
 ]
 
 MAIN_COMMANDS = [
-    ["analysis/figures/steepness_longevity/make_fig1d_new_steepness_longevity.py"],
+    ["analysis/figures/figure1_schematic/make_fig1_alt.py"],
     ["analysis/figures/figure2/make_fig2a_new.py"],
     ["analysis/figures/figure2/make_fig2bc_new.py"],
     ["analysis/figures/figure2/make_fig2de_new.py"],
+    ["analysis/figures/figure2/assemble_figure2.py"],
     ["analysis/figures/steepness_longevity/make_fig3_usa_steepness_longevity.py"],
     ["analysis/figures/steepness_longevity/make_fig3_exposure_projection.py"],
     ["analysis/figures/steepness_longevity/make_fig3_coordinate_projection_uncertainty.py", "--skip-point-mc"],
     ["analysis/figures/figure4/make_fig4_ab_sweden_period_projection.py"],
     ["analysis/figures/figure4/make_fig4_sr_contour_projection.py"],
+    ["analysis/figures/figure4/make_fig4_age0_mean_lifespan_projection.py"],
+    ["analysis/figures/figure4/assemble_figure4.py"],
     ["analysis/figures/figure5_progeria/make_fig6_progeria.py"],
 ]
 
 EXTENDED_DATA_COMMANDS = [
     ["analysis/figures/extended_data/make_extended_data_figure1_tau_spread_constraint.py"],
+    ["analysis/figures/extended_data/make_extended_data_figure2_denmark_robustness.py"],
+    ["analysis/figures/extended_data/make_extended_data_figure3_model_comparison.py"],
 ]
 
 SUPPLEMENT_COMMANDS = [
-    ["analysis/figures/supplementary_parameter_distributions/make_parameter_distribution_supplement.py"],
-    ["analysis/figures/supplementary/make_supp_artificial_survival_composite.py"],
-    ["analysis/figures/supplementary/make_supp_model_comparison.py"],
-    ["analysis/figures/supplementary/make_supp_fig4_nhanes_exposure_groups.py"],
+    ["analysis/figures/supplementary/make_supp_figure1_gompertz_constraint.py"],
+    ["analysis/figures/supplementary/make_supp_figure2_fedichev_minimal_model.py"],
+    ["analysis/figures/supplementary/make_supp_figure3_nhanes_exposure_groups.py"],
+    ["analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py"],
 ]
 
 

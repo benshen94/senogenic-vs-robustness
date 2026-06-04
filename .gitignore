@@ -13,3 +13,31 @@ tmp/
 *.ai
 *.svg
 *.ipynb
+
+# Generated panel previews and local composite inputs. Keep only current
+# manuscript-level composite PNG previews tracked under Figures/.
+Figures/**/fig*_panel*.png
+Figures/Figure1/Fig1_new.png
+Figures/Figure1/fig1d_new_steepness_longevity.png
+Figures/Figure2/fig2*.png
+Figures/Figure3/fig3_exposure_projection_panel_*.png
+Figures/Figure3/fig3_new.png
+Figures/Figure3/fig3_usa_steepness_longevity.png
+Figures/Figure4/Fig4C.png
+Figures/Figure4/Fig4D.png
+Figures/Figure4/Fig4D_extrap.png
+Figures/Figure4/fig4_ab_*.png
+Figures/Figure4/sweden_sr_contour_projection_*.png
+Figures/Figure4/sweden_sr_age0_mean_lifespan_projection_*.png
+Figures/Figure5_progeria/fig6[abc]_*.png
+
+# Fig. 1 schematic scripts generate local panel previews beside their sources.
+analysis/figures/figure1_schematic/fig1*.png
+!analysis/figures/figure1_schematic/fig1_landscape_curves.csv
+
+# Legacy model-fit scripts may regenerate these local previews/summaries.
+results/*_fit_2019.png
+results/*_fit_2019_summary.json
+results/*_fit_2019_ci.csv
+results/*_methods.md
+results/nhanes_exposure_score_bands_*.png

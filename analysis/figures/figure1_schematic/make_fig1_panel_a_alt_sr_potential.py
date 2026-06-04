@@ -12,13 +12,12 @@ from math import atan2, cos, pi, sin
 from pathlib import Path
 from shutil import which
 
-import fitz
+import pandas as pd
 
 from make_fig1_panels_ab import (
     BLACK,
     BLUE_OLD,
     BLUE_YOUNG,
-    FIGURES_DIR,
     GRAY,
     GRAY_LIGHT,
     OUTPUT_DIR,
@@ -38,7 +37,9 @@ OUTPUT_STEM = "fig1_panel_a_alt_sr_potential"
 SVG_PATH = OUTPUT_DIR / f"{OUTPUT_STEM}.svg"
 PDF_PATH = OUTPUT_DIR / f"{OUTPUT_STEM}.pdf"
 PNG_PATH = OUTPUT_DIR / f"{OUTPUT_STEM}.png"
-LEGACY_PDF_PATH = FIGURES_DIR / "fig1b.pdf"
+CURVES_CSV_PATH = OUTPUT_DIR / "fig1_landscape_curves.csv"
+YOUNG_ICON_PATH = OUTPUT_DIR / "young.png"
+OLD_ICON_PATH = OUTPUT_DIR / "old.png"
 
 GREEN_HOMEOSTASIS = "#DCEFD9"
 RED_THRESHOLD = "#FFD8D8"
@@ -79,33 +80,13 @@ def arrowhead(
     )
 
 
-def close_color(found: tuple[float, float, float] | None, target: tuple[float, float, float]) -> bool:
-    if found is None:
-        return False
-    return sum(abs(found[index] - target[index]) for index in range(3)) < 0.08
-
-
-def legacy_curve_points(target_color: tuple[float, float, float]) -> list[tuple[float, float]]:
-    """Extract the old Fig. 1B potential curve as a plain polyline."""
-    page = fitz.open(LEGACY_PDF_PATH)[0]
-    candidates = []
-    for drawing in page.get_drawings():
-        rect = drawing.get("rect")
-        if rect is None or rect.width < 250 or rect.height < 250:
-            continue
-        if not close_color(drawing.get("color"), target_color):
-            continue
-        points: list[tuple[float, float]] = []
-        for item in drawing["items"]:
-            if item[0] == "l":
-                if not points:
-                    points.append((item[1].x, item[1].y))
-                points.append((item[2].x, item[2].y))
-        if points:
-            candidates.append(points)
-    if not candidates:
-        raise RuntimeError(f"Could not extract legacy curve from {LEGACY_PDF_PATH}")
-    return max(candidates, key=len)
+def legacy_curve_points(curve_name: str) -> list[tuple[float, float]]:
+    """Load extracted potential-curve coordinates from the public CSV asset."""
+    table = pd.read_csv(CURVES_CSV_PATH)
+    sub = table[table["curve"] == curve_name].sort_values("point_index")
+    if sub.empty:
+        raise RuntimeError(f"Missing curve {curve_name!r} in {CURVES_CSV_PATH}")
+    return list(zip(sub["x"].to_numpy(dtype=float), sub["y"].to_numpy(dtype=float)))
 
 
 def clip_to_legacy_panel(points: list[tuple[float, float]]) -> list[tuple[float, float]]:
@@ -193,14 +174,14 @@ def build_svg(
         threshold_px = min(threshold_px + 95, panel_right - 275)
 
     young_points = scale_legacy_points(
-        clip_to_legacy_panel(legacy_curve_points((0.529411792755127, 0.8078431487083435, 0.9803921580314636))),
+        clip_to_legacy_panel(legacy_curve_points("young")),
         left=left,
         top=top,
         width=plot_w,
         height=plot_h,
     )
     old_points = scale_legacy_points(
-        clip_to_legacy_panel(legacy_curve_points((0.0, 0.0, 1.0))),
+        clip_to_legacy_panel(legacy_curve_points("old")),
         left=left,
         top=top,
         width=plot_w,
@@ -236,9 +217,9 @@ def build_svg(
     old_label_y = old_min[1] - 300
     old_icon_y = old_min[1] - 262
     chunks.append(text(["Young"], young_min[0], young_label_y, size=58, fill=BLUE_YOUNG, weight="700", anchor="middle"))
-    chunks.append(png_image(FIGURES_DIR / "young.png", young_min[0] - 47, young_icon_y, 94, 126))
+    chunks.append(png_image(YOUNG_ICON_PATH, young_min[0] - 47, young_icon_y, 94, 126))
     chunks.append(text(["Old"], old_min[0], old_label_y, size=58, fill=BLUE_OLD, weight="700", anchor="middle"))
-    chunks.append(png_image(FIGURES_DIR / "old.png", old_min[0] - 47, old_icon_y, 94, 126))
+    chunks.append(png_image(OLD_ICON_PATH, old_min[0] - 47, old_icon_y, 94, 126))
 
     arrow_start, arrow_ctrl_1, arrow_ctrl_2, arrow_end = [
         scale_legacy_point(point, left=left, top=top, width=plot_w, height=plot_h)

@@ -8,9 +8,9 @@ Figure 3 compares NHANES exposure groups with SR-model response directions in no
 
 | Panel | Output | Script | Main inputs | Notes |
 | --- | --- | --- | --- | --- |
-| A | `Figures/Figure3/fig3_exposure_projection_panel_a.png` | `analysis/figures/steepness_longevity/make_fig3_exposure_projection.py` | `results/exposure_groups_results.pkl`, `results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_point_intervals.csv` | NHANES exposure points over the USA 2019 SR response plane. |
-| B | `Figures/Figure3/fig3_exposure_projection_panel_b.pdf`, `Figures/Figure3/fig3_exposure_projection_panel_b.png` | `analysis/figures/steepness_longevity/make_fig3_exposure_projection.py` | `results/figure3_exposure_projection/fig3_panel_b_xc_factor_curves_fit_ci.csv`, `results/figure3_exposure_projection/projected_xc_age_gain_curves.csv` | Remaining-lifespan gain curves for Xc-equivalent robustness factors. |
-| C | `Figures/Figure3/fig3_exposure_projection_panel_c.png` | `analysis/figures/steepness_longevity/make_fig3_exposure_projection.py` | HMD USA period life table and SR fit records | USA period survival context panel. |
+| A | generated local panel, not tracked | `analysis/figures/steepness_longevity/make_fig3_exposure_projection.py` | `results/exposure_groups_results.pkl`, `results/steepness_longevity_usa2019_sensitivity/fig3_usa_steepness_longevity_point_intervals.csv` | NHANES exposure points over the USA 2019 SR response plane. |
+| B | generated local panel, not tracked | `analysis/figures/steepness_longevity/make_fig3_exposure_projection.py` | `results/figure3_exposure_projection/fig3_panel_b_xc_factor_curves_fit_ci.csv`, `results/figure3_exposure_projection/projected_xc_age_gain_curves.csv` | Remaining-lifespan gain curves for Xc-equivalent robustness factors. |
+| C | generated local panel, not tracked | `analysis/figures/steepness_longevity/make_fig3_exposure_projection.py` | HMD USA period life table and SR fit records | USA period survival context panel. |
 | Composite | `Figures/Figure3/fig3_exposure_projection.pdf`, `Figures/Figure3/fig3_exposure_projection.png` | `analysis/figures/steepness_longevity/make_fig3_exposure_projection.py` | Panels A-C | Current manuscript Fig. 3 composite. |
 | Extended Data Table 1 | `results/tables/extended_data_table1_fig3_projection.csv` | `analysis/figures/steepness_longevity/make_fig3_coordinate_projection_uncertainty.py` | NHANES public input tables, SR response curves, bootstrap outputs | Coordinate-wise projection audit for Fig. 3a. |
 
@@ -89,4 +89,5 @@ python3 analysis/figures/steepness_longevity/make_fig3_coordinate_projection_unc
 ## Known caveats
 
 - The point-MC diagnostic file is optional and is not written by the default repo reproduction command; use the coordinate script without `--skip-point-mc` if that diagnostic is needed.
+- Panel PNG/PDF files are local intermediates. The public repo tracks the manuscript composite PNG preview and the source tables.
 - The analysis supports class-level survival-signature alignment. Avoid wording that implies unique causal identification of \(\eta\), \(\beta\), \(X_c\), \(\epsilon\), or \(m_{ex}\) from an exposure group alone.

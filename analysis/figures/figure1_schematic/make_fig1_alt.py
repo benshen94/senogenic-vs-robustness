@@ -7,6 +7,8 @@ from io import BytesIO
 from math import sin
 from pathlib import Path
 import random
+import subprocess
+import sys
 
 import fitz
 from pypdf import PageObject, PdfReader, PdfWriter, Transformation
@@ -14,8 +16,17 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+SRC_DIR = PROJECT_ROOT / "src"
+for path in (SRC_DIR, PROJECT_ROOT):
+    if str(path) not in sys.path:
+        sys.path.insert(0, str(path))
+
 import make_fig1_panel_a_alt_sr_potential as landscape
+import make_fig1_panel_c_mortality_signatures as mortality
+import make_fig1_panel_e_survival_scaling as scaling
 import make_fig1_panels_ab as panels_ab
+import make_fig1_newc as sr_model
 from make_fig1_panels_ab import (
     BLACK,
     GRAY,
@@ -41,8 +52,9 @@ ALT_B_SVG = OUTPUT_DIR / f"{ALT_B_STEM}.svg"
 ALT_B_PDF = OUTPUT_DIR / f"{ALT_B_STEM}.pdf"
 ALT_B_PNG = OUTPUT_DIR / f"{ALT_B_STEM}.png"
 
-OUT_PDF = OUTPUT_DIR / "Fig1_alt.pdf"
-OUT_PNG = OUTPUT_DIR / "Fig1_alt.png"
+FINAL_OUTPUT_DIR = PROJECT_ROOT / "Figures" / "Figure1"
+OUT_PDF = FINAL_OUTPUT_DIR / "Fig1_alt.pdf"
+OUT_PNG = FINAL_OUTPUT_DIR / "Fig1_alt.png"
 
 PAGE_WIDTH = 2067.0
 PAGE_HEIGHT = 2677.0
@@ -136,6 +148,21 @@ def ensure_parameter_panel_pdf() -> None:
     )
 
 
+def ensure_bottom_panel_pdfs() -> None:
+    """Regenerate the Fig. 1 lower-row panels used by the composite."""
+    mortality.main()
+    scaling.main()
+    sr_model.main()
+    subprocess.run(
+        [
+            sys.executable,
+            str(PROJECT_ROOT / "analysis" / "figures" / "steepness_longevity" / "make_fig1d_new_steepness_longevity.py"),
+        ],
+        cwd=PROJECT_ROOT,
+        check=True,
+    )
+
+
 def page_rect(pdf_path: Path) -> tuple[float, float]:
     page = PdfReader(str(pdf_path)).pages[0]
     return float(page.mediabox.width), float(page.mediabox.height)
@@ -206,6 +233,7 @@ def render_png(pdf_path: Path, png_path: Path) -> None:
 
 
 def make_composite() -> None:
+    FINAL_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     writer = PdfWriter()
     page = PageObject.create_blank_page(width=PAGE_WIDTH, height=PAGE_HEIGHT)
 
@@ -214,9 +242,9 @@ def make_composite() -> None:
     add_pdf_panel(page, OUTPUT_DIR / "fig1_panel_b_parameter_classes.pdf", fitz.Rect(1090, 0, 2067, 590))
 
     add_pdf_panel(page, OUTPUT_DIR / "fig1_panel_c_mortality_signatures.pdf", fitz.Rect(0, 600, 720, 1475))
-    add_pdf_panel(page, OUTPUT_DIR / "fig1_panel_d_sr_model.pdf", fitz.Rect(690, 620, 1380, 1455))
+    add_pdf_panel(page, FINAL_OUTPUT_DIR / "fig1_panel_d_sr_model.pdf", fitz.Rect(690, 620, 1380, 1455))
     add_pdf_panel(page, OUTPUT_DIR / "fig1_panel_e_survival_scaling.pdf", fitz.Rect(1370, 620, 2060, 1455))
-    add_pdf_panel(page, OUTPUT_DIR / "fig1_panel_f_steepness_longevity.pdf", fitz.Rect(470, 1535, 1598, 2648))
+    add_pdf_panel(page, FINAL_OUTPUT_DIR / "fig1_panel_f_steepness_longevity.pdf", fitz.Rect(470, 1535, 1598, 2648))
 
     add_live_text_overlay(page)
     writer.add_page(page)
@@ -232,6 +260,7 @@ def main() -> None:
     if not ALT_B_PDF.exists():
         make_alt_panel_b_landscape()
     ensure_parameter_panel_pdf()
+    ensure_bottom_panel_pdfs()
     make_composite()
 
 

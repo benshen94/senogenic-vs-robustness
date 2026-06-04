@@ -15,7 +15,6 @@ import random
 
 
 OUTPUT_DIR = Path(__file__).resolve().parent
-FIGURES_DIR = OUTPUT_DIR.parents[1] / "Figures"
 PANEL_A_SVG = OUTPUT_DIR / "fig1_panel_a_stochastic_threshold.svg"
 PANEL_B_SVG = OUTPUT_DIR / "fig1_panel_b_parameter_classes.svg"
 
@@ -589,8 +588,8 @@ def draw_main_landscape() -> list[str]:
     chunks.append(circle(old_ball[0], old_ball[1], 23, fill=ORANGE, width=4))
 
     chunks.extend(time_arrow(592, 548, width=125, height=78))
-    chunks.append(png_image(FIGURES_DIR / "young.png", young_ball[0] - 48, 155, 96, 128))
-    chunks.append(png_image(FIGURES_DIR / "old.png", old_ball[0] - 48, 151, 96, 128))
+    chunks.append(png_image(OUTPUT_DIR / "young.png", young_ball[0] - 48, 155, 96, 128))
+    chunks.append(png_image(OUTPUT_DIR / "old.png", old_ball[0] - 48, 151, 96, 128))
     chunks.append(png_image(OUTPUT_DIR / "clock.png", 617, 456, 74, 74))
     chunks.append(text(["Young"], young_ball[0], 145, size=56, fill=BLUE_YOUNG, weight="700", anchor="middle"))
     chunks.append(text(["Old"], old_ball[0], 140, size=56, fill=BLUE_OLD, weight="700", anchor="middle"))
