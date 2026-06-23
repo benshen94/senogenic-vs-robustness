@@ -25,8 +25,8 @@ This file is the public repo checklist for the current revised manuscript. It sh
 | Figure | Scientific role | Public output | Main scripts | Source data and caches |
 | --- | --- | --- | --- | --- |
 | Supplementary Fig. 1 | Shows Gompertz mortality constraints on broad senogenic heterogeneity. | `Figures/Supplementary/supp_figure1_gompertz_constraint.png` | `analysis/figures/supplementary/make_supp_figure1_gompertz_constraint.py` | `results/tables/supplementary_figure1/sweden2019_decade_slopes.csv`; `allowed_parameter_cv_vs_slope_distortion.csv`; `survivor_parameter_means.csv`; `senogenic_heterogeneity_hazards.csv`. |
-| Supplementary Fig. 2 | Displays the Fedichev-Gruber minimal model survival and mortality behavior used as a model-comparison reference. | `Figures/Supplementary/supp_figure2_fedichev_minimal_model.png` | `analysis/figures/supplementary/make_supp_figure2_fedichev_minimal_model.py` | `results/tables/supp_figure2_fedichev_minimal_model_source.csv`; regenerated with `--force-sim` if needed. |
-| Supplementary Fig. 3 | Shows raw NHANES Kaplan-Meier survival curves by exposure group. | `Figures/Supplementary/supp_figure3_nhanes_exposure_groups.png` | `analysis/figures/supplementary/make_supp_figure3_nhanes_exposure_groups.py` | Public NHANES files in `data/nhanes/`; Kaplan-Meier curves computed directly from bundled linked-mortality tables. |
+| Supplementary Fig. 2 | Shows raw NHANES Kaplan-Meier survival curves by exposure group. | `Figures/Supplementary/supp_figure2_nhanes_exposure_groups.png` | `analysis/figures/supplementary/make_supp_figure2_nhanes_exposure_groups.py` | Public NHANES files in `data/nhanes/`; Kaplan-Meier curves computed directly from bundled linked-mortality tables. |
+| Supplementary Fig. 3 | Displays the Fedichev-Gruber minimal model survival and mortality behavior used as a model-comparison reference. | `Figures/Supplementary/supp_figure3_fedichev_minimal_model.png` | `analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py` | `results/tables/supp_figure3_fedichev_minimal_model_source.csv`; regenerated with `--force-sim` if needed. |
 | Supplementary Fig. 4 | Shows the SR disease-threshold healthspan/morbidity analysis. | `Figures/Supplementary/supp_figure4_healthspan_morbidity.png` | `analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py`; source exploration in `analysis/quality_checks/artificial_survival_time/` | `results/cache/simulations/artificial_survival_time/matched_sweden2019_event_times.npz`; `results/tables/artificial_survival_time_summary.csv`; `results/tables/artificial_survival_time_state_composition.csv`. |
 
 ## Tables
@@ -34,7 +34,7 @@ This file is the public repo checklist for the current revised manuscript. It sh
 | Table | Public output | Script | Notes |
 | --- | --- | --- | --- |
 | Extended Data Table 1 | `results/tables/extended_data_table1_fig3_projection.csv` | `analysis/figures/steepness_longevity/make_fig3_coordinate_projection_uncertainty.py --skip-point-mc` | NHANES exposure-group assignment fractions and Euclidean log-space distances projected onto SR response classes. |
-| Supplementary Table 1 | `results/tables/nhanes_sample_stats_summary.csv` | `analysis/nhanes/print_nhanes_sample_stats.py` | NHANES sample summary for the exposure groups used in Fig. 3 and Supplementary Fig. 3. |
+| Supplementary Table 1 | `results/tables/nhanes_sample_stats_summary.csv` | `analysis/nhanes/print_nhanes_sample_stats.py` | NHANES sample summary for the exposure groups used in Fig. 3 and Supplementary Fig. 2. |
 
 ## Update workflow
 

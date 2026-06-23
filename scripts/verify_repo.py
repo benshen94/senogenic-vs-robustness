@@ -44,7 +44,7 @@ REQUIRED_FILES = [
     RESULTS_DIR / "tables" / "supplementary_figure1" / "allowed_parameter_cv_vs_slope_distortion.csv",
     RESULTS_DIR / "tables" / "supplementary_figure1" / "survivor_parameter_means.csv",
     RESULTS_DIR / "tables" / "supplementary_figure1" / "senogenic_heterogeneity_hazards.csv",
-    RESULTS_DIR / "tables" / "supp_figure2_fedichev_minimal_model_source.csv",
+    RESULTS_DIR / "tables" / "supp_figure3_fedichev_minimal_model_source.csv",
 ]
 
 REQUIRED_FIGURE_PREVIEWS = [
@@ -57,8 +57,8 @@ REQUIRED_FIGURE_PREVIEWS = [
     FIGURES_DIR / "ExtendedDataFigure2" / "extended_data_figure2_denmark_robustness.png",
     FIGURES_DIR / "ExtendedDataFigure3" / "extended_data_figure3_model_comparison.png",
     FIGURES_DIR / "Supplementary" / "supp_figure1_gompertz_constraint.png",
-    FIGURES_DIR / "Supplementary" / "supp_figure2_fedichev_minimal_model.png",
-    FIGURES_DIR / "Supplementary" / "supp_figure3_nhanes_exposure_groups.png",
+    FIGURES_DIR / "Supplementary" / "supp_figure3_fedichev_minimal_model.png",
+    FIGURES_DIR / "Supplementary" / "supp_figure2_nhanes_exposure_groups.png",
     FIGURES_DIR / "Supplementary" / "supp_figure4_healthspan_morbidity.png",
 ]
 
@@ -95,6 +95,18 @@ def check_no_stale_public_artifacts() -> None:
     if stale:
         raise RuntimeError("Stale figure artifacts still present:\n" + "\n".join(str(path) for path in stale))
     print("ok stale figure artifacts absent")
+
+
+def check_no_svg_artifacts() -> None:
+    skipped = {".git", ".venv", "venv", "__pycache__"}
+    svg_paths = [
+        path
+        for path in PROJECT_ROOT.rglob("*.svg")
+        if skipped.isdisjoint(path.relative_to(PROJECT_ROOT).parts)
+    ]
+    if svg_paths:
+        raise RuntimeError("SVG artifacts should not remain in the public repo:\n" + "\n".join(str(path) for path in svg_paths))
+    print("ok SVG artifacts absent")
 
 
 def check_hmd() -> None:
@@ -190,13 +202,13 @@ def check_supplementary_fig1_sources() -> None:
     print("ok Supplementary Fig. 1 Gompertz-constraint sources")
 
 
-def check_supplementary_fig2_source() -> None:
-    source = pd.read_csv(RESULTS_DIR / "tables" / "supp_figure2_fedichev_minimal_model_source.csv")
+def check_supplementary_fig3_source() -> None:
+    source = pd.read_csv(RESULTS_DIR / "tables" / "supp_figure3_fedichev_minimal_model_source.csv")
     if set(source["series"]) != {"survival", "mortality"}:
-        raise RuntimeError("Supplementary Fig. 2 source should contain survival and mortality series")
+        raise RuntimeError("Supplementary Fig. 3 source should contain survival and mortality series")
     if source["value"].isna().any() or (source["value"] < 0).any():
-        raise RuntimeError("Supplementary Fig. 2 source contains invalid values")
-    print("ok Supplementary Fig. 2 Fedichev-Gruber source")
+        raise RuntimeError("Supplementary Fig. 3 source contains invalid values")
+    print("ok Supplementary Fig. 3 Fedichev-Gruber source")
 
 
 def check_tiny_sr_simulation() -> None:
@@ -227,13 +239,14 @@ def main() -> None:
     check_required_files()
     check_current_figure_previews()
     check_no_stale_public_artifacts()
+    check_no_svg_artifacts()
     check_hmd()
     check_nhanes()
     check_fits()
     check_fig3_projection_table()
     check_extended_data_fig1_tau_profile()
     check_supplementary_fig1_sources()
-    check_supplementary_fig2_source()
+    check_supplementary_fig3_source()
     check_tiny_sr_simulation()
     print("verification complete")
 

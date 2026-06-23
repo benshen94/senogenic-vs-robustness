@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Make Supplementary Fig. 3 NHANES exposure-group survival curves."""
+"""Make Supplementary Fig. 2 NHANES exposure-group survival curves."""
 
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ from senogenic_vs_robustness.paths import FIGURES_DIR, NHANES_DATA_DIR
 
 
 OUTPUT_DIR = FIGURES_DIR / "Supplementary"
-PNG_PATH = OUTPUT_DIR / "supp_figure3_nhanes_exposure_groups.png"
+PNG_PATH = OUTPUT_DIR / "supp_figure2_nhanes_exposure_groups.png"
 
 NHANES_PATH = str(NHANES_DATA_DIR) + "/"
 TIMELINE = np.linspace(0, 120, 721)

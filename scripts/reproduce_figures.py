@@ -45,9 +45,19 @@ EXTENDED_DATA_COMMANDS = [
 
 SUPPLEMENT_COMMANDS = [
     ["analysis/figures/supplementary/make_supp_figure1_gompertz_constraint.py"],
-    ["analysis/figures/supplementary/make_supp_figure2_fedichev_minimal_model.py"],
-    ["analysis/figures/supplementary/make_supp_figure3_nhanes_exposure_groups.py"],
+    ["analysis/figures/supplementary/make_supp_figure2_nhanes_exposure_groups.py"],
+    ["analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py"],
     ["analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py"],
+]
+
+GENERATED_SCRATCH_ARTIFACTS = [
+    PROJECT_ROOT / "Figures" / "Figure3" / "fig3_usa_steepness_longevity.png",
+    PROJECT_ROOT / "Figures" / "Figure3" / "fig3_usa_steepness_longevity.pdf",
+    PROJECT_ROOT
+    / "analysis"
+    / "figures"
+    / "figure1_schematic"
+    / "fig1_panel_e_survival_scaling.svg",
 ]
 
 
@@ -65,6 +75,11 @@ def commands_for(command_set: str) -> list[list[str]]:
     if command_set == "extended":
         return EXTENDED_DATA_COMMANDS
     return MAIN_COMMANDS + EXTENDED_DATA_COMMANDS + SUPPLEMENT_COMMANDS
+
+
+def cleanup_generated_scratch() -> None:
+    for path in GENERATED_SCRATCH_ARTIFACTS:
+        path.unlink(missing_ok=True)
 
 
 def main() -> None:
@@ -88,6 +103,7 @@ def main() -> None:
     finally:
         if original_index is not None:
             OUTPUT_INDEX.write_bytes(original_index)
+        cleanup_generated_scratch()
 
 
 if __name__ == "__main__":

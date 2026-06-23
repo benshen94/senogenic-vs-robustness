@@ -95,8 +95,8 @@ These are the figure outputs intentionally tracked in `Figures/`. Intermediate p
 | Extended Data Fig. 2 | `Figures/ExtendedDataFigure2/extended_data_figure2_denmark_robustness.png` | `analysis/figures/extended_data/make_extended_data_figure2_denmark_robustness.py` |
 | Extended Data Fig. 3 | `Figures/ExtendedDataFigure3/extended_data_figure3_model_comparison.png` | `analysis/figures/extended_data/make_extended_data_figure3_model_comparison.py` |
 | Supplementary Fig. 1 | `Figures/Supplementary/supp_figure1_gompertz_constraint.png` | `analysis/figures/supplementary/make_supp_figure1_gompertz_constraint.py` |
-| Supplementary Fig. 2 | `Figures/Supplementary/supp_figure2_fedichev_minimal_model.png` | `analysis/figures/supplementary/make_supp_figure2_fedichev_minimal_model.py` |
-| Supplementary Fig. 3 | `Figures/Supplementary/supp_figure3_nhanes_exposure_groups.png` | `analysis/figures/supplementary/make_supp_figure3_nhanes_exposure_groups.py` |
+| Supplementary Fig. 2 | `Figures/Supplementary/supp_figure2_nhanes_exposure_groups.png` | `analysis/figures/supplementary/make_supp_figure2_nhanes_exposure_groups.py` |
+| Supplementary Fig. 3 | `Figures/Supplementary/supp_figure3_fedichev_minimal_model.png` | `analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py` |
 | Supplementary Fig. 4 | `Figures/Supplementary/supp_figure4_healthspan_morbidity.png` | `analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py` |
 
 Figure-specific methods notes live in `docs/figure_methods/current_figure_inventory.md`, with deeper dossiers for Fig. 3 and Extended Data Fig. 1.

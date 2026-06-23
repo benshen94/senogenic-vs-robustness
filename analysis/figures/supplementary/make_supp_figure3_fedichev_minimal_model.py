@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Make Supplementary Fig. 2: Fedichev-Gruber minimal aging model."""
+"""Make Supplementary Fig. 3: Fedichev-Gruber minimal aging model."""
 
 from __future__ import annotations
 
@@ -27,9 +27,9 @@ from senogenic_vs_robustness.paths import FIGURES_DIR, RESULTS_DIR, TABLES_DIR
 
 
 OUTPUT_DIR = FIGURES_DIR / "Supplementary"
-PNG_PATH = OUTPUT_DIR / "supp_figure2_fedichev_minimal_model.png"
-PDF_PATH = OUTPUT_DIR / "supp_figure2_fedichev_minimal_model.pdf"
-SOURCE_PATH = TABLES_DIR / "supp_figure2_fedichev_minimal_model_source.csv"
+PNG_PATH = OUTPUT_DIR / "supp_figure3_fedichev_minimal_model.png"
+PDF_PATH = OUTPUT_DIR / "supp_figure3_fedichev_minimal_model.pdf"
+SOURCE_PATH = TABLES_DIR / "supp_figure3_fedichev_minimal_model_source.csv"
 INDEX_PATH = RESULTS_DIR / "index" / "outputs.csv"
 
 RANDOM_SEED = 20260604
@@ -243,22 +243,22 @@ def update_output_index() -> None:
     rows = [
         {
             "date": date.today().isoformat(),
-            "task": "supp_figure2_fedichev_minimal_model",
+            "task": "supp_figure3_fedichev_minimal_model",
             "artifact_type": "figure",
             "path": str(PNG_PATH.relative_to(PROJECT_ROOT)),
             "source_script": source_script,
             "input_paths": str(SOURCE_PATH.relative_to(PROJECT_ROOT)),
-            "description": "PNG preview of Supplementary Fig. 2 Fedichev-Gruber minimal model.",
+            "description": "PNG preview of Supplementary Fig. 3 Fedichev-Gruber minimal model.",
             "notes": "Baseline stochastic simulation with fixed random seed; source table cached for fast reproduction.",
         },
         {
             "date": date.today().isoformat(),
-            "task": "supp_figure2_fedichev_minimal_model",
+            "task": "supp_figure3_fedichev_minimal_model",
             "artifact_type": "csv",
             "path": str(SOURCE_PATH.relative_to(PROJECT_ROOT)),
             "source_script": source_script,
             "input_paths": "",
-            "description": "Source data for Supplementary Fig. 2 survival and mortality curves.",
+            "description": "Source data for Supplementary Fig. 3 survival and mortality curves.",
             "notes": f"n={N_SIM}, dt={DT}, seed={RANDOM_SEED}; rerun with --force-sim to regenerate.",
         },
     ]
