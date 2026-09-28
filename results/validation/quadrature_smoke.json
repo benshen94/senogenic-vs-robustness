@@ -1,0 +1,53 @@
+{
+  "mode": "quadrature",
+  "python": "3.11.3",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "result": {
+    "smoke": true,
+    "baseline": {
+      "eta": 0.59,
+      "beta": 57.9,
+      "Xc": 16.770889945674796,
+      "epsilon": 30.177845649223954,
+      "CV": 0.231742228226808,
+      "mex": 0.0002152845763447646,
+      "kappa": 0.5
+    },
+    "grid": {
+      "cells": 40,
+      "dt": 0.1,
+      "horizon": 100.0,
+      "nodes": [
+        160,
+        256
+      ]
+    },
+    "checks": [
+      {
+        "parameter": "Xc",
+        "cv": 0.231742228226808,
+        "max_survival_difference": 1.7763568394002505e-15,
+        "max_relative_annual_mortality_difference": 3.751443600208404e-12
+      },
+      {
+        "parameter": "eta",
+        "cv": 0.2,
+        "max_survival_difference": 1.7763568394002505e-15,
+        "max_relative_annual_mortality_difference": 8.215650382226158e-15
+      },
+      {
+        "parameter": "beta",
+        "cv": 0.2,
+        "max_survival_difference": 1.7763568394002505e-15,
+        "max_relative_annual_mortality_difference": 9.2148511043888e-15
+      }
+    ],
+    "original_source_baseline_sha256": "5ccbdcd6db1b1e85efef52b00afc8b832f7ceff03085e351aae6c32290b7ddb0"
+  },
+  "original_source_code_sha256": {
+    "Validation calculation runner": "9727e7113b7a702be955f92bedc762a68f8b7e6aaeef869668864fbfe82eef3e",
+    "Finite-volume SR solver": "b91558a842512eafe3d973bcfcd4b577f0669fca380ece1871a0b52c966ea117",
+    "SR population quadrature helper": "19e6a0765499d1b5792df2df459fa54750d214797ec3340f6f2084513e39f966"
+  }
+}

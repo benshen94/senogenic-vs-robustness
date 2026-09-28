@@ -1,0 +1,63 @@
+{
+  "country": "SWE",
+  "year": 2019,
+  "age_min": 20,
+  "age_max_inclusive": 109,
+  "age_bins": 90,
+  "fixed": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "kappa": 0.5
+  },
+  "params": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "Xc": 16.80902700967723,
+    "epsilon": 30.223456591402293,
+    "CV": 0.23263134583688524,
+    "mex": 0.00019502460070948768,
+    "kappa": 0.5
+  },
+  "equal_age_score": 1.2088473796833157,
+  "ordinary_poisson_deviance_diagnostic": 388.6300524186548,
+  "ordinary_working_poisson_nll_diagnostic": 539.8261733311372,
+  "ordinary_likelihood_baseline_score": 1.482839909665979,
+  "ordinary_likelihood_baseline_nll": 497.4379099893678,
+  "ordinary_likelihood_baseline_params": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "Xc": 15.651800955368675,
+    "epsilon": 26.723960266957494,
+    "CV": 0.24494681874004356,
+    "mex": 0.00017662780140254017,
+    "kappa": 0.5
+  },
+  "screen_fit": {
+    "start": 0,
+    "params": {
+      "eta": 0.59,
+      "beta": 57.9,
+      "Xc": 16.80902700967723,
+      "epsilon": 30.223456591402293,
+      "CV": 0.23263134583688524,
+      "mex": 0.00019502460070948768,
+      "kappa": 0.5
+    },
+    "equal_age_score": 1.2088473796833157,
+    "success": true,
+    "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+    "iterations": 43,
+    "evaluations": 441
+  },
+  "screen_multistart_count": 8,
+  "screen_best_equal_age_score": 1.0737046428971446,
+  "fit_resolution": {
+    "n_cells": 320,
+    "dt": 0.025,
+    "threshold_quadrature": 31
+  },
+  "objective": "sum age-specific Poisson deviance divided by max(observed deaths,1); equal-age weighted deviance, not an ordinary likelihood. AIC is not defined from this score.",
+  "model_rate": "expected deaths divided by expected person-time, using direct SR boundary death and competing Makeham death calculation.",
+  "survival": "HMD cumulative constant-force D/E life table and SR heterogeneity-averaged survival; both conditional on reaching age 20.",
+  "uncertainty": "Point estimates only; no bootstrap."
+}

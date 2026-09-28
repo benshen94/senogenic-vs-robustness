@@ -1,0 +1,96 @@
+{
+  "baseline": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "Xc": 16.770889945674796,
+    "epsilon": 30.177845649223954,
+    "CV": 0.231742228226808,
+    "mex": 0.0002152845763447646,
+    "kappa": 0.5
+  },
+  "target_source": "results/historical/naive_hmd_mean_projection.json.gz",
+  "fixed": [
+    "eta",
+    "beta",
+    "epsilon",
+    "CV",
+    "mex",
+    "kappa"
+  ],
+  "conditioning_age": 20,
+  "bracket": [
+    0.5,
+    4.0
+  ],
+  "solver_settings": {
+    "cells": 320,
+    "dt": 0.025,
+    "threshold_nodes": 31,
+    "threshold_distribution": "Gaussian, discard nonpositive Gauss-Hermite nodes and renormalize",
+    "adaptive_horizons": [
+      180,
+      270,
+      405,
+      610
+    ],
+    "tail_bound_tolerance": 0.0001,
+    "log_factor_xtol": 1e-07,
+    "mean_residual_tolerance": 0.0001
+  },
+  "solver_sha256": "b91558a842512eafe3d973bcfcd4b577f0669fca380ece1871a0b52c966ea117",
+  "pipeline_sha256": "0fdd2d4bb44ac0d3f30940f5a03f72151fed809fb560155fd307cf4c407c40e0",
+  "target_sha256": "76c71e3bffb1a0e1cfd2c59ecd51b5f1a26d6a75886f5024f25effbb0210471e",
+  "method": "Inverse mean target, no assumed Xc growth law; no uncertainty",
+  "warning": "Doubling and super-exponential growth are hypotheses, not imposed results",
+  "seconds": 7.675655125174671,
+  "evaluations": [
+    {
+      "Xc": 8.385444972837398,
+      "mean": 54.30710742669345,
+      "horizon": 180.0,
+      "tail_bound": 2.6837525674820117e-251
+    },
+    {
+      "Xc": 67.08355978269918,
+      "mean": 107.04841569402285,
+      "horizon": 180.0,
+      "tail_bound": 3.5206577341539246e-145
+    },
+    {
+      "Xc": 45.01434819509027,
+      "mean": 102.47897286453501,
+      "horizon": 180.0,
+      "tail_bound": 6.748003629648445e-182
+    },
+    {
+      "Xc": 29.32028860667909,
+      "mean": 96.34788239623649,
+      "horizon": 180.0,
+      "tail_bound": 3.2598153435477103e-205
+    },
+    {
+      "Xc": 30.537415893603153,
+      "mean": 97.02601860151537,
+      "horizon": 180.0,
+      "tail_bound": 1.0059693942188579e-203
+    },
+    {
+      "Xc": 30.361271147894897,
+      "mean": 96.93111989061094,
+      "horizon": 180.0,
+      "tail_bound": 6.094496989509003e-204
+    },
+    {
+      "Xc": 30.358407075271018,
+      "mean": 96.92956813681332,
+      "horizon": 180.0,
+      "tail_bound": 6.0451305431997914e-204
+    },
+    {
+      "Xc": 30.358408593191417,
+      "mean": 96.92956895929665,
+      "horizon": 180.0,
+      "tail_bound": 6.0451565997908776e-204
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "public_copy_note": "Cluster paths and scheduler IDs are omitted; scientific values and checksums are unchanged.",
+  "source_manifest_sha256": "3ada3810ece647c32135ec9b1fc5952007be4ddbfb76551fa8b34d56004bdec6",
+  "objective": "individual right-censored survival NLL",
+  "baseline_objective": "Q=sum(D/mu+log(mu))",
+  "baseline_sha256": "d4960f0d5dacf5dfc559476e81d6bb83952f548fc0f4945dc6d4462ac7ff748c",
+  "bounds": [
+    0.05,
+    20
+  ],
+  "models": 10,
+  "mex": 0,
+  "fixed": [
+    "CV",
+    "kappa",
+    "inactive intrinsic parameters"
+  ],
+  "grid": [
+    240,
+    0.025,
+    80
+  ],
+  "old_baseline_results_preserved": true,
+  "queue": "medium",
+  "cpus_per_task": 1,
+  "concurrency": 10,
+  "memory_mb_per_task": 1500,
+  "wall_minutes": 30,
+  "finished": 10,
+  "converged": 10,
+  "fit_script_sha256": "3a710bcb06e1103a9f17fc9f4457889254240112c6553ab3fab0271ee2f4b643",
+  "best": "Xc+beta",
+  "best_aic": 657.1516222938751,
+  "best_single_delta_aic": 42.7740617820574,
+  "bootstrap": false,
+  "reference_uncertainty_propagated_to_hgps": false
+}

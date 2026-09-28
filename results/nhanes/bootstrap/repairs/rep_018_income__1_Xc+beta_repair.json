@@ -1,0 +1,171 @@
+{
+  "replicate": 18,
+  "group": "income__1",
+  "model": "Xc+beta",
+  "bootstrap_seed": 20260924,
+  "baseline": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "kappa": 0.5,
+    "Xc": 17.002888689726632,
+    "epsilon": 36.805224458265336,
+    "CV": 0.29920311105932945,
+    "mex": 0.0
+  },
+  "original_model": {
+    "params": {
+      "eta": 0.59,
+      "beta": 0.05,
+      "kappa": 0.5,
+      "Xc": 1954.021136250009,
+      "epsilon": 36.805224458265336,
+      "CV": 0.29920311105932945,
+      "mex": 0.0007662433379477124
+    },
+    "nll": 2620.4355952853016,
+    "k": 3,
+    "success": true,
+    "traces": [
+      {
+        "nll": 2620.4355952853016,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "nfev": 20
+      }
+    ],
+    "bounds": [
+      "beta"
+    ],
+    "seconds": 39.91801846027374,
+    "audited_multistart": false,
+    "planned_starts": 4,
+    "run_starts": 1,
+    "coarse_nll": 2612.756302860098,
+    "AIC": 5246.871190570603,
+    "tight_nll": 2618.1010939908806,
+    "tight_mex": 0.0007319966810542067,
+    "tight_AIC": 5242.202187981761
+  },
+  "repaired_model": {
+    "params": {
+      "eta": 0.59,
+      "beta": 56.50577627291331,
+      "kappa": 0.5,
+      "Xc": 17.1214708166877,
+      "epsilon": 36.805224458265336,
+      "CV": 0.29920311105932945,
+      "mex": 0.0
+    },
+    "nll": 2620.075738504136,
+    "k": 3,
+    "success": true,
+    "traces": [
+      {
+        "nll": 2620.435595285302,
+        "success": true,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "nfev": 20
+      },
+      {
+        "nll": 2620.0757385175007,
+        "success": true,
+        "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "nfev": 65
+      },
+      {
+        "nll": 2620.075738504136,
+        "success": true,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "nfev": 55
+      },
+      {
+        "nll": 2620.075738504139,
+        "success": true,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "nfev": 50
+      },
+      {
+        "nll": 2620.435595285302,
+        "success": true,
+        "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+        "nfev": 5
+      }
+    ],
+    "bounds": [
+      "mex"
+    ],
+    "seconds": 95.57090437505394,
+    "audited_multistart": true,
+    "planned_starts": 5,
+    "run_starts": 5,
+    "coarse_nll": 2612.7563028600694,
+    "AIC": 5246.151477008272,
+    "tight_nll": 2621.6373254940318,
+    "tight_mex": 0.0,
+    "tight_AIC": 5249.2746509880635,
+    "repair_diagnostic": {
+      "reason": "Original fit hit beta lower bound and stopped after one high-grid start.",
+      "method": "Refit coarse model, then audit every candidate start on the 320-cell grid.",
+      "coarse_params": {
+        "eta": 0.59,
+        "beta": 0.05000000000000001,
+        "kappa": 0.5,
+        "Xc": 1954.5623454276758,
+        "epsilon": 36.805224458265336,
+        "CV": 0.29920311105932945,
+        "mex": 0.0005854940796895346
+      },
+      "coarse_traces": [
+        {
+          "nll": 2618.3635014119436,
+          "success": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "iterations": 11,
+          "nfev": 65
+        },
+        {
+          "nll": 2618.3635014127353,
+          "success": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "iterations": 8,
+          "nfev": 55
+        },
+        {
+          "nll": 2612.7563028600694,
+          "success": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "iterations": 2,
+          "nfev": 20
+        },
+        {
+          "nll": 3057.5061697202113,
+          "success": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "iterations": 1,
+          "nfev": 10
+        },
+        {
+          "nll": 2612.756302860098,
+          "success": true,
+          "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+          "iterations": 27,
+          "nfev": 265
+        }
+      ],
+      "elapsed_seconds": 132.1105327908881
+    }
+  },
+  "grids": {
+    "optimized": [
+      320,
+      0.025,
+      31
+    ],
+    "validation": [
+      480,
+      0.016666666666666666,
+      41
+    ]
+  },
+  "script_sha256": "1613a5d5ec06507011251beb6dc08ea88dba1bcd139a236c31543b8b68496d5e"
+}

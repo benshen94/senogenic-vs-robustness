@@ -1,0 +1,53 @@
+{
+  "replicate": 18,
+  "seed": 20260924,
+  "method": "Rao-Wu n-1 PSU bootstrap within wave and stratum",
+  "grid_fit": {
+    "cells": 320,
+    "dt": 0.025,
+    "quadrature": 31
+  },
+  "grid_check": {
+    "cells": 480,
+    "dt": 0.016666666666666666,
+    "quadrature": 41
+  },
+  "params": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "kappa": 0.5,
+    "Xc": 17.002888689726632,
+    "epsilon": 36.805224458265336,
+    "CV": 0.29920311105932945,
+    "mex": 0.0
+  },
+  "fit_nll": 32284.585938458025,
+  "check_nll": 32284.698863316262,
+  "check_mex": 0.0,
+  "success": true,
+  "traces": [
+    {
+      "Xc": 17.002835928425082,
+      "epsilon": 36.80504428472221,
+      "CV": 0.29920349650688205,
+      "mex": 0.0,
+      "nll": 32284.58593846044,
+      "success": true,
+      "message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+      "nfev": 112
+    },
+    {
+      "Xc": 17.002888689726632,
+      "epsilon": 36.805224458265336,
+      "CV": 0.29920311105932945,
+      "mex": 0.0,
+      "nll": 32284.585938458025,
+      "success": true,
+      "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+      "nfev": 126
+    }
+  ],
+  "weighted_n": 56092.0,
+  "weighted_deaths": 7263.5,
+  "seconds": 395.20585222914815
+}

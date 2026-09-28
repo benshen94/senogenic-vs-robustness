@@ -1,0 +1,40 @@
+{
+  "backend": "tagged finite-volume first passage",
+  "baseline": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "Xc": 16.770889945674796,
+    "epsilon": 30.177845649223954,
+    "CV": 0.231742228226808,
+    "mex": 0.0002152845763447646,
+    "kappa": 0.5
+  },
+  "baseline_sha256": "7147df0fef19eccdcc178938305f8015cd4dd96a72b1718da4a04b6dfa2e586c",
+  "cells": 160,
+  "dt": 0.05,
+  "nodes": 32,
+  "horizon": 160.0,
+  "fraction_bins": 2001,
+  "disease_fraction": 0.75,
+  "scenarios": {
+    "baseline": [
+      1.0,
+      1.0
+    ],
+    "xc_only": [
+      1.2,
+      1.0
+    ],
+    "proportional": [
+      1.2,
+      1.2
+    ]
+  },
+  "external_mortality": 0.0,
+  "source_sha256": "6b7d7f490bc7bdf82eb07760d9df9ea6b74041809c3d18361e8112baed875d4f",
+  "horizon_convention": "Alive records end at horizon; never-sick fraction is zero",
+  "validation": "Calculation settings only; numerical checks are recorded separately",
+  "node_baseline_source_sha256s": [
+    "51eec036ab617d3677abe3bee8bffc67473959951b3f1a11c244dac7bcc75e85"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "public_copy_note": "Cluster paths and scheduler IDs are omitted; scientific values and checksums are unchanged.",
+  "source_manifest_sha256": "bebccbb6ec78fa257dc158c1b5bb59f75ad41e025c22706da7e7b7de7277921b",
+  "date": "2026-09-24",
+  "cohort_n": 55800,
+  "deaths": 7260,
+  "baseline_point_source": "inputs/best_constrained_fit.json",
+  "bootstrap": "100 paired Rao-Wu rescaled PSU samples within NHANES wave and design stratum",
+  "baseline_fit_grid": {
+    "cells": 320,
+    "dt": 0.025,
+    "quadrature": 31
+  },
+  "baseline_check_grid": {
+    "cells": 480,
+    "dt": 0.016666666666666666,
+    "quadrature": 41
+  },
+  "group_models": [
+    "mex_only",
+    "Xc",
+    "epsilon",
+    "eta+beta",
+    "Xc+eta",
+    "Xc+beta",
+    "epsilon+beta",
+    "epsilon+eta"
+  ],
+  "group_fit_grid": {
+    "cells": 320,
+    "dt": 0.025,
+    "quadrature": 31
+  },
+  "group_check_grid": {
+    "cells": 480,
+    "dt": 0.016666666666666666,
+    "quadrature": 41
+  },
+  "CV": "refitted in each full-cohort bootstrap, held fixed within its 23 group models",
+  "input_sha256": {
+    "bootstrap_baseline.py": "554e6a33c6b4d12c17741d59207d60a264d7098c3a7270fcafb51c8124898e9a",
+    "bootstrap_baseline_precision.py": "f91b60c6241bb5cc89e3ab77e02821e119e40b788626d95eae6c673c20cfce09",
+    "bootstrap_groups.py": "3217bcd95db1ded2e763459a52ddc95293c8ba457ef18a24f3379b5118162f43",
+    "group_fit.py": "f07c1cf0eb36a7406956f375173355bebb45dadb73a481aacb68db1fef5f305c",
+    "inputs/nhanes.csv": "0fb93c36eb9ee48b1a5d5d1aab02f4e48444a4530b0ae03ba2740619cc9b0201",
+    "inputs/groups.json": "91f42f4d54a4528f28bf4a9341e0bb7cfd1d50e975b75a8b05fa3bb169684a78",
+    "inputs/nonuniform_solver.py": "b68a52ee8db2c796c7c90a629132a9db0f6a01ac0a7b804d58293c09b5401e34",
+    "inputs/best_constrained_fit.json": "69c407630ec5a273f0ad83464a6ed929d4ddef4ff0cdfdc46c8977ef64a4c516"
+  },
+  "prior_coarse_results": "Retained for audit; group arrays 569361 and 569362 canceled before publication analysis because coarse baseline grid shifted estimates.",
+  "adaptive_high_refinement": {
+    "deployed_utc": "2026-09-24 11:14 UTC",
+    "original_sha256": "3217bcd95db1ded2e763459a52ddc95293c8ba457ef18a24f3379b5118162f43",
+    "updated_sha256": "4de598a2fe03aeac0f0e0a3c6c8b6572fd1f113e2cf7b5937a75c70893f6574c",
+    "evidence": "In 190 complete group tasks, 1337/1337 high-grid first starts converged within 0.005 NLL of the final multistart result; largest improvement from later starts was 0.000071 NLL.",
+    "policy": "Retain coarse multistart. After a converged first 320-cell refinement, stop other high-grid starts except for every 20th replicate-group task; if first refinement fails, run fallback starts.",
+    "mixed_code_note": "Jobs already running at deployment use the original loaded code; jobs starting afterward use the updated code."
+  },
+  "group_bootstrap_scope": {
+    "paired_replicates": 50,
+    "group_tasks": 1150,
+    "reason": "User asked to avoid overkill; 50 paired resamples suffice for the intended AIC stability check; 100 full-cohort baseline draws retained for Figure 3b."
+  }
+}

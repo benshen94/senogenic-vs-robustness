@@ -1,0 +1,48 @@
+{
+  "start_index": 0,
+  "params": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "epsilon": 42.372450276429184,
+    "Xc": 18.45815654294416,
+    "CV": 0.2878703142772308,
+    "kappa": 0.5,
+    "mex": 0.0
+  },
+  "nll": 32391.21413973761,
+  "success": true,
+  "message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+  "iterations": 1,
+  "evaluations": 21,
+  "bounds": [
+    "mex"
+  ],
+  "direct_flux_validation": {
+    "max_abs_hazard_difference_from_survival_step": 1.1002310174035301e-13,
+    "method": "finite-volume absorbing-boundary deaths / trapezoidal person-time exposure"
+  },
+  "nll_paper_point_mex0": 32689.33714321292,
+  "nll_paper_point_mex_profiled": 32457.289486998867,
+  "paper_point_profiled_mex": 0.0011784782284699922,
+  "nll_improvement_vs_paper_point_mex0": 298.1230034753098,
+  "aic_conditional": 64790.42827947522,
+  "aic_paper_anchor_mex_profiled": 64916.57897399773,
+  "delta_aic_vs_paper_anchor_mex_profiled": -126.15069452251191,
+  "nll_improvement_vs_paper_anchor_mex_profiled": 66.07534726125596,
+  "cohort": {
+    "n": 55800,
+    "deaths": 7260,
+    "censored": 48540
+  },
+  "fixed": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "kappa": 0.5
+  },
+  "high_grid": {
+    "n_cells": 480,
+    "dt": 0.016666666666666666,
+    "threshold_quadrature": 41
+  },
+  "uncertainty": "No bootstrap or confidence intervals; point estimate only."
+}

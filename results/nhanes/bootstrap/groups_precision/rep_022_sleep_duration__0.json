@@ -1,0 +1,284 @@
+{
+  "replicate": 22,
+  "group": "sleep_duration__0",
+  "baseline": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "kappa": 0.5,
+    "Xc": 19.74134820751007,
+    "epsilon": 47.08126732718108,
+    "CV": 0.2731871834008035,
+    "mex": 0.0
+  },
+  "bootstrap_seed": 20260924,
+  "models": {
+    "mex_only": {
+      "params": {
+        "eta": 0.59,
+        "beta": 57.9,
+        "kappa": 0.5,
+        "Xc": 19.74134820751007,
+        "epsilon": 47.08126732718108,
+        "CV": 0.2731871834008035,
+        "mex": 0.0029950339073778146
+      },
+      "nll": 1198.6332329363267,
+      "k": 1,
+      "success": true,
+      "traces": [],
+      "bounds": [],
+      "coarse_nll": 1198.9928512794377,
+      "AIC": 2399.2664658726535,
+      "tight_nll": 1198.8526084576833,
+      "tight_mex": 0.0030024684325016893,
+      "tight_AIC": 2399.7052169153667
+    },
+    "Xc": {
+      "params": {
+        "eta": 0.59,
+        "beta": 57.9,
+        "kappa": 0.5,
+        "Xc": 17.819598559647275,
+        "epsilon": 47.08126732718108,
+        "CV": 0.2731871834008035,
+        "mex": 0.0006783975123422285
+      },
+      "nll": 1194.0371034755572,
+      "k": 2,
+      "success": true,
+      "traces": [
+        {
+          "nll": 1194.0371034755572,
+          "success": true,
+          "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "nfev": 12
+        }
+      ],
+      "bounds": [],
+      "seconds": 20.310546402353793,
+      "audited_multistart": false,
+      "planned_starts": 3,
+      "run_starts": 1,
+      "coarse_nll": 1193.5505931246628,
+      "AIC": 2392.0742069511143,
+      "tight_nll": 1193.876470616322,
+      "tight_mex": 0.0006500098667818336,
+      "tight_AIC": 2391.752941232644
+    },
+    "epsilon": {
+      "params": {
+        "eta": 0.59,
+        "beta": 57.9,
+        "kappa": 0.5,
+        "Xc": 19.74134820751007,
+        "epsilon": 56.34635548594002,
+        "CV": 0.2731871834008035,
+        "mex": 7.568340345200435e-05
+      },
+      "nll": 1193.3683986606177,
+      "k": 2,
+      "success": true,
+      "traces": [
+        {
+          "nll": 1193.3683986606177,
+          "success": true,
+          "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "nfev": 15
+        }
+      ],
+      "bounds": [],
+      "seconds": 24.794491728767753,
+      "audited_multistart": false,
+      "planned_starts": 3,
+      "run_starts": 1,
+      "coarse_nll": 1192.9485241723792,
+      "AIC": 2390.7367973212354,
+      "tight_nll": 1193.212790980709,
+      "tight_mex": 4.726502520271409e-05,
+      "tight_AIC": 2390.425581961418
+    },
+    "eta+beta": {
+      "params": {
+        "eta": 0.4577710170944069,
+        "beta": 44.90472145231478,
+        "kappa": 0.5,
+        "Xc": 19.74134820751007,
+        "epsilon": 47.08126732718108,
+        "CV": 0.2731871834008035,
+        "mex": 0.0
+      },
+      "nll": 1192.8937500858428,
+      "k": 3,
+      "success": true,
+      "traces": [
+        {
+          "nll": 1192.8937500858428,
+          "success": true,
+          "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "nfev": 60
+        }
+      ],
+      "bounds": [
+        "mex"
+      ],
+      "seconds": 108.00702917994931,
+      "audited_multistart": false,
+      "planned_starts": 3,
+      "run_starts": 1,
+      "coarse_nll": 1192.5871490859536,
+      "AIC": 2391.7875001716857,
+      "tight_nll": 1192.7891158190337,
+      "tight_mex": 0.0,
+      "tight_AIC": 2391.5782316380673
+    },
+    "Xc+eta": {
+      "params": {
+        "eta": 0.5658163123885154,
+        "beta": 57.9,
+        "kappa": 0.5,
+        "Xc": 16.28725315413316,
+        "epsilon": 47.08126732718108,
+        "CV": 0.2731871834008035,
+        "mex": 0.0
+      },
+      "nll": 1192.8125922805768,
+      "k": 3,
+      "success": true,
+      "traces": [
+        {
+          "nll": 1192.8125922805768,
+          "success": true,
+          "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "nfev": 55
+        }
+      ],
+      "bounds": [
+        "mex"
+      ],
+      "seconds": 91.90118179097772,
+      "audited_multistart": false,
+      "planned_starts": 4,
+      "run_starts": 1,
+      "coarse_nll": 1192.5267719590365,
+      "AIC": 2391.6251845611537,
+      "tight_nll": 1192.7352195454312,
+      "tight_mex": 0.0,
+      "tight_AIC": 2391.4704390908623
+    },
+    "Xc+beta": {
+      "params": {
+        "eta": 0.59,
+        "beta": 60.86027731702027,
+        "kappa": 0.5,
+        "Xc": 15.683705655172867,
+        "epsilon": 47.08126732718108,
+        "CV": 0.2731871834008035,
+        "mex": 0.0
+      },
+      "nll": 1192.7911225518747,
+      "k": 3,
+      "success": true,
+      "traces": [
+        {
+          "nll": 1192.7911225518747,
+          "success": true,
+          "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "nfev": 55
+        }
+      ],
+      "bounds": [
+        "mex"
+      ],
+      "seconds": 91.20579747203737,
+      "audited_multistart": false,
+      "planned_starts": 4,
+      "run_starts": 1,
+      "coarse_nll": 1192.5259354310854,
+      "AIC": 2391.5822451037493,
+      "tight_nll": 1192.7329630991642,
+      "tight_mex": 0.0,
+      "tight_AIC": 2391.4659261983284
+    },
+    "epsilon+beta": {
+      "params": {
+        "eta": 0.59,
+        "beta": 59.21192436097487,
+        "kappa": 0.5,
+        "Xc": 19.74134820751007,
+        "epsilon": 60.53057993060336,
+        "CV": 0.2731871834008035,
+        "mex": 0.0
+      },
+      "nll": 1192.8500990568448,
+      "k": 3,
+      "success": true,
+      "traces": [
+        {
+          "nll": 1192.8500990568448,
+          "success": true,
+          "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "nfev": 65
+        }
+      ],
+      "bounds": [
+        "mex"
+      ],
+      "seconds": 107.77176864538342,
+      "audited_multistart": false,
+      "planned_starts": 4,
+      "run_starts": 1,
+      "coarse_nll": 1192.5377529247535,
+      "AIC": 2391.7001981136896,
+      "tight_nll": 1192.7477126031854,
+      "tight_mex": 0.0,
+      "tight_AIC": 2391.495425206371
+    },
+    "epsilon+eta": {
+      "params": {
+        "eta": 0.5779877997907502,
+        "beta": 57.9,
+        "kappa": 0.5,
+        "Xc": 19.74134820751007,
+        "epsilon": 59.303169840754286,
+        "CV": 0.2731871834008035,
+        "mex": 0.0
+      },
+      "nll": 1192.8539463022075,
+      "k": 3,
+      "success": true,
+      "traces": [
+        {
+          "nll": 1192.8539463022075,
+          "success": true,
+          "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+          "nfev": 50
+        }
+      ],
+      "bounds": [
+        "mex"
+      ],
+      "seconds": 82.79954677494243,
+      "audited_multistart": false,
+      "planned_starts": 4,
+      "run_starts": 1,
+      "coarse_nll": 1192.5403167121249,
+      "AIC": 2391.707892604415,
+      "tight_nll": 1192.7501536041707,
+      "tight_mex": 0.0,
+      "tight_AIC": 2391.5003072083414
+    }
+  },
+  "weighted_n": 2006.0,
+  "weighted_deaths": 261.0,
+  "optimized_grid": [
+    320,
+    0.025,
+    31
+  ],
+  "validation_grid": [
+    480,
+    0.016666666666666666,
+    41
+  ],
+  "seconds": 1241.029296291992
+}

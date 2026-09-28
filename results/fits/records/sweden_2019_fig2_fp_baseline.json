@@ -1,0 +1,28 @@
+{
+  "analysis": "Figure 2 Fokker-Planck baseline",
+  "params": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "Xc": 16.770889945674796,
+    "epsilon": 30.177845649223954,
+    "CV": 0.231742228226808,
+    "mex": 0.0002152845763447646,
+    "kappa": 0.5
+  },
+  "log_Xc_epsilon_covariance": [
+    [
+      0.003914452508988482,
+      0.006569157293555373
+    ],
+    [
+      0.006569157293555369,
+      0.011039652746549083
+    ]
+  ],
+  "source": "results/historical/joint_covariance.json",
+  "source_sha256": "51eec036ab617d3677abe3bee8bffc67473959951b3f1a11c244dac7bcc75e85",
+  "source_claimed_sha256": "51eec036ab617d3677abe3bee8bffc67473959951b3f1a11c244dac7bcc75e85",
+  "objective": "relative-error estimating equation Q=sum(D/mu+log(mu)); not sampling likelihood",
+  "provenance": "Latest Sweden 2019 equal-age baseline used by new-historical Figures 4d and 5; eta, beta, kappa fixed during the fit; Xc, epsilon and CV(Xc) estimated, with mex jointly fitted.",
+  "figure2_design": "For controlled sensitivity panels, focal heterogeneity replaces fitted CV(Xc), all other CVs are zero, and mex is zero."
+}

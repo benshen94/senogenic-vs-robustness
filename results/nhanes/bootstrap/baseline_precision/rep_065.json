@@ -1,0 +1,53 @@
+{
+  "replicate": 65,
+  "seed": 20260924,
+  "method": "Rao-Wu n-1 PSU bootstrap within wave and stratum",
+  "grid_fit": {
+    "cells": 320,
+    "dt": 0.025,
+    "quadrature": 31
+  },
+  "grid_check": {
+    "cells": 480,
+    "dt": 0.016666666666666666,
+    "quadrature": 41
+  },
+  "params": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "kappa": 0.5,
+    "Xc": 17.188455431809146,
+    "epsilon": 37.553262369871746,
+    "CV": 0.290247113099115,
+    "mex": 4.400480580183295e-05
+  },
+  "fit_nll": 32071.5798403736,
+  "check_nll": 32071.90845758388,
+  "check_mex": 0.0,
+  "success": true,
+  "traces": [
+    {
+      "Xc": 17.18896288886064,
+      "epsilon": 37.55559940429886,
+      "CV": 0.2902526033472164,
+      "mex": 4.382842156939293e-05,
+      "nll": 32071.579842982683,
+      "success": true,
+      "message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+      "nfev": 133
+    },
+    {
+      "Xc": 17.188455431809146,
+      "epsilon": 37.553262369871746,
+      "CV": 0.290247113099115,
+      "mex": 4.400480580183295e-05,
+      "nll": 32071.5798403736,
+      "success": true,
+      "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+      "nfev": 133
+    }
+  ],
+  "weighted_n": 55486.5,
+  "weighted_deaths": 7231.5,
+  "seconds": 480.0495876520872
+}

@@ -1,0 +1,55 @@
+{
+  "params": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "Xc": 16.770889945674796,
+    "epsilon": 30.177845649223954,
+    "CV": 0.231742228226808,
+    "mex": 0.0,
+    "kappa": 0.5
+  },
+  "cases": [
+    {
+      "parameter": "eta",
+      "cv": 0.05
+    },
+    {
+      "parameter": "beta",
+      "cv": 0.05
+    },
+    {
+      "parameter": "Xc",
+      "cv": 0.2
+    },
+    {
+      "parameter": "epsilon",
+      "cv": 0.2
+    },
+    {
+      "parameter": "Xc",
+      "cv": 0.15
+    },
+    {
+      "parameter": "epsilon",
+      "cv": 0.25
+    }
+  ],
+  "cells": 320,
+  "nodes": 128,
+  "dt": 0.025,
+  "horizon": 420.0,
+  "normal": "N(mean,(CV*mean)^2) conditional on positivity, quadrature truncated at 9 standard deviations",
+  "lognormal": "Arithmetic mean=baseline parameter; arithmetic CV=specified CV",
+  "matching": "Same untruncated normal mean/CV and lognormal arithmetic mean/CV; tiny positive-normal truncation shift is not rescaled",
+  "heterogeneity": "Only focal parameter heterogeneous; fitted threshold CV replaced; mex=0 as in Figure 2",
+  "metrics": "Unconditional quantile ages and restricted mean; conditional survival at ages 100,110,120 given age90",
+  "inference": "Deterministic comparisons, no uncertainty or predeclared similarity threshold",
+  "source_hashes": {
+    "results/fits/records/sweden_2019_fig2_fp_baseline.json": "3eab8bfdef194b0aaacfa98ac4d3a64f1be64cf71082f023dbe990908288b611",
+    "analysis/model_fits/additional/compare_lognormal.py": "1e775152bc0f0f45de5f7644ddedbcb8b1bc9fc3c529ffcfa0a1ddd28985d289",
+    "analysis/model_fits/additional/lognormal.py": "95d95f2e8a78c6d76330044a61d03bb6cdd73f25da19f57427afacb9768e71d2",
+    "src/senogenic_vs_robustness/sr_finite_volume.py": "b91558a842512eafe3d973bcfcd4b577f0669fca380ece1871a0b52c966ea117",
+    "src/senogenic_vs_robustness/sr_population.py": "19e6a0765499d1b5792df2df459fa54750d214797ec3340f6f2084513e39f966"
+  },
+  "seconds": 140.05768479174003
+}

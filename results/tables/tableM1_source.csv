@@ -1,0 +1,15 @@
+population,parameter,unit,estimate,ci_low,ci_high,fixed,interval_method,interval_scale,pearson_dispersion_adjusted,removed_variance_multiplier,bootstrap_repeats,bootstrap_value_source,point_source
+Sweden 2019,eta,year^-2,0.58999999999999997,,,True,fixed; no interval,identity,False,,0,,results/historical/joint_covariance.json
+Sweden 2019,beta,year^-1,57.899999999999999,,,True,fixed; no interval,identity,False,,0,,results/historical/joint_covariance.json
+Sweden 2019,kappa,dimensionless,0.5,,,True,fixed; no interval,identity,False,,0,,results/historical/joint_covariance.json
+Sweden 2019,Xc,dimensionless,16.770889945674796,14.835431613437555,18.958851814946545,False,unadjusted expected-bread sandwich; normal 95% on estimation scale,log,False,4.4835247588614466,0,,results/historical/joint_covariance.json
+Sweden 2019,CV,dimensionless,0.23174222822680801,0.21667969889600674,0.24680475755760928,False,unadjusted expected-bread sandwich; normal 95% on estimation scale,identity,False,4.4835247588614466,0,,results/historical/joint_covariance.json
+Sweden 2019,epsilon,year^-1,30.177845649223954,24.561376250923132,37.078637561857171,False,unadjusted expected-bread sandwich; normal 95% on estimation scale,log,False,4.4835247588614466,0,,results/historical/joint_covariance.json
+Sweden 2019,mex,year^-1,0.0002152845763447646,0.00016880083739794413,0.00026176831529158505,False,unadjusted expected-bread sandwich; normal 95% on estimation scale,1000*mex,False,4.4835247588614466,0,,results/historical/joint_covariance.json
+NHANES,eta,year^-2,0.58999999999999997,,,True,fixed; no interval,parameter percentile,False,,0,,analysis/model_fits/nhanes/inputs/best_constrained_fit.json
+NHANES,beta,year^-1,57.899999999999999,,,True,fixed; no interval,parameter percentile,False,,0,,analysis/model_fits/nhanes/inputs/best_constrained_fit.json
+NHANES,kappa,dimensionless,0.5,,,True,fixed; no interval,parameter percentile,False,,0,,analysis/model_fits/nhanes/inputs/best_constrained_fit.json
+NHANES,Xc,dimensionless,18.45815654294416,17.182665623308953,20.588445203044344,False,100 paired Rao-Wu PSU bootstrap draws; 2.5/97.5 percentiles; linear interpolation,parameter percentile,False,,100,params (320-cell fit),analysis/model_fits/nhanes/inputs/best_constrained_fit.json
+NHANES,CV,dimensionless,0.28787031427723081,0.26846593781501693,0.29540100744083736,False,100 paired Rao-Wu PSU bootstrap draws; 2.5/97.5 percentiles; linear interpolation,parameter percentile,False,,100,params (320-cell fit),analysis/model_fits/nhanes/inputs/best_constrained_fit.json
+NHANES,epsilon,year^-1,42.372450276429184,37.688671398945075,50.193290099066211,False,100 paired Rao-Wu PSU bootstrap draws; 2.5/97.5 percentiles; linear interpolation,parameter percentile,False,,100,params (320-cell fit),analysis/model_fits/nhanes/inputs/best_constrained_fit.json
+NHANES,mex,year^-1,0,0,0.00020388433438699001,False,100 paired Rao-Wu PSU bootstrap draws; 2.5/97.5 percentiles; linear interpolation,parameter percentile,False,,100,check_mex (480-cell profile at saved intrinsic parameters),analysis/model_fits/nhanes/inputs/best_constrained_fit.json

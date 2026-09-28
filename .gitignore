@@ -1,0 +1,22 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.nbc
+*.nbi
+.ipynb_checkpoints/
+.venv/
+tmp/
+.pytest_cache/
+
+# Source documents and local notebook artifacts.
+*.pdf
+*.ai
+*.svg
+*.ipynb
+
+# Track complete manuscript figures, not individual panel exports.
+Figures/**/*.png
+!Figures/Figure*/Fig[1-6].png
+!Figures/ExtendedDataFigure*/ExtDataFig[1-4].png
+!Figures/Supplementary/SuppFig[1-4].png
+analysis/**/*.png

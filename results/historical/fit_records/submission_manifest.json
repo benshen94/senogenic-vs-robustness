@@ -1,0 +1,107 @@
+{
+  "public_copy_note": "Cluster paths and scheduler IDs are omitted; scientific values and checksums are unchanged.",
+  "source_manifest_sha256": "3763b0665fafb2efe82f1206693031459ca9d75f8d4535a14fac5e14a5d879e2",
+  "date": "2026-09-27",
+  "jobs": [
+    {
+      "role": "baseline_multistart_smoke_and_representative_years",
+      "queue": "short",
+      "cpus": 1,
+      "memory_mb": 3000,
+      "wall_minutes": 30
+    },
+    {
+      "role": "parallel_provisional_1900_covariance",
+      "queue": "short",
+      "cpus": 1,
+      "memory_mb": 1000,
+      "wall_minutes": 15
+    },
+    {
+      "role": "all historical point fits",
+      "queue": "short",
+      "cpus_per_task": 1,
+      "tasks": 45,
+      "concurrency": 20,
+      "wall_minutes": 15
+    },
+    {
+      "role": "point optimizer verification",
+      "queue": "short",
+      "cpus_per_task": 1,
+      "tasks": 1,
+      "concurrency": 1,
+      "wall_minutes": 10
+    },
+    {
+      "role": "independent recovery with dataset-specific intervals",
+      "queue": "short",
+      "cpus_per_task": 1,
+      "tasks": 100,
+      "concurrency": 100,
+      "wall_minutes": 60
+    },
+    {
+      "role": "full joint covariance",
+      "queue": "short",
+      "cpus_per_task": 1,
+      "tasks": 1,
+      "concurrency": 1,
+      "wall_minutes": 20
+    },
+    {
+      "role": "candidate Fig5 metric intervals",
+      "queue": "short",
+      "cpus_per_task": 1,
+      "tasks": 61,
+      "concurrency": 16,
+      "wall_minutes": 10
+    },
+    {
+      "role": "solver refinement",
+      "queue": "short",
+      "cpus_per_task": 1,
+      "tasks": 1,
+      "concurrency": 1,
+      "wall_minutes": 15
+    },
+    {
+      "role": "dataset-specific Fig5 contour coverage from saved fitted trajectories",
+      "queue": "short",
+      "tasks": 100,
+      "concurrency": 40,
+      "cpus_per_task": 1,
+      "memory_mb": 1000,
+      "wall_minutes": 10
+    }
+  ],
+  "local_source_sha256": {
+    "repair.py": "94c0fdd2f4776266d1b5f2911257d0f3c338f8ce4f87e7bc53d8d589ba025e98",
+    "verify_point.py": "708b6702d50726f98e6f02d3d46fbdbd7c1ff1e5261cc636faba551aa83b9bb4",
+    "pilot_cov.py": "073ba2f251881c1545cb1a6bae5cc5d66b3769a424aac1eb0298556ce2244343",
+    "point_year.py": "ecd695f51ab14a2d49375abd477c09ef02c9eae99d7afc88f24e1329b530095b",
+    "joint_run.py": "a295e4a2ef98be2c6d9285615287e052ef7c48dbee815898a14dd7e360640780",
+    "bands.py": "c3479d01173a10e0fa821c4bb4da1aca96ac1e00729a1ee9a0a2ee0702a57be4",
+    "inference.py": "6b453604b91413f5e34c82fd3c7ff78adb4c973d82499f00361af6d026da7a61"
+  },
+  "status": "All 100 recovery and contour checks collected; historical intervals receive documented split-sample calibration; separate replacement D and Fig5 exported.",
+  "current_source_sha256": {
+    "repair.py": "41c3c6d019682e8fc5875d48f5a4080e87520ae279db61bd0fd59c841de74809",
+    "verify_point.py": "708b6702d50726f98e6f02d3d46fbdbd7c1ff1e5261cc636faba551aa83b9bb4",
+    "render.py": "c00d01974ed36be3cc2a83bba9fc1d1979cb4681e531490e14cb371c1caa8774",
+    "pilot_cov.py": "073ba2f251881c1545cb1a6bae5cc5d66b3769a424aac1eb0298556ce2244343",
+    "point_year.py": "ecd695f51ab14a2d49375abd477c09ef02c9eae99d7afc88f24e1329b530095b",
+    "summarize_recovery.py": "d46f90bb4829556e36edfb7096056881621c0fa1b69086626e479041f5f3240a",
+    "joint_run.py": "621e63776e5f558070db1f489f6b556603cbef302f89af30d4af64e8b8e2ceb8",
+    "bands.py": "38771fb15f80aa6ed2a469bda0989de8f303562785dd9bcb683f8cc0ab2b5a2a",
+    "numerical_check.py": "2e40169a6e51e1e74dd4568e1d7a0d117781284078ae52f2573feeaccb126187",
+    "inference.py": "6b453604b91413f5e34c82fd3c7ff78adb4c973d82499f00361af6d026da7a61",
+    "calibrate_contours.py": "d30dac2888181584f84bfc2fabec413643cd7251bdcdcae49444b459f18dc42d"
+  },
+  "verified_result_counts": {
+    "recovery": 100,
+    "contour_checks": 100,
+    "historical_point_fits": 45,
+    "historical_recovery_fits": 1200
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "reference_grid": {
+    "cells": 320,
+    "dt": 0.025,
+    "nodes": 64
+  },
+  "candidate_grid": {
+    "cells": 480,
+    "dt": 0.016666666666666666,
+    "nodes": 96
+  },
+  "comparison": [
+    {
+      "scenario": "baseline",
+      "max_absolute_state_difference": {
+        "healthy": 0.0004901031855162885,
+        "sick": 0.0005806876538648753,
+        "dead": 9.802687106358343e-05
+      },
+      "median_difference_percentage_points": 0.050000000000000044
+    },
+    {
+      "scenario": "xc_only",
+      "max_absolute_state_difference": {
+        "healthy": 0.001699297812150724,
+        "sick": 0.0017245226866092755,
+        "dead": 0.00011639178862710153
+      },
+      "median_difference_percentage_points": 0.050000000000000044
+    },
+    {
+      "scenario": "proportional",
+      "max_absolute_state_difference": {
+        "healthy": 0.001188813151858592,
+        "sick": 0.0012462867225144225,
+        "dead": 0.00011640606542367982
+      },
+      "median_difference_percentage_points": 0.050000000000000044
+    }
+  ],
+  "source_hashes": {
+    "reference": {
+      "manifest.json": "19510ee6e205bb61b3690d740dfcd10e7e5e30cc33a25e61e8ee6bdd861a77b7",
+      "states.csv": "38ed8d315588b6867097b09cf732eb58256a3a842f07787861f662fcbbdde92f",
+      "summary.csv": "5416faf9385ec84bdbd10a590db3873e9513ae1302ca08a8634b76b599bf59a3",
+      "sick_fraction.csv": "dcf0b8325babe3a4f3a53ea6854c0c13605cdb876bd3d6ca7a79bd6f47cbcad6"
+    },
+    "candidate": {
+      "manifest.json": "b71ac79d780761ddbbdc2db8b1bebcd6e815f1b30f60949c4c3752787b00d56c",
+      "states.csv": "798df6fd53d16056dbdf03db2b598877c6844328830a58aa340bc11c7fb17a91",
+      "summary.csv": "9c497c79ff836a6ec0bf1bc1db35095e32f0f666d4c845b82e523fd008ed6eec",
+      "sick_fraction.csv": "e1d28095c7ab3c4e7dedf0b8a02e617b8c610bbcb1408b896fb2e7f6d0745285"
+    }
+  },
+  "interpretation": "Numerical sensitivity, not statistical or biological uncertainty"
+}
