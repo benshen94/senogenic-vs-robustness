@@ -45,11 +45,34 @@ def main():
         sub=means[means.parameter==name]
         ax.plot(sub.lifespan_midpoint,sub.mean_parameter,'o-',color=COLORS[name],lw=2.5,mec='white')
         ax.set(title=f'{symbol} among deaths in each interval',xlabel='Lifespan-interval midpoint [years]',ylabel=f'Mean {symbol}',xlim=(37,163))
+        # Descriptive late-age fits to the current saved death-bin means.
+        fit = sub[sub.lifespan_midpoint.between(80 if name == 'eta' else 90,160)]
+        t = fit.lifespan_midpoint.to_numpy()
+        y = fit.mean_parameter.to_numpy()
+        slope, intercept = np.polyfit(1/t if name == 'eta' else t,y,1)
+        tt = np.linspace(t.min(),t.max(),160)
+        yy = intercept + slope*(1/tt if name == 'eta' else tt)
+        ax.plot(tt,yy,'--',color='.25',lw=1.8)
+        if name == 'eta':
+            annotation = rf'$\eta(t) \approx {slope:.2f}/t {intercept:+.4f}$' + '\n' + r'Fixed $\beta = 57.9$'
+            xy, ha = (.96,.93), 'right'
+        else:
+            annotation = rf'$\beta(t) \approx {slope:.3f}t {intercept:+.2f}$' + '\n' + r'Fixed $\eta = 0.59$'
+            xy, ha = (.04,.93), 'left'
+        ax.text(*xy,annotation,transform=ax.transAxes,ha=ha,va='top',fontsize=15,
+                bbox=dict(facecolor='white',edgecolor='none',alpha=.9,pad=3))
         ax=axs[2,j]
         sub=curves[(curves.scenario==name)&(curves.age<=120)]
         ax.plot(sub.age,sub.mortality,color=COLORS[name],lw=2.7)
         ax.set_yscale('log')
         ax.set(title=f'20% heterogeneity in {symbol}',xlabel='Age [years]',ylabel=r'Mortality rate [year$^{-1}$]',xlim=(20,120),ylim=(1e-7,1.2))
+        # Old scaling labels are reference shapes, not inferred asymptotic laws.
+        tail = sub[sub.age.between(90,120)]
+        power = 0 if name == 'eta' else 2
+        amplitude = np.exp(np.mean(np.log(tail.mortality)-power*np.log(tail.age)))
+        ax.plot(tail.age,amplitude*tail.age**power,'--',color='.3',lw=1.8)
+        label = r'Reference: $m(t) \sim \mathrm{const}$' if name == 'eta' else r'Reference: $m(t) \propto t^2$'
+        ax.text(.36,.57,label,transform=ax.transAxes,fontsize=16,color='.15')
     for label,ax in zip('abcdef',axs.flat):
         ax.text(-.16,1.06,label,transform=ax.transAxes,fontsize=24,fontweight='bold')
     path=ROOT/'Figures/Supplementary/SuppFig1.png'

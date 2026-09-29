@@ -69,3 +69,15 @@ python3 analysis/model_fits/supplementary/heterogeneity_tolerance.py
 ```
 
 Panels a and c-f use the same empirical and saved FP data as before.
+
+## Panels c–f: descriptive fits and reference trends
+
+Panel c fits a + b/t to death-bin means with midpoints 80–160 years;
+panel d fits a + b*t over 90–160 years. These are unweighted descriptive
+least-squares fits, not refits of the SR model. Compared with the legacy
+beta window of 90–110 years, the wider window avoids fitting just two bins.
+The annotations report the current fitted coefficients and the fixed companion
+parameter. Panels e/f show constant and t-squared reference shapes over
+90–120 years, with amplitude chosen by least squares in log mortality.
+Their exponents are imposed, not fitted, and are not claimed as asymptotic
+laws of the current FP mixtures. The numerical curves remain unchanged.
