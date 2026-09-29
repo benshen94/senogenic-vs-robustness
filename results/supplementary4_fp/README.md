@@ -49,3 +49,13 @@ python3 analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py
 See [methods and optional node commands](../../docs/figure_methods/healthspan_fp.md).
 Calculations use single-thread workers, with up to six concurrent workers
 for the refined grid. Rendering reads the saved tables.
+
+Panel c restores median dots, thick 25th–75th percentile intervals and thin
+5th–95th percentile intervals. These show individual population variability
+at fixed model parameters, not confidence intervals for the median. Quantiles
+are the first fraction-bin locations whose cumulative probability reaches
+0.05, 0.25, 0.50, 0.75 and 0.95. `percentiles.csv` saves these values; the
+renderer reconstructs them directly from `sick_fraction.csv`. The largest
+production-to-refined change across all displayed endpoints is 0.05 percentage
+points; see `validation/percentile_stability.json`. No new forward runs were
+needed: the saved updated joint-FP distribution contains the full information.

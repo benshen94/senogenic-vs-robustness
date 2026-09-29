@@ -179,38 +179,30 @@ def draw_state_row(fig: plt.Figure, outer_grid, states: pd.DataFrame) -> list[pl
 
 def draw_bar_row(fig: plt.Figure, outer_grid, summary: pd.DataFrame) -> plt.Axes:
     ax = fig.add_subplot(outer_grid)
-    medians = [100 * float(summary.loc[scenario, "median_sick_life_fraction"])
-               for scenario in SCENARIOS]
     x = np.arange(len(SCENARIOS))
     colors = [SCENARIO_COLORS[scenario] for scenario in SCENARIOS]
     labels = [WRAPPED_SCENARIO_LABELS[scenario] for scenario in SCENARIOS]
 
-    ax.bar(
-        x,
-        medians,
-        color=colors,
-        width=0.52,
-    )
-    ax.set_ylabel("")
-    ax.text(
-        0.0,
-        1.04,
-        "Median sick span (% of lifespan)",
-        transform=ax.transAxes,
-        ha="left",
-        va="bottom",
-        fontsize=14.0,
-    )
+    for index, scenario in enumerate(SCENARIOS):
+        p5, q1, median, q3, p95 = 100*summary.loc[scenario,
+            ['p05','p25','p50','p75','p95']].to_numpy(dtype=float)
+        ax.plot([index,index],[p5,p95],color=colors[index],lw=2.2,zorder=2)
+        ax.plot([index,index],[q1,q3],color='#20252B',lw=6,
+                solid_capstyle='round',zorder=3)
+        ax.scatter(index,median,s=125,color='#20252B',edgecolor='white',
+                   linewidth=1.2,zorder=4)
+        fraction = summary.loc[scenario, 'median_sick_life_fraction']
+        label = (100*Decimal(str(fraction))).quantize(Decimal('0.1'),rounding=ROUND_HALF_UP)
+        ax.text(index+.13,median,f'{label}%',ha='left',va='center',fontsize=13)
+    ax.set_ylabel('Sick span (% of lifespan)')
+    ax.text(.98,.98,'Dot: median; thick: 25–75%; thin: 5–95%',
+            transform=ax.transAxes,ha='right',va='top',fontsize=12)
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
-    ax.set_ylim(0, max(medians) * 1.25)
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-
-    for index, value in enumerate(medians):
-        fraction = summary.loc[SCENARIOS[index], "median_sick_life_fraction"]
-        label = (100 * Decimal(str(fraction))).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP)
-        ax.text(index, value + 0.55, f"{label}%", ha="center", va="bottom", fontsize=13.0)
+    ax.set_xlim(-.4,2.6)
+    ax.set_ylim(0,100*summary.p95.max()*1.24)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
     return ax
 
 
@@ -229,12 +221,12 @@ def add_panel_label(fig: plt.Figure, ax: plt.Axes, label: str) -> None:
 
 def make_composite(states: pd.DataFrame, summary: pd.DataFrame, output: Path) -> None:
 
-    fig = plt.figure(figsize=(10.8, 9.8))
+    fig = plt.figure(figsize=(10.8, 10.8))
     outer_grid = fig.add_gridspec(
         3,
         1,
         height_ratios=[0.92, 1.0, 0.70],
-        hspace=0.40,
+        hspace=0.58,
     )
 
     schematic_axes = draw_schematic_row(fig, outer_grid[0])
@@ -286,7 +278,9 @@ def load_sources(source: Path):
                 or ratios[0] != 0 or ratios[-1] != 1
                 or not np.isclose(mass.sum(), 1, atol=1e-9, rtol=0)):
             raise ValueError(f"Invalid sick-life distribution for {scenario}")
-        reconstructed = ratios[np.searchsorted(np.cumsum(mass), .5)]
+        quantiles = ratios[np.searchsorted(np.cumsum(mass), [.05,.25,.5,.75,.95])]
+        summary.loc[scenario,['p05','p25','p50','p75','p95']] = quantiles
+        reconstructed = quantiles[2]
         if not np.isclose(median, reconstructed, atol=1e-12, rtol=0):
             raise ValueError(f"Median disagrees with joint distribution for {scenario}")
     return states, summary

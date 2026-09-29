@@ -111,7 +111,7 @@ locally, not on WEXAC; see the saved-results README for provenance.
 python3 analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py
 ```
 
-The renderer preserves the three-row schematic/state/median layout and colors.
+The renderer preserves the three-row schematic/state/distribution layout and colors.
 It reads tables only, checks probability mass and recomputes each median from
 the joint ratio distribution before plotting. Missing files fail explicitly;
 the renderer never launches simulations or falls back to the trajectory cache.
@@ -122,3 +122,9 @@ failure and rejection of a summary median inconsistent with the distribution.
 ```bash
 python3 -m unittest discover -s tests -p test_healthspan_renderer.py -v
 ```
+
+Panel c displays the median, interquartile range and 5th–95th percentile
+range from the joint-FP sick-life-fraction probability distribution. These
+are between-individual model distribution intervals, not sampling or parameter
+confidence intervals. All plotted endpoints change by at most 0.05 percentage
+points between the saved intermediate and finest grids.

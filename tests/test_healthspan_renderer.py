@@ -43,6 +43,9 @@ class HealthspanRendererTests(unittest.TestCase):
             path = Path(folder)
             fixture(path)
             states, summary = renderer.load_sources(path)
+            self.assertEqual(summary.loc["baseline","p05"],0)
+            self.assertEqual(summary.loc["baseline","p25"],.5)
+            self.assertEqual(summary.loc["baseline","p95"],1)
             renderer.configure_matplotlib()
             output = path / 'synthetic_test.png'
             renderer.make_composite(states, summary, output)
