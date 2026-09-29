@@ -19,7 +19,8 @@ def tolerance_table(tolerances, *, age=90.0, gompertz_slope=0.1,
 
     The hazard-CV budget is sqrt(r*b/m). Local log-hazard sensitivities to
     fractional parameter changes are b*T, 2-b*tau and b*(T-tau) for eta,
-    beta and Xc, respectively. The beta sensitivity retains its beta**2
+    beta and Xc, respectively. Epsilon uses the opposite-sign Xc exponent
+    sensitivity, neglecting the epsilon-dependent prefactor. The beta sensitivity retains its beta**2
     prefactor. A zero sensitivity does not yield a finite first-order bound.
     """
     r = np.asarray(tolerances, dtype=float)
@@ -29,7 +30,8 @@ def tolerance_table(tolerances, *, age=90.0, gompertz_slope=0.1,
         raise ValueError('Reference values must be positive')
     sensitivities = dict(eta=gompertz_slope*age,
                          beta=abs(2-gompertz_slope*timescale),
-                         Xc=gompertz_slope*abs(age-timescale))
+                         Xc=gompertz_slope*abs(age-timescale),
+                         epsilon=gompertz_slope*abs(age-timescale))
     if min(sensitivities.values()) == 0:
         raise ValueError('A zero local sensitivity gives no finite CV estimate')
     budget = np.sqrt(r*gompertz_slope/mortality)
@@ -45,7 +47,8 @@ def main():
     settings = dict(reference=REFERENCE,
         conditioning='Parameter distributions among survivors at age 90, not at birth',
         criterion='Var_t(m)/m_pop <= r*b',
-        sensitivities=dict(eta='b*T', beta='abs(2-b*tau)', Xc='b*abs(T-tau)'),
+        sensitivities=dict(eta='b*T', beta='abs(2-b*tau)', Xc='b*abs(T-tau)', epsilon='b*abs(T-tau), exponent only'),
+        epsilon_prefactor_retained=False,
         beta_prefactor_retained=True,
         interpretation='One-parameter, first-order local approximation; not a statistical confidence bound',
         limitation='Large allowed CVs, particularly threshold CV, are rough local estimates')

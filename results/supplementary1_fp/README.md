@@ -59,8 +59,9 @@ prefactor, is 3.651%; it is discussed in the SI but is not the plotted curve.
 All spreads are among survivors at age 90 and assume one varying parameter
 at a time. They are local, first-order approximations, not fitted limits on
 initial heterogeneity or confidence intervals. Large threshold-CV values
-are especially approximate. No epsilon curve is shown because the current
-S4 derivation gives explicit CV estimates for eta, beta and Xc only.
+are especially approximate. The epsilon curve uses the same leading-exponent sensitivity as Xc, with
+opposite sign before taking the absolute value. It neglects the epsilon
+prefactor and therefore coincides with Xc; this is not a full-prefactor bound.
 
 Recompute the table with:
 
@@ -77,7 +78,6 @@ panel d fits a + b*t over 90–160 years. These are unweighted descriptive
 least-squares fits, not refits of the SR model. Compared with the legacy
 beta window of 90–110 years, the wider window avoids fitting just two bins.
 The annotations report the current fitted coefficients and the fixed companion
-parameter. Panels e/f show constant and t-squared reference shapes over
-90–120 years, with amplitude chosen by least squares in log mortality.
-Their exponents are imposed, not fitted, and are not claimed as asymptotic
-laws of the current FP mixtures. The numerical curves remain unchanged.
+parameter. Panels e/f carry constant and t-squared scaling annotations, without dashed
+reference curves. These are heuristic labels, not fitted exponents or
+verified asymptotic laws of the current FP mixtures. The numerical curves remain unchanged.

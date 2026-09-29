@@ -12,6 +12,7 @@ class HeterogeneityToleranceTests(unittest.TestCase):
         self.assertAlmostEqual(row.Xc_cv*100, 36.5148371670, places=8)
         # The corrected beta estimate exceeds the leading-barrier 3.65% value.
         self.assertGreater(row.beta_cv, row.hazard_cv/10)
+        self.assertEqual(row.epsilon_cv, row.Xc_cv)
 
     def test_budget_scaling_and_singular_reference(self):
         rows = tolerance_table([0, .1, .2, .4])

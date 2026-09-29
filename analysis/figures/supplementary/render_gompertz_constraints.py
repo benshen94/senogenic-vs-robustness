@@ -30,7 +30,8 @@ def main():
     ax.axvline(20,color='.35',ls=':',lw=1.5,zorder=0)
     for key,color,ls,label in [('eta',COLORS['eta'],'-',r'Production $\eta$'),
                               ('beta',COLORS['beta'],'--',r'Removal $\beta$'),
-                              ('Xc',COLORS['threshold'],'-',r'Threshold $X_c$')]:
+                              ('Xc',COLORS['threshold'],'-',r'Threshold $X_c$'),
+                              ('epsilon','#E5B22B','--',r'Noise $\epsilon$')]:
         ax.plot(100*tolerance.tolerance_fraction,100*tolerance[f'{key}_cv'],
                 ls=ls,color=color,lw=2.5,label=label)
         at20 = tolerance.loc[np.isclose(tolerance.tolerance_fraction,.2),f'{key}_cv'].iloc[0]
@@ -67,11 +68,7 @@ def main():
         ax.set_yscale('log')
         ax.set(title=f'20% heterogeneity in {symbol}',xlabel='Age [years]',ylabel=r'Mortality rate [year$^{-1}$]',xlim=(20,120),ylim=(1e-7,1.2))
         # Old scaling labels are reference shapes, not inferred asymptotic laws.
-        tail = sub[sub.age.between(90,120)]
-        power = 0 if name == 'eta' else 2
-        amplitude = np.exp(np.mean(np.log(tail.mortality)-power*np.log(tail.age)))
-        ax.plot(tail.age,amplitude*tail.age**power,'--',color='.3',lw=1.8)
-        label = r'Reference: $m(t) \sim \mathrm{const}$' if name == 'eta' else r'Reference: $m(t) \propto t^2$'
+        label = r'$m(t) \sim \mathrm{const}$' if name == 'eta' else r'$m(t) \sim t^2$'
         ax.text(.36,.57,label,transform=ax.transAxes,fontsize=16,color='.15')
     for label,ax in zip('abcdef',axs.flat):
         ax.text(-.16,1.06,label,transform=ax.transAxes,fontsize=24,fontweight='bold')

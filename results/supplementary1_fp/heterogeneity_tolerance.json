@@ -10,8 +10,10 @@
   "sensitivities": {
     "eta": "b*T",
     "beta": "abs(2-b*tau)",
-    "Xc": "b*abs(T-tau)"
+    "Xc": "b*abs(T-tau)",
+    "epsilon": "b*abs(T-tau), exponent only"
   },
+  "epsilon_prefactor_retained": false,
   "beta_prefactor_retained": true,
   "interpretation": "One-parameter, first-order local approximation; not a statistical confidence bound",
   "limitation": "Large allowed CVs, particularly threshold CV, are rough local estimates"
