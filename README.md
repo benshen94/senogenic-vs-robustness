@@ -68,7 +68,7 @@ its source script and inputs.
 | Extended Data Fig. 2 | NHANES bootstrap AIC stability | `analysis/figures/extended_data/render_nhanes_aic.py` |
 | Extended Data Fig. 3 | Danish historical mortality and fitted robustness | Included in `analysis/figures/figure4/render_current_history.py` |
 | Extended Data Fig. 4 | Fedichev-Gruber parameter constraints | `analysis/figures/extended_data/render_fedichev_constraints.py` |
-| Supplementary Fig. 1 | Numerical Gompertz constraints and selection | Saved FP grid checks; `analysis/figures/supplementary/render_gompertz_constraints.py` |
+| Supplementary Fig. 1 | Gompertz slopes, heterogeneity tolerance and selection | Saved analytic tolerance table and FP grid checks; `analysis/figures/supplementary/render_gompertz_constraints.py` |
 | Supplementary Fig. 2 | Cleaned-cohort NHANES KM curves | `analysis/figures/supplementary/render_nhanes_likelihood.py` |
 | Supplementary Fig. 3 | Fedichev-Gruber survival and mortality | `analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py` |
 | Supplementary Fig. 4 | Disease onset and morbidity | `analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py` |

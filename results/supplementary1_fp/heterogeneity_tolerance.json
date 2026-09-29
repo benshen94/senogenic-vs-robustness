@@ -1,0 +1,18 @@
+{
+  "reference": {
+    "age": 90.0,
+    "gompertz_slope": 0.1,
+    "mortality": 0.15,
+    "timescale": 100.0
+  },
+  "conditioning": "Parameter distributions among survivors at age 90, not at birth",
+  "criterion": "Var_t(m)/m_pop <= r*b",
+  "sensitivities": {
+    "eta": "b*T",
+    "beta": "abs(2-b*tau)",
+    "Xc": "b*abs(T-tau)"
+  },
+  "beta_prefactor_retained": true,
+  "interpretation": "One-parameter, first-order local approximation; not a statistical confidence bound",
+  "limitation": "Large allowed CVs, particularly threshold CV, are rough local estimates"
+}

@@ -1,4 +1,4 @@
-# Supplementary Figure 1: numerical comparisons
+# Supplementary Figure 1: tolerance estimates and numerical comparisons
 
 These saved calculations provide controlled comparisons at the fitted
 Sweden baseline means, not new fits or bootstrap estimates.
@@ -40,3 +40,32 @@ This writes to `tmp/si_checks`, not the archived results. The empirical
 Sweden slopes are read from
 `results/tables/supplementary_figure1/sweden2019_decade_slopes.csv`.
 The renderer generates the figure from the saved source tables.
+
+## Panel b: local heterogeneity tolerance
+
+`heterogeneity_tolerance.csv` and `.json` record the analytic curves and their
+reference settings. These use the illustrative SI values T = 90 years,
+b = 0.1/year, m(T) = 0.15/year and tau = 100 years. The x coordinate r is
+a stipulated budget for the selection contribution to the slope, not the
+observed variation of slopes between age windows in panel a.
+
+The hazard-CV budget is sqrt(r*b/m). Divide it by the absolute local
+log-hazard sensitivities b*T, 2-b*tau and b*(T-tau) to obtain allowed CVs
+for eta, beta and Xc, respectively. The beta curve includes the beta-squared
+prefactor in the simplified hazard. At r = 0.2, the estimates are 4.057%,
+4.564% and 36.515%. The leading-barrier beta estimate, which neglects the
+prefactor, is 3.651%; it is discussed in the SI but is not the plotted curve.
+
+All spreads are among survivors at age 90 and assume one varying parameter
+at a time. They are local, first-order approximations, not fitted limits on
+initial heterogeneity or confidence intervals. Large threshold-CV values
+are especially approximate. No epsilon curve is shown because the current
+S4 derivation gives explicit CV estimates for eta, beta and Xc only.
+
+Recompute the table with:
+
+```sh
+python3 analysis/model_fits/supplementary/heterogeneity_tolerance.py
+```
+
+Panels a and c-f use the same empirical and saved FP data as before.

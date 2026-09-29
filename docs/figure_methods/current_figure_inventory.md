@@ -41,7 +41,7 @@ factors and AIC/bootstrap support.
 
 | Figure | Status and sources | Entry point |
 | --- | --- | --- |
-| 1 | Numerical constraints, fixed-mean threshold heterogeneity comparison, parameter means by death-lifespan bins and heterogeneous mortality. Saved production, quadrature and refined grids in `results/supplementary1_fp`. | Optional checks: `analysis/model_fits/supplementary/check_si.py --recompute`; renderer: `analysis/figures/supplementary/render_gompertz_constraints.py`. |
+| 1 | Empirical mortality slopes, local survivor-conditioned heterogeneity tolerance curves, parameter means by death-lifespan bins and heterogeneous mortality. Saved production, quadrature and refined grids in `results/supplementary1_fp`. | Optional checks: `analysis/model_fits/supplementary/check_si.py --recompute`; renderer: `analysis/figures/supplementary/render_gompertz_constraints.py`. |
 | 2 | Current cleaned-cohort delayed-entry KM curves; `results/nhanes/survival_curves.csv`. Early unsupported ages remain missing. | `analysis/figures/supplementary/render_nhanes_likelihood.py`; output `Figures/Supplementary/SuppFig2.png`. |
 | 3 | Saved FG survival/mortality; `results/tables/supp_figure3_fedichev_minimal_model_source.csv` and its recorded cache. | `analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py`; missing cache does not silently trigger simulation. |
 | 4 | Tagged joint onset/death FP calculation; `results/supplementary4_fp/` includes the adopted refined grid and coarser-grid checks. | Workers: `analysis/model_fits/supplementary/healthspan.py`; renderer: `analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py`. |

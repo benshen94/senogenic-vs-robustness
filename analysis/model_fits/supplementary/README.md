@@ -2,7 +2,7 @@
 
 ## Gompertz constraints (Supplementary Fig. 1)
 
-The current renderer uses checked, saved finite-volume results:
+The renderer uses saved empirical slopes, analytic tolerance estimates and checked finite-volume results:
 
 ```bash
 python3 analysis/figures/supplementary/render_gompertz_constraints.py
@@ -20,9 +20,13 @@ weight multiplied by S_j(start)-S_j(end). The original display's minimum of
 25 observations per million is retained as a minimum bin probability 0.000025.
 
 Mortality is model boundary deaths divided by person-years within annual bins,
-shown at bin midpoints. No trajectory smoothing is required. The analytic-bound
-panel and universal asymptotic fits are retired. Empirical Sweden slopes are
-unchanged; the second panel now compares homogeneous and threshold-mixture slopes.
+shown at bin midpoints. No trajectory smoothing is required. Panel b shows the local tolerance calculation in SI section S4: parameter CV
+among age-90 survivors versus the allowed fractional selection-induced slope
+reduction. It varies one parameter at a time and retains the beta-squared
+prefactor correction. These are approximation-dependent tolerance estimates,
+not fitted initial-population limits or confidence intervals. The homogeneous
+and threshold-mixture curves remain saved numerical diagnostics, but are not
+plotted in panel b. Universal asymptotic fits remain omitted.
 
 The renderer generates the figure from the saved source tables.
 It is included in normal saved-output reproduction.
@@ -49,3 +53,9 @@ changes medians by 0.05 percentage points relative to 320 cells. See
 Subtracting marginal survival curves cannot recover the individual ratio
 distribution. The joint calculation is quadratic in time steps and is run
 separately from rendering.
+
+Regenerate the analytic source table (no simulation or optimization):
+
+```sh
+python3 analysis/model_fits/supplementary/heterogeneity_tolerance.py
+```
