@@ -56,7 +56,7 @@ def lifespan_panel(data,out,dpi):
             ax.text(years[label_index],obs[label_index],label,fontweight='bold',fontsize=17,va='center',zorder=8,
                     bbox=dict(facecolor='white',edgecolor='none',alpha=.85,pad=1))
     grey=np.array([r['mean_attained_age'] for r in data.naive]);extent.append(grey)
-    ax.plot(FUTURE,grey,color='.45',lw=4,zorder=4)
+    ax.plot(FUTURE,grey,color='.65',lw=4,zorder=4)
     bounds=np.concatenate(extent);bounds=bounds[np.isfinite(bounds)]
     if not len(bounds): raise ValueError('No finite observations or predictions for Fig5')
     ylim=(59,max(120,float(bounds.max())+2))
@@ -107,6 +107,16 @@ def styled_save(fig,out,name,dpi):
     first=ax.legend(handles=[Line2D([],[],color='.55',lw=2.8,label='Sweden period contours'),Line2D([],[],color='black',lw=2.2,label=r'SR model: fitted $X_c$ and $m_{ex}$')],loc='upper left',frameon=False);ax.add_artist(first)
     ax.legend(handles=[Line2D([],[],color='black',lw=2.2,label='Linear increase in robustness'),Line2D([],[],color='black',lw=2.2,ls='--',label='Exponential increase in robustness')],title='Model forecasts',loc='lower right',frameon=False).get_title().set_fontweight('bold')
     slope=d.report['naive_mean_slope'];y0=d.naive[0]['mean_attained_age'];x=2042
-    ax.text(x,y0+slope*(x-2019)+1,'Linear increase in mean lifespan',color='.55',fontsize=12,rotation=12)
-    fig.subplots_adjust(left=.145,right=.98,bottom=.16,top=.88);original_save(fig,out,'Fig5',dpi)
+    fig.subplots_adjust(left=.145,right=.98,bottom=.16,top=.88)
+    # Align to the displayed slope after the axes geometry has been finalized.
+    fig.canvas.draw()
+    start=ax.transData.transform((x,y0+slope*(x-2019)))
+    end=ax.transData.transform((x+10,y0+slope*(x+10-2019)))
+    angle=np.degrees(np.arctan2(*(end-start)[::-1]))
+    # Offset perpendicular to the line in display units to preserve clearance.
+    offset=7*np.array([-np.sin(np.radians(angle)),np.cos(np.radians(angle))])
+    ax.annotate('Linear increase in mean lifespan',xy=(x,y0+slope*(x-2019)),
+                xytext=tuple(offset),textcoords='offset points',color='.55',fontsize=12,
+                rotation=angle,rotation_mode='anchor',ha='left',va='bottom')
+    original_save(fig,out,'Fig5',dpi)
 save=styled_save;lifespan_panel(d,OUT,300)
