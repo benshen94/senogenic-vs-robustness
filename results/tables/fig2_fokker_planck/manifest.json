@@ -50,5 +50,39 @@
   "uncertainty_method": "Approximate pointwise log-delta intervals from the joint baseline covariance of log Xc and log epsilon; no old CI endpoints",
   "cache_fingerprint": "abccd03a9e52127e",
   "tasks": 120,
-  "complete": true
+  "complete": true,
+  "panel_b_cvs": {
+    "Xc": 0.2,
+    "epsilon": 0.2,
+    "eta": 0.05,
+    "beta": 0.05
+  },
+  "unchanged_tables": [
+    "tails_cv.csv",
+    "tails_factor.csv",
+    "siblings.csv"
+  ],
+  "table_sha256": {
+    "tails_factor.csv": "041220f9d737605c8a0b38820a2df7294d22f546c0434e4e12f756c9e8c8a88c",
+    "tails_cv.csv": "2ce59a69468325fc22ee190ac73e50bcc866d718abf4d81a4f6f5b50576a62fe",
+    "survival.csv": "fdea722eaefb4223d08d53906e24e9838c1d698bfb0a77a5929f1fd54502174b",
+    "siblings.csv": "12726f720b62ddfffc0996daebc56d35320a3af2151190233e00708fe89f9c21"
+  },
+  "panel_b_calculation": {
+    "method": "production finite-volume solver and joint-baseline log-delta intervals",
+    "original_manifest_sha256": "c73413825609b9605565cb5f4250fdfcb349a939dc88434ee2f2455483bd47c7",
+    "calculation_records": [
+      {
+        "path": "panel_b_records/survival_epsilon_0.200_1.000.json",
+        "sha256": "a540776f06ffa9094e58a765ee50702f093f9322d16a227e4de69ca98f9e8936"
+      },
+      {
+        "path": "panel_b_records/survival_Xc_0.200_1.000.json",
+        "sha256": "cdea0f6a19eaf3ac0497a7c03f6da6cb1f59ac6d9b8a63a5023fd4dbbba27c4e"
+      }
+    ],
+    "producer_source_sha256": "98df08fe0899b6594620a57c76de79b39741a966f54ac7514d9b9c51cdcd2775"
+  },
+  "renderer_source": "analysis/figures/figure2/plot_fig2_fp.py",
+  "renderer_source_sha256": "aab6ef0a50b1949d6ce2525002a5a55a443ddc356515b4139649bca4105f6f75"
 }

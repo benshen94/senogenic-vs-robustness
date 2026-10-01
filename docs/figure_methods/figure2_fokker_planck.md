@@ -50,6 +50,14 @@ zero. Mean-shift curves are homogeneous and scale one mean by factors from 0.85
 to 1.15. Extreme lifespan is the age at which unconditional survival reaches
 10⁻⁴. Conditional survival curves start at age 90.
 
+Panel b uses 20% CV for Xc and epsilon and 5% CV for eta and beta.
+The black curve is Sweden 2019 period survival, conditioned at age 90.
+Panels a and c retain their heterogeneity sweep and homogeneous mean-shift
+designs, respectively. Panel e retains CVs of 20%, 30%, 15% and 10% for
+Xc, epsilon, eta and beta. Filled/open markers denote siblings of short-/long-lived
+probands, matching the empirical marker convention in panel d. The full-cohort
+curve is retained in the source table but is not displayed.
+
 Sibling pairs have Gaussian parameter correlation 0.5 before positivity
 repair. A nonpositive parameter is independently redrawn from its positive
 marginal. Conditional on the parameter

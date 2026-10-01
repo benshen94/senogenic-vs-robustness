@@ -23,7 +23,6 @@ from pathlib import Path
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
 from scipy.stats import t as student_t
@@ -95,7 +94,7 @@ def _draw_empirical(ax: plt.Axes) -> None:
     intersection = (fits[1][1]-fits[0][1])/(fits[0][0]-fits[1][0])
     ages = np.linspace(50, intersection, 160)
     for group, filled, label in zip(groups, (True, False),
-                                    ('Siblings of short-lived persons', 'Siblings of centenarians')):
+                                    ('siblings of short-lived', 'siblings of centenarians')):
         _, _, mean, width = _empirical_fit(group, ages)
         ax.fill_between(ages, mean-width, mean+width, color='#7A7A7A', alpha=.16, linewidth=0)
         ax.plot(ages, mean, color='#7A7A7A', lw=2.3, ls=(0, (3, 2)))
@@ -106,7 +105,12 @@ def _draw_empirical(ax: plt.Axes) -> None:
            xlabel='Age [years]', ylabel=r'$\log_{10}$ mortality rate [year$^{-1}$]')
     ax.set_xticks([50, 70, 90, 110])
     ax.legend(loc='upper left', fontsize=17, frameon=False)
-    ax.set_title('Empirical sibling mortality\n(Gavrilova & Gavrilov)', pad=18)
+    ax.set_title('Mortality converges for siblings of centenarians\nand short-lived persons (Gavrilova & Gavrilov)', pad=18)
+    target = (intersection, fits[0][0]*intersection + fits[0][1])
+    ax.annotate('convergence', xy=target, xytext=(102, -.8),
+                fontsize=18, color='#333333', ha='center',
+                arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=.24',
+                                color='#555555', lw=1.3))
 
 
 def _band(ax, group, x, color, *, floor=None, log10=False, alpha=.14):
@@ -129,7 +133,7 @@ def _draw_survival(a, tables):
     for curve_id, group in tables['survival'].groupby('curve_id', sort=False):
         group = group.sort_values('age')
         if curve_id == 'hmd':
-            color, label = 'black', 'Sweden period data'
+            color, label = 'black', 'Sweden 2019 period data'
         else:
             param = group.param.iloc[0]
             color, label = COLORS[param], f'{LABELS[param]}, CV {100*group.cv.iloc[0]:g}%'
@@ -138,8 +142,13 @@ def _draw_survival(a, tables):
         a.plot(group.age, y, color=color, lw=3, label=label)
     entry = int(tables['survival'].age.min())
     a.set(yscale='log', xlim=(entry, 125), ylim=(2e-5, 1.1), xlabel='Age [years]',
-          ylabel=f'Conditional survival from age {entry}', title='Late-life survival')
-    a.legend(loc='lower left', frameon=False, fontsize=15)
+          ylabel=f'Conditional survival from age {entry}',
+          title='Late-life survival is consistent with\nheterogeneity in robustness parameters')
+    handles, labels = a.get_legend_handles_labels()
+    order = sorted(range(len(labels)), key=lambda i: 0 if labels[i].startswith('Sweden') else 1)
+    a.legend([handles[i] for i in order], [labels[i] for i in order],
+             loc='upper right', frameon=True, facecolor='white',
+             edgecolor='none', framealpha=.94, fontsize=15)
 
 
 def _draw_tail(ax, tables, name):
@@ -154,10 +163,12 @@ def _draw_tail(ax, tables, name):
 
     if name == 'tails_cv':
         ax.set(xlim=(0, 20), xticks=[0, 5, 10, 15, 20],
-               xlabel='Parameter heterogeneity (CV, %)', title='Heterogeneity and the lifespan tail')
+               xlabel='Parameter heterogeneity (CV, %)',
+               title='Upper lifespan tail is sensitive to\nheterogeneity in senogenic parameters')
     else:
         ax.set(xlim=(.85, 1.15), xticks=[.85, .95, 1, 1.05, 1.15],
-               xlabel='Parameter factor (relative to baseline)', title='Parameter shifts and the lifespan tail')
+               xlabel='Parameter factor (relative to baseline)',
+               title='Upper lifespan tail is sensitive to\nchanges in senogenic parameters')
         ax.axvline(1, color='#777777', lw=1.3, ls=':', zorder=0)
 
 
@@ -169,16 +180,18 @@ def _draw_de(d, axes, tables):
     lo, hi = (min(-2.5, logs.min()), max(0., logs.max())) if logs.size else (-2.5, 0.)
     _draw_empirical(d)
     for i, (ax, param) in enumerate(zip(axes, PARAMETERS)):
-        for cohort, color, ls, alpha in [('full', '#555555', '-', .5),
-                                        ('good', COLORS[param], '-', 1),
-                                        ('bad', COLORS[param], (0, (2, 1.5)), 1)]:
+        for cohort, color, alpha in [('good', COLORS[param], 1),
+                                     ('bad', COLORS[param], 1)]:
             group = tables['siblings'].loc[(tables['siblings'].param == param) &
                                            (tables['siblings'].cohort == cohort)].sort_values('age')
-            y = np.log10(group.mortality.where(group.mortality > 0))
             _band(ax, group, group.age, color, floor=10**(lo-.08), log10=True, alpha=.14*alpha)
-            ax.plot(group.age, y, color=color, ls=ls, lw=2.8, alpha=alpha)
-        family = 'Robustness' if i < 2 else 'Senogenic'
-        ax.set(title=f'{family}: {LABELS[param]}', xlim=(48, 110),
+            points = group.loc[group.age.le(110) & group.age.mod(2).eq(0)]
+            ax.scatter(points.age, np.log10(points.mortality), s=25,
+                       facecolors='white' if cohort == 'good' else color,
+                       edgecolors=color, linewidths=1.1, zorder=4)
+        titles = {'Xc': r'Threshold ($X_c$)', 'epsilon': r'Noise ($\epsilon$)',
+                  'eta': r'Production ($\eta$)', 'beta': r'Removal ($\beta$)'}
+        ax.set(title=titles[param], xlim=(48, 112),
                xticks=[50, 70, 90, 110])
         if i >= 2:
             ax.set_xlabel('Age [years]')
@@ -186,16 +199,46 @@ def _draw_de(d, axes, tables):
             ax.set_ylabel(r'$\log_{10}$ mortality rate [year$^{-1}$]')
     for ax in axes:
         ax.set_ylim(lo-.08, hi+.15)
-    handles = [Line2D([], [], color='#555555', alpha=.5, lw=2.8, label='Full cohort'),
-               Line2D([], [], color='black', lw=2.8, label='Long-lived probands', ls='-'),
-               Line2D([], [], color='black', lw=2.8, label='Short-lived probands', ls=(0, (2, 1.5)))]
-    axes[0].legend(handles=handles, fontsize=14, loc='best', frameon=False)
+    axes[0].text(1.06, 1.18, 'Robustness heterogeneity', transform=axes[0].transAxes,
+                 fontsize=24, color=COLORS['Xc'], ha='center')
+    axes[2].text(1.06, 1.18, 'Senogenic heterogeneity', transform=axes[2].transAxes,
+                 fontsize=24, color=COLORS['eta'], ha='center')
+    for i, (ax, param) in enumerate(zip(axes, PARAMETERS)):
+        good = sib.loc[(sib.param == param) & (sib.cohort == 'good')].sort_values('age')
+        bad = sib.loc[(sib.param == param) & (sib.cohort == 'bad')].sort_values('age')
+        age = 106 if i < 2 else 101
+        yg = float(np.interp(age, good.age, np.log10(good.mortality)))
+        yb = float(np.interp(age, bad.age, np.log10(bad.mortality)))
+        label = 'convergence' if i < 2 else 'no convergence'
+        # Leave the arrowhead beneath both trajectories, as in the manuscript.
+        text_y = -1.8 if i < 2 else -3.4
+        ax.annotate(label, xy=(age, min(yg, yb)-.30), xytext=(94, text_y),
+                    fontsize=16, ha='center', color='#333333',
+                    arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=.25',
+                                    color='#555555', lw=1.2), zorder=6)
+        if i in (1, 3):
+            ax.tick_params(labelleft=False)
+        if i < 2:
+            ax.tick_params(labelbottom=False)
+    ax = axes[0]
+    for cohort, label, offset in [('bad', 'siblings of short-lived', .27),
+                                  ('good', 'siblings of long-lived', -.26)]:
+        group = sib.loc[(sib.param == 'Xc') & (sib.cohort == cohort)].sort_values('age')
+        age = 62
+        y = float(np.interp(age, group.age, np.log10(group.mortality)))
+        slope = (float(np.interp(age+20, group.age, np.log10(group.mortality))) - y) / 20
+        position = ax.get_position()
+        fig_width, fig_height = ax.figure.get_size_inches()
+        aspect = position.height*fig_height / (position.width*fig_width)
+        angle = np.degrees(np.arctan(slope*64/(hi-lo+.23)*aspect))
+        ax.text(age, y+offset, label, rotation=angle, rotation_mode='anchor',
+                fontsize=16, color='#222222', ha='left', va='center', zorder=7)
 
 
 def _de_axes(fig, slot):
     bottom = slot.subgridspec(1, 2, width_ratios=[1, 1.65], wspace=.12)
     d = fig.add_subplot(bottom[0, 0])
-    right = bottom[0, 1].subgridspec(2, 2, hspace=.15, wspace=.08)
+    right = bottom[0, 1].subgridspec(2, 2, hspace=.32, wspace=.12)
     axes = [fig.add_subplot(right[i//2, i%2]) for i in range(4)]
     for ax in [d, *axes]:
         _style(ax)
@@ -230,10 +273,11 @@ def render(data_dir: Path, output_dir: Path, pdf: bool = False, panels: bool = F
                lambda ax: _draw_survival(ax, tables),
                lambda ax: _draw_tail(ax, tables, 'tails_factor')]
     with mpl.rc_context(settings):
-        fig = plt.figure(figsize=(24, 18), layout='constrained')
+        fig = plt.figure(figsize=(24, 18))
         try:
-            outer = fig.add_gridspec(2, 1, height_ratios=[1, 1.8], hspace=.12)
-            top = outer[0].subgridspec(1, 3, wspace=.12)
+            outer = fig.add_gridspec(2, 1, height_ratios=[1, 1.8], hspace=.38,
+                                     left=.06, right=.985, bottom=.075, top=.935)
+            top = outer[0].subgridspec(1, 3, wspace=.27)
             for i, (letter, draw) in enumerate(zip('abc', drawers)):
                 ax = fig.add_subplot(top[0, i])
                 _style(ax)

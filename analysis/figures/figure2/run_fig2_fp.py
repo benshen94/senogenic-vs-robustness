@@ -24,7 +24,7 @@ BASELINE = ROOT/'results/fits/records/sweden_2019_fig2_fp_baseline.json'
 DATA = ROOT/'tmp/fig2_fokker_planck_recomputed'
 OUT = ROOT/'tmp/fig2_fokker_planck_preview'
 PARAMETERS = ('eta','beta','Xc','epsilon')
-SURVIVAL_CVS = {'Xc':.15,'epsilon':.25,'eta':.05,'beta':.05}
+SURVIVAL_CVS = {'Xc':.20,'epsilon':.20,'eta':.05,'beta':.05}
 SIBLING_CVS = {'Xc':.20,'epsilon':.30,'eta':.15,'beta':.10}
 
 
