@@ -59,7 +59,7 @@ def lifespan_panel(data,out,dpi):
     ax.plot(FUTURE,grey,color='.45',lw=4,zorder=4)
     bounds=np.concatenate(extent);bounds=bounds[np.isfinite(bounds)]
     if not len(bounds): raise ValueError('No finite observations or predictions for Fig5')
-    ylim=(min(45,float(bounds.min())-2),max(120,float(bounds.max())+2))
+    ylim=(59,max(120,float(bounds.max())+2))
     data.report['fig5_ylim']=list(ylim)
     ax.set(xlim=(1900,2100),ylim=ylim,xlabel='Year',ylabel='Age [years]\n(conditional on reaching age 20)')
     ax.set_xticks(np.arange(1900,2101,20));ax.tick_params(length=6,width=1.2)
@@ -98,7 +98,7 @@ style();plt.rcParams.update({'font.family':'Arial','font.size':18,'axes.labelsiz
 original_save=save
 def styled_save(fig,out,name,dpi):
     ax=fig.axes[0];ax.set_title('Extrapolating recent increase in robustness predicts diminishing longevity gains')
-    ax.set_ylabel('Lifespan [years]\n(conditional on reaching age 20)');ax.set_ylim(min(45,ax.get_ylim()[0]),max(120,ax.get_ylim()[1]))
+    ax.set_ylabel('Lifespan [years]\n(conditional on reaching age 20)');ax.set_ylim(59,max(120,ax.get_ylim()[1]))
     for annotation in ax.texts:
         if annotation.get_text()=='forecast':
             annotation.remove();ax.annotate('forecast',xy=(2019,.995),xycoords=ax.get_xaxis_transform(),xytext=(4,0),textcoords='offset points',rotation=90,ha='left',va='top',fontsize=12,color='.35')
