@@ -41,7 +41,7 @@ def km(records):
     return tuple(np.asarray(values) for values in (t, s, lo, hi))
 
 mpl.rcParams.update({"font.family": "Arial", "font.size": 16,
-                     "axes.labelsize": 19, "axes.labelweight": "bold",
+                     "axes.labelsize": 19, "axes.labelweight": "normal",
                      "xtick.labelsize": 16.5, "ytick.labelsize": 16.5,
                      "legend.fontsize": 12, "axes.linewidth": 1.3})
 
@@ -62,8 +62,8 @@ def style(ax, norm=False):
     ax.spines[["top", "right"]].set_visible(False)
     ax.tick_params(width=1.3, length=6, labelsize=16.5)
     for tick in ax.get_xticklabels() + ax.get_yticklabels():
-        tick.set_fontweight("bold")
-    ax.xaxis.label.set_fontweight("bold")
+        tick.set_fontweight("normal")
+    ax.xaxis.label.set_fontweight("normal")
 
 
 def main():
@@ -117,7 +117,7 @@ def main():
                    frameon=False, fontsize=12, borderaxespad=0,
                    labelspacing=.35, handlelength=2)
     for ax, letter in zip(axes, "abc"):
-        ax.text(-.085, 1.025, letter, transform=ax.transAxes, fontsize=27, fontweight="bold")
+        ax.text(-.085, 1.025, letter, transform=ax.transAxes, fontsize=27, fontweight="normal")
     FIGURE.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIGURE, dpi=280, bbox_inches="tight")
     plt.close(fig)
