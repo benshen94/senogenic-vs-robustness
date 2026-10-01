@@ -41,8 +41,8 @@ def km(records):
     return tuple(np.asarray(values) for values in (t, s, lo, hi))
 
 mpl.rcParams.update({"font.family": "Arial", "font.size": 16,
-                     "axes.labelsize": 19, "axes.labelweight": "normal",
-                     "xtick.labelsize": 16.5, "ytick.labelsize": 16.5,
+                     "axes.labelsize": 24, "axes.labelweight": "normal",
+                     "xtick.labelsize": 20, "ytick.labelsize": 20,
                      "legend.fontsize": 12, "axes.linewidth": 1.3})
 
 COLORS = {
@@ -60,7 +60,7 @@ def style(ax, norm=False):
     ax.set_yticks([0, .25, .5, .75, 1])
     ax.set_xlabel("Age / median lifespan" if norm else "Age (years)")
     ax.spines[["top", "right"]].set_visible(False)
-    ax.tick_params(width=1.3, length=6, labelsize=16.5)
+    ax.tick_params(width=1.3, length=6, labelsize=20)
     for tick in ax.get_xticklabels() + ax.get_yticklabels():
         tick.set_fontweight("normal")
     ax.xaxis.label.set_fontweight("normal")
@@ -101,23 +101,24 @@ def main():
         x = curves[name]
         label = f"{SYMBOL[name]} ({fits[name]['factors'][name]:.3g}×; ΔAIC {fits[name]['delta_aic']:.1f})"
         axes[1].plot(x[:, 0], x[:, 1], lw=2.4, color=COLORS[name], label=label)
-    axes[1].legend(loc="upper left", bbox_to_anchor=(0, -.23),
-                   frameon=False, fontsize=12, handlelength=2, borderaxespad=0)
+    axes[1].legend(loc="lower left", frameon=False, fontsize=12,
+                   handlelength=2, borderaxespad=.65)
 
     pair_order = sorted(["Xc+epsilon", "Xc+eta", "Xc+beta", "eta+beta",
                          "epsilon+eta", "epsilon+beta"], key=lambda n: fits[n]["aic"])
     for name in pair_order:
         x = curves[name]
         label = ", ".join(f"{SYMBOL[p]} {fits[name]['factors'][p]:.3g}×" + ('*' if p in fits[name].get('boundary', []) else '') for p in name.split("+"))
-        label += f"  (ΔAIC {fits[name]['delta_aic']:.1f})"
+        label += f"; {fits[name]['delta_aic']:.1f}"
         axes[2].plot(x[:, 0], x[:, 1], lw=2.7 if name == "Xc+beta" else 2.0,
                      color=COLORS[name], label=label,
                      zorder=7 if name == "Xc+beta" else 3)
-    axes[2].legend(loc="upper left", bbox_to_anchor=(0, -.23),
-                   frameon=False, fontsize=12, borderaxespad=0,
+    axes[2].legend(loc="lower left", frameon=False, fontsize=12,
+                   title="Fold changes; ΔAIC", title_fontsize=12,
+                   borderaxespad=.65,
                    labelspacing=.35, handlelength=2)
     for ax, letter in zip(axes, "abc"):
-        ax.text(-.085, 1.025, letter, transform=ax.transAxes, fontsize=27, fontweight="normal")
+        ax.text(-.085, 1.025, letter, transform=ax.transAxes, fontsize=34, fontweight="normal")
     FIGURE.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIGURE, dpi=280, bbox_inches="tight")
     plt.close(fig)
