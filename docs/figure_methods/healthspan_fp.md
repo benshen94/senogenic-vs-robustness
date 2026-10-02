@@ -1,4 +1,4 @@
-# Supplementary Figure 5: joint first passage
+# Supplementary Figure 4: joint first passage
 
 The joint FP calculation, saved-table renderer, mathematical tests and
 three-grid numerical check are included. The adopted 480-cell results are in

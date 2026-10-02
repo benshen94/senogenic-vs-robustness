@@ -1,7 +1,7 @@
-# NHANES Extended Data Fig. 2, Table 1 and Supplementary Fig. 3
+# NHANES Extended Data Figs. 2 and 3, Table 1 and survival summaries
 
 
-## Extended Data Fig. 2 and Table 1
+## Extended Data Fig. 3 and Table 1
 
 ```bash
 python3 analysis/figures/extended_data/render_nhanes_aic.py
@@ -33,10 +33,10 @@ single-intrinsic-parameter fits; they are not a joint Xc+epsilon fit.
 The paired baseline/group bootstrap, optimization, numerical checks and optional
 cluster rerun instructions are in `analysis/model_fits/nhanes/README.md`.
 
-## Supplementary Fig. 3
+## Extended Data Fig. 2: exposure-group survival
 
 ```bash
-python3 analysis/figures/supplementary/render_nhanes_likelihood.py
+python3 analysis/figures/extended_data/render_nhanes_survival.py
 ```
 
 The renderer uses `results/nhanes/survival_curves.csv`: the full cleaned cohort
@@ -46,6 +46,8 @@ The cohort contains 55,800 participants and 7,260 deaths. Curves use unweighted,
 left-truncated/right-censored Kaplan-Meier estimation with each participant's
 entry age, exit age and death indicator; no extrinsic mortality is removed.
 Overlapping groups must not be summed as independent populations.
+
+The renderer writes `Figures/ExtendedDataFigure2/ExtDataFig2.png`.
 
 The source calculation can be regenerated with:
 

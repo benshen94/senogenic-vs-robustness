@@ -11,7 +11,7 @@ import pandas as pd
 
 PROJECT = Path(__file__).resolve().parents[3]
 HERE = PROJECT / 'results' / 'nhanes'
-OUT = PROJECT / 'Figures' / 'ExtendedDataFigure2'
+OUT = PROJECT / 'Figures' / 'ExtendedDataFigure3'
 PAIRS = ('eta+beta', 'Xc+eta', 'Xc+beta', 'epsilon+beta', 'epsilon+eta')
 LABELS = {
 'diet__0':'Diet: poor', 'diet__1':'Diet: good',
@@ -98,7 +98,7 @@ def main(table_only=False):
         ax.spines[['top','right','left']].set_visible(False)
         fig.text(.025,.73,'b',fontweight='normal',fontsize=21)
         OUT.mkdir(parents=True,exist_ok=True)
-        base=OUT/'ExtDataFig2'
+        base=OUT/'ExtDataFig3'
         for ext in ['png']:fig.savefig(base.with_suffix('.'+ext),dpi=300,bbox_inches='tight',pad_inches=.12,facecolor='white')
         plt.close(fig)
     audit=dict(groups=23,original_competitive=int(summary.competitive.sum()),bootstrap_repeats=50,

@@ -13,7 +13,7 @@ import pandas as pd
 PROJECT = Path(__file__).resolve().parents[3]
 HERE = PROJECT / 'results/nhanes'
 GROUP_RUN = PROJECT / 'analysis/model_fits/nhanes'
-OUT = PROJECT / 'Figures/Supplementary/SuppFig3.png'
+OUT = PROJECT / 'Figures/ExtendedDataFigure2/ExtDataFig2.png'
 TIMELINE = np.arange(20, 110.01, .25)
 DOMAINS = [
     ('diet', 'Diet quality'), ('income', 'Income-poverty ratio'),

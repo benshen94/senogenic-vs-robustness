@@ -40,7 +40,7 @@ python3 analysis/model_fits/supplementary/check_si.py --recompute
 This writes to `tmp/si_checks`, without overwriting the archive. Rendering never
 starts the numerical calculations or falls back to trajectory tables.
 
-## Morbidity (Supplementary Fig. 5)
+## Morbidity (Supplementary Fig. 4)
 
 The optional `healthspan.py` worker uses the tagged joint FP solver in
 `src/senogenic_vs_robustness/sr_joint_passage.py`. It preserves the distribution

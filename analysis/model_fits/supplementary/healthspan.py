@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Optional joint FP workers for Supplementary Figure 5; no fitting."""
+"""Optional joint FP workers for Supplementary Figure 4; no fitting."""
 import argparse
 import hashlib
 import json

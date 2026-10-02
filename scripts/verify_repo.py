@@ -157,14 +157,14 @@ def check_supplementary4():
     folder = RESULTS / 'supplementary4_fp'
     manifest = read(folder / 'manifest.json')
     require(manifest['baseline'] == read(RESULTS / 'historical/joint_covariance.json')['baseline'],
-            'Supplementary 5 baseline differs from historical reference')
+            'Supplementary 4 baseline differs from historical reference')
     require((manifest['cells'], manifest['nodes']) == (480, 96)
-            and np.isclose(manifest['dt'], 1 / 60), 'Supplementary 5 adopted grid')
+            and np.isclose(manifest['dt'], 1 / 60), 'Supplementary 4 adopted grid')
     states = pd.read_csv(folder / 'states.csv')
     fractions = pd.read_csv(folder / 'sick_fraction.csv')
     summary = pd.read_csv(folder / 'summary.csv').set_index('scenario')
     expected = {'baseline': .1035, 'xc_only': .1635, 'proportional': .0725}
-    require(set(summary.index) == set(expected), 'Supplementary 5 scenario inventory')
+    require(set(summary.index) == set(expected), 'Supplementary 4 scenario inventory')
     for scenario, median in expected.items():
         state = states.loc[states.scenario == scenario]
         values = state[['healthy', 'sick', 'dead']].to_numpy()
@@ -183,19 +183,19 @@ def check_supplementary4():
     for row in report['comparison']:
         require(abs(row['median_difference_percentage_points']) <= .050001
                 and max(row['max_absolute_state_difference'].values()) <= .001725,
-                'Supplementary 5 numerical refinement differs')
+                'Supplementary 4 numerical refinement differs')
     for label, directory in [('reference', folder / 'validation/production'), ('candidate', folder)]:
         for name, digest in report['source_hashes'][label].items():
             require(hashlib.sha256((directory / name).read_bytes()).hexdigest() == digest,
-                    f'Supplementary 5 comparison checksum: {label}/{name}')
-    print('ok Supplementary 5: joint distributions, state mass, medians and grid comparison')
+                    f'Supplementary 4 comparison checksum: {label}/{name}')
+    print('ok Supplementary 4: joint distributions, state mass, medians and grid comparison')
 
 
 def check_figure_index():
     index = pd.read_csv(RESULTS / 'index/outputs.csv', keep_default_na=False)
     expected = ({f'figure{i}' for i in range(1, 7)}
-                | {f'extended_data_figure{i}' for i in range(1, 5)}
-                | {f'supplementary_figure{i}' for i in range(1, 6)}
+                | {f'extended_data_figure{i}' for i in range(1, 6)}
+                | {f'supplementary_figure{i}' for i in range(1, 5)}
                 | {'extended_data_table1', 'table_m1', 'supplementary_table1'})
     require(len(index) == len(expected) and set(index.task) == expected,
             'Current manuscript output inventory differs')

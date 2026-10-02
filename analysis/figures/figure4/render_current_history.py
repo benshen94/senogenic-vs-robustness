@@ -58,7 +58,7 @@ def render(country):
  assert abs(axes[2].get_position().y0-axes[3].get_position().y0)<1e-12
  assert abs(axes[2].get_position().height-axes[3].get_position().height)<1e-12
  name='Fig4' if country.key=='sweden' else 'Extended_Data_Fig3_Denmark'
- out=R/('Figures/Figure4/Fig4.png' if country.key=='sweden' else 'Figures/ExtendedDataFigure3/ExtDataFig3.png')
+ out=R/('Figures/Figure4/Fig4.png' if country.key=='sweden' else 'Figures/ExtendedDataFigure4/ExtDataFig4.png')
  out.parent.mkdir(parents=True,exist_ok=True);fig.savefig(out,dpi=200)
  (H/(name+'_layout.json')).write_text(json.dumps({'canvas_inches':[16,18.6],'panel_font_pt':36,'axis_font_pt':26,'tick_font_pt':20,'positions':{k:list(ax.get_position().bounds) for k,ax in zip('abcd',axes)},'aligned_cd_axes':True,'source_values_unchanged':True},indent=2))
  plt.close(fig)

@@ -1,4 +1,4 @@
-# Supplementary Figure 5: saved joint first passage
+# Supplementary Figure 4: saved joint first passage
 
 The finite-volume forward calculation uses
 480 cells, 1/60-year timesteps and 96 positive-Gaussian threshold quadrature

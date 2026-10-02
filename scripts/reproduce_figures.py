@@ -27,7 +27,7 @@ CURRENT_COMMANDS = [
     ["analysis/figures/figure6_progeria/plot_fig6.py"],
     ["analysis/figures/extended_data/render_senogenic_profile.py"],
     ["analysis/figures/extended_data/render_nhanes_aic.py"],
-    ["analysis/figures/supplementary/render_nhanes_likelihood.py"],
+    ["analysis/figures/extended_data/render_nhanes_survival.py"],
     ["analysis/figures/extended_data/render_fedichev_constraints.py"],
     ["analysis/figures/supplementary/render_fedichev_minimal_model.py"],
 ]

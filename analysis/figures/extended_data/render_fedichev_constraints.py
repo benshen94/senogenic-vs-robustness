@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render Extended Data Fig. 4 from saved Fedichev-Gruber calculations."""
+"""Render Extended Data Fig. 5 from saved Fedichev-Gruber calculations."""
 from pathlib import Path
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
@@ -8,7 +8,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[3]
 DATA = ROOT/'results/fedichev_gruber'
-OUTPUT = ROOT/'Figures/ExtendedDataFigure4/ExtDataFig4.png'
+OUTPUT = ROOT/'Figures/ExtendedDataFigure5/ExtDataFig5.png'
 
 FEDICHEV_PARAMS = (
     "beta_prime",

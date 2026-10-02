@@ -10,7 +10,7 @@ the [setup instructions](../README.md#setup).
 - NHANES data preparation lives in repository-root `scripts/prepare_nhanes_cohort.py` and
   `scripts/prepare_nhanes_survival.py`.
 - `quality_checks/`: the retained threshold-schematic drawing helper used by
-  Supplementary Fig. 4.
+  Supplementary Fig. 3.
 
 Most users should start from the repository root with:
 
@@ -27,10 +27,10 @@ for figure numbering.
 
 Most renderers write publication PNGs under `Figures/`. Fig. 1 exports its
 quantitative panel under `tmp/figure1/`, separately from the schematic composite.
-Figure 2 and all five supplementary figures are rendered as complete composites.
+Figure 2 and all four supplementary figures are rendered as complete composites.
 
-The current Supplementary Fig. 2 renderer is
-`analysis/figures/supplementary/render_nhanes_likelihood.py`, using saved
+The Extended Data Fig. 2 survival renderer is
+`analysis/figures/extended_data/render_nhanes_survival.py`, using saved
 cleaned-cohort survival curves. The `figures/steepness_longevity/` modules
 provide shared plotting styles.
 

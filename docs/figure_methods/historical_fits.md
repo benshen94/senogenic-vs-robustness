@@ -8,7 +8,7 @@ python3 analysis/figures/figure5/render_lifespan.py
 ```
 
 Outputs are `Figures/Figure4/Fig4.png`,
-`Figures/ExtendedDataFigure3/ExtDataFig3.png`, and
+`Figures/ExtendedDataFigure4/ExtDataFig4.png`, and
 `Figures/Figure5/Fig5.png`. Covariance matrices, 61 band records and source
 tables are included in `results/historical/`.
 Panels a/b retain the age-20 response-plane normalization; panel c retains the

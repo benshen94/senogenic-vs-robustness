@@ -15,8 +15,8 @@ This compendium separates senogenic changes in aging dynamics from robustness
 changes in threshold crossing. The analyses use a finite-volume
 Fokker-Planck solver for the Saturating-Removal (SR) model.
 
-The repository contains the analyses for six main figures, four Extended Data
-figures, five supplementary figures, Extended Data Table 1, Table M1 and
+The repository contains the analyses for six main figures, five Extended Data
+figures, four supplementary figures, Extended Data Table 1, Table M1 and
 Supplementary Table 1. Figures can be
 reproduced from the included source tables and fitted models.
 
@@ -50,7 +50,7 @@ This command renders figures from the included source tables and fitted models.
 Composite PNGs are written under `Figures/`. Figure 1 includes manually drawn
 schematics; its numerical panel is rendered separately to `tmp/figure1/`.
 
-Supplementary Fig. 5 uses joint first-passage results with three-grid numerical checks.
+Supplementary Fig. 4 uses joint first-passage results with three-grid numerical checks.
 The [output index](results/index/outputs.csv) records every current artifact,
 its source script and inputs.
 
@@ -65,15 +65,15 @@ its source script and inputs.
 | Fig. 5 | Historical and extrapolated lifespan contours | `analysis/figures/figure5/render_lifespan.py` |
 | Fig. 6 | HGPS likelihood and AIC comparison | `analysis/figures/figure6_progeria/plot_fig6.py` |
 | Extended Data Fig. 1 | Imposed senogenic heterogeneity | `analysis/figures/extended_data/render_senogenic_profile.py` |
-| Extended Data Fig. 2 | NHANES bootstrap AIC stability | `analysis/figures/extended_data/render_nhanes_aic.py` |
-| Extended Data Fig. 3 | Danish historical mortality and fitted robustness | Included in `analysis/figures/figure4/render_current_history.py` |
-| Extended Data Fig. 4 | Fedichev-Gruber parameter constraints | `analysis/figures/extended_data/render_fedichev_constraints.py` |
+| Extended Data Fig. 2 | Cleaned-cohort NHANES KM curves | `analysis/figures/extended_data/render_nhanes_survival.py` |
+| Extended Data Fig. 3 | NHANES bootstrap AIC stability | `analysis/figures/extended_data/render_nhanes_aic.py` |
+| Extended Data Fig. 4 | Danish historical mortality and fitted robustness | Included in `analysis/figures/figure4/render_current_history.py` |
+| Extended Data Fig. 5 | Fedichev-Gruber parameter constraints | `analysis/figures/extended_data/render_fedichev_constraints.py` |
 | Supplementary Fig. 1 | Upper-tail response to mean-parameter shifts | `analysis/figures/supplementary/render_parameter_shifts.py`; saved homogeneous FP sweep |
 | Supplementary Fig. 2 | Gompertz slopes, heterogeneity tolerance and selection | Saved analytic tolerance table and FP grid checks; `analysis/figures/supplementary/render_gompertz_constraints.py` |
-| Supplementary Fig. 3 | Cleaned-cohort NHANES KM curves | `analysis/figures/supplementary/render_nhanes_likelihood.py` |
-| Supplementary Fig. 4 | Fedichev-Gruber survival and mortality | `analysis/figures/supplementary/render_fedichev_minimal_model.py` |
-| Supplementary Fig. 5 | Disease onset and morbidity | `analysis/figures/supplementary/render_healthspan_morbidity.py` |
-| Extended Data Table 1 | Exposure-group fits, counts and AIC support | Regenerated with Extended Data Fig. 2; `results/nhanes/extended_data_table1.csv` |
+| Supplementary Fig. 3 | Fedichev-Gruber survival and mortality | `analysis/figures/supplementary/render_fedichev_minimal_model.py` |
+| Supplementary Fig. 4 | Disease onset and morbidity | `analysis/figures/supplementary/render_healthspan_morbidity.py` |
+| Extended Data Table 1 | Exposure-group fits, counts and AIC support | Regenerated with Extended Data Fig. 3; `results/nhanes/extended_data_table1.csv` |
 | Table M1 | Sweden and NHANES SR parameter estimates and intervals | `analysis/tables/export_table_m1.py`; [table export documentation](analysis/tables/README.md) |
 | Supplementary Table 1 | Absolute NHANES Kaplan-Meier summaries and bootstrap precision | `analysis/tables/export_supplementary_table1.py`; [table export documentation](analysis/tables/README.md) |
 
@@ -120,7 +120,7 @@ the ten current Q-reference-anchored model fits and numerical checks.
 **Historical fits:** `results/historical/` contains Sweden/Denmark fitted
 trajectories, covariance matrices and lifespan bands. `results/historical/fit_records/` retains
 the actual point fits and 100 Swedish recovery datasets. Figures 4d, 5 and
-Extended Data 3 use per-year dispersion-adjusted intervals;
+Extended Data 4 use per-year dispersion-adjusted intervals;
 Poisson recovery diagnostics are provided separately from the interval calculation.
 [Historical methods](docs/figure_methods/historical_fits.md).
 
@@ -141,7 +141,7 @@ automatically launched when saved results exist or an input is missing.
 - [Figure 2 FP calculations](docs/figure_methods/figure2_fokker_planck.md)
 - [Fedichev-Gruber figures and optional calculations](docs/figure_methods/fedichev_gruber.md)
 - [Supplementary 2 FP checks](analysis/model_fits/supplementary/README.md)
-- [Supplementary 5 joint first passage](docs/figure_methods/healthspan_fp.md)
+- [Supplementary 4 joint first passage](docs/figure_methods/healthspan_fp.md)
 - [Publication table exports](analysis/tables/README.md)
 
 Additional optional model-fit outputs are written under `results/additional/`
@@ -158,7 +158,7 @@ and uncertainty types are analysis-specific.
 `python3 scripts/verify_repo.py` checks current saved-record integrity without
 simulation: NHANES group/reference bootstrap pairing, model counts and AIC,
 HGPS records and AIC, historical dispersion and the reference/profile grid,
-Supplementary 2 and 5 numerical archives, and the complete figure inventory.
+Supplementary 2 and 4 numerical archives, and the complete figure inventory.
 Numerical checks are documented in the figure methods.
 Original code is available under the [MIT License](LICENSE). Third-party code
 and datasets retain their respective licenses and data-use conditions.
