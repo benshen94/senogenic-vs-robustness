@@ -104,8 +104,8 @@ def _draw_empirical(ax: plt.Axes) -> None:
     ax.set(xlim=(48, intersection+5), ylim=(-2.5, max(0, fits[0][0]*intersection+fits[0][1]+.28)),
            xlabel='Age [years]', ylabel=r'$\log_{10}$ mortality rate [year$^{-1}$]')
     ax.set_xticks([50, 70, 90, 110])
-    ax.legend(loc='upper left', fontsize=17, frameon=False)
-    ax.set_title('Mortality converges for siblings of centenarians\nand short-lived persons (Gavrilova & Gavrilov)', pad=18)
+    ax.legend(loc='upper left', fontsize=26, frameon=False)
+    ax.set_title('Mortality converges for siblings of\ncentenarians and short-lived persons\n(Gavrilova & Gavrilov)', pad=18)
     target = (intersection, fits[0][0]*intersection + fits[0][1])
     ax.annotate('convergence', xy=target, xytext=(102, -.8),
                 fontsize=18, color='#333333', ha='center',
@@ -141,14 +141,16 @@ def _draw_survival(a, tables):
         _band(a, group, group.age, color, floor=2e-5)
         a.plot(group.age, y, color=color, lw=3, label=label)
     entry = int(tables['survival'].age.min())
-    a.set(yscale='log', xlim=(entry, 125), ylim=(2e-5, 1.1), xlabel='Age [years]',
-          ylabel=f'Conditional survival from age {entry}',
+    a.set(yscale='log', xlim=(entry, 135), xticks=[90, 100, 110, 120, 130],
+          ylim=(2e-5, 1.1), xlabel='Age [years]',
+          ylabel=f'Conditional survival\nfrom age {entry}',
           title='Late-life survival is consistent with\nheterogeneity in robustness parameters')
     handles, labels = a.get_legend_handles_labels()
     order = sorted(range(len(labels)), key=lambda i: 0 if labels[i].startswith('Sweden') else 1)
     a.legend([handles[i] for i in order], [labels[i] for i in order],
              loc='upper right', frameon=True, facecolor='white',
-             edgecolor='none', framealpha=.94, fontsize=15)
+             edgecolor='none', framealpha=.94, fontsize=26,
+             labelspacing=.25, borderpad=.3, handlelength=1.7, handletextpad=.5)
 
 
 def _draw_tail(ax, tables, name):
@@ -196,7 +198,7 @@ def _draw_siblings(d, axes, tables):
         if i >= 2:
             ax.set_xlabel('Age [years]')
         if i % 2 == 0:
-            ax.set_ylabel(r'$\log_{10}$ mortality rate [year$^{-1}$]')
+            ax.set_ylabel(r'$\log_{10}$ mortality' + '\n' + r'[year$^{-1}$]')
     for ax in axes:
         ax.set_ylim(lo-.08, hi+.15)
     axes[0].text(1.06, 1.18, 'Robustness heterogeneity', transform=axes[0].transAxes,
@@ -236,7 +238,7 @@ def _draw_siblings(d, axes, tables):
 
 
 def _sibling_axes(fig, slot):
-    bottom = slot.subgridspec(1, 2, width_ratios=[1, 1.65], wspace=.12)
+    bottom = slot.subgridspec(1, 2, width_ratios=[1, 1.65], wspace=.25)
     d = fig.add_subplot(bottom[0, 0])
     right = bottom[0, 1].subgridspec(2, 2, hspace=.32, wspace=.12)
     axes = [fig.add_subplot(right[i//2, i%2]) for i in range(4)]
@@ -265,17 +267,17 @@ def render(data_dir: Path, output_dir: Path, pdf: bool = False, panels: bool = F
     tables = _read_inputs(Path(data_dir))
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    settings = {'font.family': 'DejaVu Sans', 'font.size': 20, 'axes.labelsize': 22,
-                'axes.titlesize': 23, 'xtick.labelsize': 18, 'ytick.labelsize': 18,
-                'legend.fontsize': 16, 'pdf.fonttype': 42, 'ps.fonttype': 42,
+    settings = {'font.family': 'DejaVu Sans', 'font.size': 20, 'axes.labelsize': 32,
+                'axes.titlesize': 26, 'xtick.labelsize': 24, 'ytick.labelsize': 24,
+                'legend.fontsize': 26, 'pdf.fonttype': 42, 'ps.fonttype': 42,
                 'svg.fonttype': 'none'}
     drawers = [lambda ax: _draw_tail(ax, tables, 'tails_cv'),
                lambda ax: _draw_survival(ax, tables)]
     with mpl.rc_context(settings):
         fig = plt.figure(figsize=(24, 21))
         try:
-            outer = fig.add_gridspec(2, 1, height_ratios=[1, 1.45], hspace=.34,
-                                     left=.06, right=.985, bottom=.075, top=.935)
+            outer = fig.add_gridspec(2, 1, height_ratios=[1, 1.45], hspace=.40,
+                                     left=.095, right=.985, bottom=.075, top=.935)
             top = outer[0].subgridspec(1, 2, wspace=.20)
             for i, (letter, draw) in enumerate(zip('ab', drawers)):
                 ax = fig.add_subplot(top[0, i])
