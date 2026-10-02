@@ -123,48 +123,48 @@ def check_supplementary1():
     folder = RESULTS / 'supplementary1_fp'
     checks = read(folder / 'si_checks.json')
     require(checks['baseline'] == read(RESULTS / 'historical/joint_covariance.json')['baseline'],
-            'Supplementary 1 baseline differs from historical reference')
+            'Supplementary 2 baseline differs from historical reference')
     curves = pd.read_csv(folder / 'si_hazards.csv')
     scenarios = {'homogeneous', 'Xc', 'eta', 'beta'}
     grids = {'production', 'quadrature', 'refined'}
     require(set(zip(curves.grid, curves.scenario))
             == {(grid, scenario) for grid in grids for scenario in scenarios},
-            'Supplementary 1 grid/scenario inventory')
+            'Supplementary 2 grid/scenario inventory')
     require(not curves.duplicated(['grid', 'scenario', 'age']).any(),
-            'Supplementary 1 duplicate ages')
+            'Supplementary 2 duplicate ages')
     for key, group in curves.groupby(['grid', 'scenario']):
         require(np.array_equal(group.age, np.arange(20, 255) + .5),
-                f'Supplementary 1 age grid: {key}')
+                f'Supplementary 2 age grid: {key}')
         require(np.isfinite(group.mortality).all() and (group.mortality > 0).all(),
-                f'Supplementary 1 invalid mortality: {key}')
+                f'Supplementary 2 invalid mortality: {key}')
     plotted = curves[curves.age <= 120].pivot(
         index=['scenario', 'age'], columns='grid', values='mortality')
     discrepancy = (plotted.production / plotted.refined - 1).abs().max()
-    require(discrepancy < .012, 'Supplementary 1 archived grid discrepancy exceeds 1.2%')
+    require(discrepancy < .012, 'Supplementary 2 archived grid discrepancy exceeds 1.2%')
     means = pd.read_csv(folder / 'si_death_bin_means.csv')
-    require(set(means.parameter) == {'eta', 'beta'}, 'Supplementary 1 death-bin parameters')
+    require(set(means.parameter) == {'eta', 'beta'}, 'Supplementary 2 death-bin parameters')
     require(not means.duplicated(['parameter', 'lifespan_midpoint']).any(),
-            'Supplementary 1 duplicate death bins')
+            'Supplementary 2 duplicate death bins')
     values = means[['mean_parameter', 'death_probability']].to_numpy()
     require(np.isfinite(values).all() and (values > 0).all()
             and (means.death_probability >= 25e-6).all()
             and (means.death_probability <= 1).all(),
-            'Supplementary 1 invalid conditional means or bin masses')
-    print(f'ok Supplementary 1: 12 saved curves; maximum grid difference {100*discrepancy:.3f}%')
+            'Supplementary 2 invalid conditional means or bin masses')
+    print(f'ok Supplementary 2: 12 saved curves; maximum grid difference {100*discrepancy:.3f}%')
 
 
 def check_supplementary4():
     folder = RESULTS / 'supplementary4_fp'
     manifest = read(folder / 'manifest.json')
     require(manifest['baseline'] == read(RESULTS / 'historical/joint_covariance.json')['baseline'],
-            'Supplementary 4 baseline differs from historical reference')
+            'Supplementary 5 baseline differs from historical reference')
     require((manifest['cells'], manifest['nodes']) == (480, 96)
-            and np.isclose(manifest['dt'], 1 / 60), 'Supplementary 4 adopted grid')
+            and np.isclose(manifest['dt'], 1 / 60), 'Supplementary 5 adopted grid')
     states = pd.read_csv(folder / 'states.csv')
     fractions = pd.read_csv(folder / 'sick_fraction.csv')
     summary = pd.read_csv(folder / 'summary.csv').set_index('scenario')
     expected = {'baseline': .1035, 'xc_only': .1635, 'proportional': .0725}
-    require(set(summary.index) == set(expected), 'Supplementary 4 scenario inventory')
+    require(set(summary.index) == set(expected), 'Supplementary 5 scenario inventory')
     for scenario, median in expected.items():
         state = states.loc[states.scenario == scenario]
         values = state[['healthy', 'sick', 'dead']].to_numpy()
@@ -183,19 +183,19 @@ def check_supplementary4():
     for row in report['comparison']:
         require(abs(row['median_difference_percentage_points']) <= .050001
                 and max(row['max_absolute_state_difference'].values()) <= .001725,
-                'Supplementary 4 numerical refinement differs')
+                'Supplementary 5 numerical refinement differs')
     for label, directory in [('reference', folder / 'validation/production'), ('candidate', folder)]:
         for name, digest in report['source_hashes'][label].items():
             require(hashlib.sha256((directory / name).read_bytes()).hexdigest() == digest,
-                    f'Supplementary 4 comparison checksum: {label}/{name}')
-    print('ok Supplementary 4: joint distributions, state mass, medians and grid comparison')
+                    f'Supplementary 5 comparison checksum: {label}/{name}')
+    print('ok Supplementary 5: joint distributions, state mass, medians and grid comparison')
 
 
 def check_figure_index():
     index = pd.read_csv(RESULTS / 'index/outputs.csv', keep_default_na=False)
     expected = ({f'figure{i}' for i in range(1, 7)}
                 | {f'extended_data_figure{i}' for i in range(1, 5)}
-                | {f'supplementary_figure{i}' for i in range(1, 5)}
+                | {f'supplementary_figure{i}' for i in range(1, 6)}
                 | {'extended_data_table1', 'table_m1', 'supplementary_table1'})
     require(len(index) == len(expected) and set(index.task) == expected,
             'Current manuscript output inventory differs')
@@ -215,7 +215,7 @@ def check_figure_index():
         expected_pngs = {str(Path(path)) for path in index.loc[index.artifact_type == 'figure', 'path']}
         actual_pngs = {str(path.relative_to(ROOT)) for path in (ROOT / 'Figures').rglob('*.png')}
         require(actual_pngs == expected_pngs, 'Unindexed or missing manuscript PNG files')
-    print('ok manuscript index: 14 figures and three tables; pending:', ', '.join(pending))
+    print('ok manuscript index: 15 figures and three tables; pending:', ', '.join(pending))
 
 
 def main():

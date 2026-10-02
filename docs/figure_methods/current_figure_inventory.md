@@ -1,6 +1,6 @@
 # Manuscript Figure Inventory
 
-The paper includes six main figures, four Extended Data figures, four
+The paper includes six main figures, four Extended Data figures, five
 supplementary figures and Extended Data Table 1. Paths are relative to the
 repository root.
 
@@ -41,15 +41,16 @@ factors and AIC/bootstrap support.
 
 | Figure | Status and sources | Entry point |
 | --- | --- | --- |
-| 1 | Empirical mortality slopes, local survivor-conditioned heterogeneity tolerance curves, parameter means by death-lifespan bins and heterogeneous mortality. Saved production, quadrature and refined grids in `results/supplementary1_fp`. | Optional checks: `analysis/model_fits/supplementary/check_si.py --recompute`; renderer: `analysis/figures/supplementary/render_gompertz_constraints.py`. |
-| 2 | Current cleaned-cohort delayed-entry KM curves; `results/nhanes/survival_curves.csv`. Early unsupported ages remain missing. | `analysis/figures/supplementary/render_nhanes_likelihood.py`; output `Figures/Supplementary/SuppFig2.png`. |
-| 3 | Saved FG survival/mortality; `results/tables/supp_figure3_fedichev_minimal_model_source.csv` and its recorded cache. | `analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py`; missing cache does not silently trigger simulation. |
-| 4 | Tagged joint onset/death FP calculation; `results/supplementary4_fp/` includes the adopted refined grid and coarser-grid checks. | Workers: `analysis/model_fits/supplementary/healthspan.py`; renderer: `analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py`. |
+| 1 | Homogeneous mean-parameter shifts; `results/tables/fig2_fokker_planck/tails_factor.csv`. | `analysis/figures/supplementary/render_parameter_shifts.py`; output `Figures/Supplementary/SuppFig1.png`. |
+| 2 | Empirical mortality slopes, local survivor-conditioned heterogeneity tolerance curves, parameter means by death-lifespan bins and heterogeneous mortality. Saved production, quadrature and refined grids in `results/supplementary1_fp`. | Optional checks: `analysis/model_fits/supplementary/check_si.py --recompute`; renderer: `analysis/figures/supplementary/render_gompertz_constraints.py`. |
+| 3 | Current cleaned-cohort delayed-entry KM curves; `results/nhanes/survival_curves.csv`. Early unsupported ages remain missing. | `analysis/figures/supplementary/render_nhanes_likelihood.py`; output `Figures/Supplementary/SuppFig3.png`. |
+| 4 | Saved FG survival/mortality; `results/tables/supp_figure3_fedichev_minimal_model_source.csv` and its recorded cache. | `analysis/figures/supplementary/render_fedichev_minimal_model.py`; missing cache does not silently trigger simulation. |
+| 5 | Tagged joint onset/death FP calculation; `results/supplementary4_fp/` includes the adopted refined grid and coarser-grid checks. | Workers: `analysis/model_fits/supplementary/healthspan.py`; renderer: `analysis/figures/supplementary/render_healthspan_morbidity.py`. |
 
 ## Verification
 
 `python3 scripts/reproduce_figures.py --set current` runs current saved-result
-renderers, including the complete FP Figure 2 and all four supplementary figures.
+renderers, including the complete FP Figure 2 and all five supplementary figures.
 The manual Figure 1 composite remains separate from its numerical preview.
 
 `python3 scripts/verify_repo.py` checks saved archive consistency, paired

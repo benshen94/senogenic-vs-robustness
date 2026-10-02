@@ -52,10 +52,11 @@ to 1.15. Extreme lifespan is the age at which unconditional survival reaches
 
 Panel b uses 20% CV for Xc and epsilon and 5% CV for eta and beta.
 The black curve is Sweden 2019 period survival, conditioned at age 90.
-Panels a and c retain their heterogeneity sweep and homogeneous mean-shift
-designs, respectively. Panel e retains CVs of 20%, 30%, 15% and 10% for
+Panel a shows the heterogeneity sweep. Homogeneous mean shifts are shown
+separately in [Supplementary Figure 1](parameter_shifts.md).
+Panel d uses CVs of 20%, 30%, 15% and 10% for
 Xc, epsilon, eta and beta. Filled/open markers denote siblings of short-/long-lived
-probands, matching the empirical marker convention in panel d. The full-cohort
+probands, matching the empirical marker convention in panel c. The full-cohort
 curve is retained in the source table but is not displayed.
 
 Sibling pairs have Gaussian parameter correlation 0.5 before positivity

@@ -1,4 +1,4 @@
-"""Supplementary Figure 1: observed slopes, local tolerance estimates and FP checks."""
+"""Supplementary Figure 2: observed slopes, local tolerance estimates and FP checks."""
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -72,7 +72,7 @@ def main():
         ax.text(.36,.57,label,transform=ax.transAxes,fontsize=16,color='.15')
     for label,ax in zip('abcdef',axs.flat):
         ax.text(-.16,1.06,label,transform=ax.transAxes,fontsize=24,fontweight='bold')
-    path=ROOT/'Figures/Supplementary/SuppFig1.png'
+    path=ROOT/'Figures/Supplementary/SuppFig2.png'
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path,dpi=300)
     plt.close(fig)

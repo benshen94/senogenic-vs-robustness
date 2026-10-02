@@ -1,4 +1,4 @@
-# Supplementary Figure 4: joint first passage
+# Supplementary Figure 5: joint first passage
 
 The joint FP calculation, saved-table renderer, mathematical tests and
 three-grid numerical check are included. The adopted 480-cell results are in
@@ -108,7 +108,7 @@ locally, not on WEXAC; see the saved-results README for provenance.
 ## Render saved joint results
 
 ```bash
-python3 analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py
+python3 analysis/figures/supplementary/render_healthspan_morbidity.py
 ```
 
 The renderer preserves the three-row schematic/state/distribution layout and colors.

@@ -27,7 +27,7 @@ for figure numbering.
 
 Most renderers write publication PNGs under `Figures/`. Fig. 1 exports its
 quantitative panel under `tmp/figure1/`, separately from the schematic composite.
-Figure 2 and all four supplementary figures are rendered as complete composites.
+Figure 2 and all five supplementary figures are rendered as complete composites.
 
 The current Supplementary Fig. 2 renderer is
 `analysis/figures/supplementary/render_nhanes_likelihood.py`, using saved

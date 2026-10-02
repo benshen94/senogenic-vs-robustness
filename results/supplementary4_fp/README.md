@@ -1,4 +1,4 @@
-# Supplementary Figure 4: saved joint first passage
+# Supplementary Figure 5: saved joint first passage
 
 The finite-volume forward calculation uses
 480 cells, 1/60-year timesteps and 96 positive-Gaussian threshold quadrature
@@ -43,7 +43,7 @@ settings. Covariance is not used in this forward calculation.
 Reproduce the PNG with:
 
 ```bash
-python3 analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py
+python3 analysis/figures/supplementary/render_healthspan_morbidity.py
 ```
 
 See [methods and optional node commands](../../docs/figure_methods/healthspan_fp.md).

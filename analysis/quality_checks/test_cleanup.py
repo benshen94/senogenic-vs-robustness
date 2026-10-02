@@ -29,7 +29,7 @@ class CleanupTests(unittest.TestCase):
             'scripts.prepare_nhanes_survival',
             'scripts.prepare_historical_hmd',
             'analysis.figures.figure2.run_fig2_fp',
-            'analysis.figures.supplementary.make_supp_figure4_healthspan_morbidity',
+            'analysis.figures.supplementary.render_healthspan_morbidity',
         ):
             with self.subTest(module=name):
                 importlib.import_module(name)

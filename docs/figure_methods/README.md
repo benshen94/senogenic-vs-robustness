@@ -2,7 +2,7 @@
 
 Start with the [current manuscript inventory](current_figure_inventory.md).
 The paper includes six main figures, four Extended Data figures,
-four supplementary figures and Extended Data Table 1.
+five supplementary figures and Extended Data Table 1.
 
 ## Current Methods
 
@@ -14,13 +14,14 @@ four supplementary figures and Extended Data Table 1.
 | Figures 4–5 and Extended Data 3 | [Sweden/Denmark direct fits, covariance and forecasts](historical_fits.md) |
 | Figure 6: HGPS | [Records, likelihood and model comparisons](figure6_progeria.md) |
 | Extended Data 1 | [Senogenic timescale heterogeneity profile](senogenic_heterogeneity_fp.md) |
-| Extended Data 2, Table 1 and Supplementary 2 | [Paired AIC stability and cleaned-cohort survival](nhanes_aic_and_survival.md) |
-| Extended Data 4 and Supplementary 3 | [Fedichev-Gruber calculations](fedichev_gruber.md) |
-| Supplementary 1 | [FP Gompertz-constraint generator and conditioning](../../analysis/model_fits/supplementary/README.md) |
-| Supplementary 4 | [Joint onset/death FP method and validation status](healthspan_fp.md) |
+| Extended Data 2, Table 1 and Supplementary 3 | [Paired AIC stability and cleaned-cohort survival](nhanes_aic_and_survival.md) |
+| Extended Data 4 and Supplementary 4 | [Fedichev-Gruber calculations](fedichev_gruber.md) |
+| Supplementary 2 | [FP Gompertz-constraint generator and conditioning](../../analysis/model_fits/supplementary/README.md) |
+| Supplementary 1 | [Mean-parameter shifts and upper-tail survival](parameter_shifts.md) |
+| Supplementary 5 | [Joint onset/death FP method and validation status](healthspan_fp.md) |
 
-Supplementary 1 and 4 use checked numerical results included in the repository.
-The normal saved-result runner covers all four supplementary figures without
+Supplementary 2 and 5 use checked numerical results included in the repository.
+The normal saved-result runner covers all five supplementary figures without
 starting new calculations.
 
 ## Interpretation

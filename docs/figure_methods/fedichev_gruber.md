@@ -1,6 +1,6 @@
 # Fedichev-Gruber figures
 
-Extended Data Fig. 4 and Supplementary Fig. 3 use the Fedichev-Gruber model,
+Extended Data Fig. 4 and Supplementary Fig. 4 use the Fedichev-Gruber model,
 which has its own drift, moving instability threshold, noise and death rule.
 All three panels/calculations use 300,000 individuals per simulated curve,
 including the reference used to normalize the response plane.
@@ -9,7 +9,7 @@ including the reference used to normalize the response plane.
 
 ```bash
 python3 analysis/figures/extended_data/render_fedichev_constraints.py
-python3 analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py
+python3 analysis/figures/supplementary/render_fedichev_minimal_model.py
 ```
 
 Both read CSVs and save PNGs only. Neither starts a simulation when a cache is
@@ -50,7 +50,7 @@ python3 analysis/model_fits/fedichev_gruber/recompute.py --recompute --panel sha
 The shape calculation records its random seed. Use the same seed and environment
 to reproduce the saved realization.
 
-## Supplementary Fig. 3
+## Supplementary Fig. 4
 
 The saved table is `results/tables/supp_figure3_fedichev_minimal_model_source.csv`.
 It uses 300,000 individuals, dt=0.05, horizon125, seed20260604 and the same
@@ -66,7 +66,7 @@ Only an explicit `--force-sim` reruns this calculation. This optional simulation
 is not invoked by the saved-output runner.
 
 ```bash
-python3 analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py --force-sim --n-sim 300000
+python3 analysis/figures/supplementary/render_fedichev_minimal_model.py --force-sim --n-sim 300000
 ```
 
 The source table records the population size and seed. Rendering rejects a

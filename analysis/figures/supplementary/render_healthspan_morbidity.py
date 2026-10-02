@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Make Supplementary Fig. 4: healthspan and morbidity under threshold shifts."""
+"""Make Supplementary Fig. 5: healthspan and morbidity under threshold shifts."""
 
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ from senogenic_vs_robustness.paths import FIGURES_DIR, RESULTS_DIR
 
 
 OUTPUT_DIR = FIGURES_DIR / "Supplementary"
-PNG_PATH = OUTPUT_DIR / "SuppFig4.png"
+PNG_PATH = OUTPUT_DIR / "SuppFig5.png"
 SOURCE_DIR = RESULTS_DIR / "supplementary4_fp"
 
 SCENARIOS = ("baseline", "xc_only", "proportional")

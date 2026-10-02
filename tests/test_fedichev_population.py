@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 from analysis.model_fits.fedichev_gruber import recompute
-from analysis.figures.supplementary import make_supp_figure3_fedichev_minimal_model as supp
+from analysis.figures.supplementary import render_fedichev_minimal_model as supp
 
 
 class PopulationTests(unittest.TestCase):

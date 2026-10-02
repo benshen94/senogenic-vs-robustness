@@ -16,7 +16,8 @@ PYTHON = sys.executable
 
 # Figure entry points using saved analysis results.
 CURRENT_COMMANDS = [
-    ["analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py"],
+    ["analysis/figures/supplementary/render_parameter_shifts.py"],
+    ["analysis/figures/supplementary/render_healthspan_morbidity.py"],
     ["analysis/figures/supplementary/render_gompertz_constraints.py"],
     ["analysis/figures/figure1_schematic/render_fp_panel.py"],
     ["analysis/figures/figure2/plot_fig2_fp.py", "--data-dir", "results/tables/fig2_fokker_planck", "--output-dir", "Figures/Figure2"],
@@ -28,7 +29,7 @@ CURRENT_COMMANDS = [
     ["analysis/figures/extended_data/render_nhanes_aic.py"],
     ["analysis/figures/supplementary/render_nhanes_likelihood.py"],
     ["analysis/figures/extended_data/render_fedichev_constraints.py"],
-    ["analysis/figures/supplementary/make_supp_figure3_fedichev_minimal_model.py"],
+    ["analysis/figures/supplementary/render_fedichev_minimal_model.py"],
 ]
 
 def parse_args() -> argparse.Namespace:

@@ -1,4 +1,4 @@
-# Supplementary Figure 1: tolerance estimates and numerical comparisons
+# Supplementary Figure 2: tolerance estimates and numerical comparisons
 
 These saved calculations provide controlled comparisons at the fitted
 Sweden baseline means, not new fits or bootstrap estimates.

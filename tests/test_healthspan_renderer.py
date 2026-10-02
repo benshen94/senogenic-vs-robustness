@@ -12,7 +12,7 @@ from PIL import Image
 os.environ.setdefault('MPLBACKEND', 'Agg')
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('healthspan_renderer', ROOT /
-    'analysis/figures/supplementary/make_supp_figure4_healthspan_morbidity.py')
+    'analysis/figures/supplementary/render_healthspan_morbidity.py')
 renderer = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(renderer)
 

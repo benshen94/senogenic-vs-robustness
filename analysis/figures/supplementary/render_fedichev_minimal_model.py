@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Make Supplementary Fig. 3: Fedichev-Gruber minimal aging model."""
+"""Make Supplementary Fig. 4: Fedichev-Gruber minimal aging model."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ from senogenic_vs_robustness.paths import FIGURES_DIR, TABLES_DIR
 
 
 OUTPUT_DIR = FIGURES_DIR / "Supplementary"
-PNG_PATH = OUTPUT_DIR / "SuppFig3.png"
+PNG_PATH = OUTPUT_DIR / "SuppFig4.png"
 SOURCE_PATH = TABLES_DIR / "supp_figure3_fedichev_minimal_model_source.csv"
 
 RANDOM_SEED = 20260604

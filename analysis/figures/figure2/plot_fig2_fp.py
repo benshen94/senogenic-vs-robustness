@@ -12,7 +12,7 @@ conditional survival, tail age, or mortality units, respectively. No old fit
 uncertainty is read or recomputed. Missing bounds leave gaps in shading.
 
 Empirical log_hazard is base 10. All four original digitized series are
-preserved; panel d shows brothers, matching the original panel. Its shading
+preserved; panel c shows brothers, matching the original panel. Its shading
 is the 95% OLS mean-fit CI (ages 50--100), extrapolated to the fitted
 intersection. It does not include digitization or sampling uncertainty.
 """
@@ -172,7 +172,7 @@ def _draw_tail(ax, tables, name):
         ax.axvline(1, color='#777777', lw=1.3, ls=':', zorder=0)
 
 
-def _draw_de(d, axes, tables):
+def _draw_siblings(d, axes, tables):
     sib = tables['siblings']
     columns = ['mortality'] + [c for c in ('ci_low', 'ci_high') if c in sib]
     values = sib.loc[sib.age.between(48, 110), columns].to_numpy(float).ravel()
@@ -235,15 +235,15 @@ def _draw_de(d, axes, tables):
                 fontsize=16, color='#222222', ha='left', va='center', zorder=7)
 
 
-def _de_axes(fig, slot):
+def _sibling_axes(fig, slot):
     bottom = slot.subgridspec(1, 2, width_ratios=[1, 1.65], wspace=.12)
     d = fig.add_subplot(bottom[0, 0])
     right = bottom[0, 1].subgridspec(2, 2, hspace=.32, wspace=.12)
     axes = [fig.add_subplot(right[i//2, i%2]) for i in range(4)]
     for ax in [d, *axes]:
         _style(ax)
-    _letter(d, 'd')
-    _letter(axes[0], 'e')
+    _letter(d, 'c')
+    _letter(axes[0], 'd')
     return d, axes
 
 
@@ -256,8 +256,8 @@ def _save(fig, output_dir, stem, pdf):
 def render(data_dir: Path, output_dir: Path, pdf: bool = False, panels: bool = False) -> Path:
     """Save the composite PNG, with separate panels only on explicit request.
 
-    Composite a = CV/tail, b = survival, c = factor. Legacy filenames retain
-    fig2a_new = survival (label b), fig2b_new = CV/tail (label a).
+    Composite a = CV/tail, b = survival, c = empirical siblings,
+    d = modeled siblings. Mean-parameter shifts are Supplementary Figure 1.
     Optional PDF exports retain editable fonts. Returns the composite PNG path.
     ci_low/ci_high are optional producer-supplied bounds, never inferred here.
     Parameter identities are eta, beta, Xc, epsilon; CV is a fraction.
@@ -270,27 +270,26 @@ def render(data_dir: Path, output_dir: Path, pdf: bool = False, panels: bool = F
                 'legend.fontsize': 16, 'pdf.fonttype': 42, 'ps.fonttype': 42,
                 'svg.fonttype': 'none'}
     drawers = [lambda ax: _draw_tail(ax, tables, 'tails_cv'),
-               lambda ax: _draw_survival(ax, tables),
-               lambda ax: _draw_tail(ax, tables, 'tails_factor')]
+               lambda ax: _draw_survival(ax, tables)]
     with mpl.rc_context(settings):
-        fig = plt.figure(figsize=(24, 18))
+        fig = plt.figure(figsize=(24, 21))
         try:
-            outer = fig.add_gridspec(2, 1, height_ratios=[1, 1.8], hspace=.38,
+            outer = fig.add_gridspec(2, 1, height_ratios=[1, 1.45], hspace=.34,
                                      left=.06, right=.985, bottom=.075, top=.935)
-            top = outer[0].subgridspec(1, 3, wspace=.27)
-            for i, (letter, draw) in enumerate(zip('abc', drawers)):
+            top = outer[0].subgridspec(1, 2, wspace=.20)
+            for i, (letter, draw) in enumerate(zip('ab', drawers)):
                 ax = fig.add_subplot(top[0, i])
                 _style(ax)
                 _letter(ax, letter)
                 draw(ax)
-            d, axes = _de_axes(fig, outer[1])
-            _draw_de(d, axes, tables)
+            d, axes = _sibling_axes(fig, outer[1])
+            _draw_siblings(d, axes, tables)
             _save(fig, output_dir, 'Fig2', pdf)
         finally:
             plt.close(fig)
         if not panels:
             return output_dir / 'Fig2.png'
-        for letter, stem, draw in zip('abc', ('fig2b_new', 'fig2a_new', 'fig2c_new'), drawers):
+        for letter, stem, draw in zip('ab', ('fig2a', 'fig2b'), drawers):
             fig, ax = plt.subplots(figsize=(8.5, 6.5), layout='constrained')
             try:
                 _style(ax)
@@ -301,12 +300,33 @@ def render(data_dir: Path, output_dir: Path, pdf: bool = False, panels: bool = F
                 plt.close(fig)
         fig = plt.figure(figsize=(24, 12), layout='constrained')
         try:
-            d, axes = _de_axes(fig, fig.add_gridspec(1, 1)[0])
-            _draw_de(d, axes, tables)
-            _save(fig, output_dir, 'fig2de_new', pdf)
+            d, axes = _sibling_axes(fig, fig.add_gridspec(1, 1)[0])
+            _draw_siblings(d, axes, tables)
+            _save(fig, output_dir, 'fig2cd', pdf)
         finally:
             plt.close(fig)
     return output_dir / 'Fig2.png'
+
+
+def render_mean_shifts(data_dir: Path, output_dir: Path) -> Path:
+    """Render Supplementary Figure 1 from the unchanged mean-shift table."""
+    tables = _read_inputs(Path(data_dir))
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    settings = {'font.family': 'DejaVu Sans', 'font.size': 20,
+                'axes.labelsize': 22, 'axes.titlesize': 23,
+                'xtick.labelsize': 18, 'ytick.labelsize': 18,
+                'legend.fontsize': 17}
+    with mpl.rc_context(settings):
+        fig, ax = plt.subplots(figsize=(10, 7.5), layout='constrained')
+        try:
+            _style(ax)
+            _draw_tail(ax, tables, 'tails_factor')
+            path = output_dir / 'SuppFig1.png'
+            fig.savefig(path, dpi=220)
+        finally:
+            plt.close(fig)
+    return path
 
 
 def main() -> None:
