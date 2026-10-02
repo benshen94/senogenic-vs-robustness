@@ -49,6 +49,12 @@ Overlapping groups must not be summed as independent populations.
 
 The renderer writes `Figures/ExtendedDataFigure2/ExtDataFig2.png`.
 
+### Manuscript caption
+
+**Extended Data Fig. 2 | Left-truncated, right-censored Kaplan–Meier survival curves for the cleaned NHANES likelihood cohort (55,800 participants; 7,260 deaths) and the same 23 overlapping exposure groups summarized in Supplementary Table 1.** Estimates use entry at the later of age 20 or enrollment and right censoring at the end of follow-up. Ages before a group's earliest observed entry are left blank; survival from age 20 is not identifiable for groups entering later. Curves are unweighted, unadjusted, and not corrected for extrinsic mortality.
+
+### Regenerating the survival estimates
+
 The source calculation can be regenerated with:
 
 ```bash

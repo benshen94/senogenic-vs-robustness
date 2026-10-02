@@ -1,4 +1,4 @@
-"""All 23 NHANES exposure-group KM curves on the exact likelihood cohort."""
+"""Extended Data Figure 2: NHANES exposure-group KM curves."""
 from __future__ import annotations
 
 import json
@@ -56,7 +56,7 @@ def main():
         legend.get_frame().set_alpha(0.86)
         legend.get_frame().set_edgecolor('none')
     fig.supxlabel('Age (years)', fontsize=20)
-    fig.supylabel('Survival probability', fontsize=20)
+    fig.supylabel('Survival from age 20', fontsize=20)
     fig.tight_layout(rect=(.025,.025,1,1))
     OUT.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT, dpi=250, facecolor='white')
