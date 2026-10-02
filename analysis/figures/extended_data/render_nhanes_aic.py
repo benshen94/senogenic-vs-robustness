@@ -29,7 +29,9 @@ LABELS = {
 'education_level__0':'Education: no high school',
 'education_level__1':'Education: some college',
 }
-HEADERS = ['Exposure group', 'Participants\n(deaths)', 'Xc\nfactor', 'ε\nfactor', 'Best\nΔAIC', 'Within\n2 AIC?', 'Bootstrap\ncompetitive (%)']
+HEADERS = ['Exposure group', 'Participants\n(deaths)', 'Xc\nfactor', 'ε\nfactor', 'Best\nΔAIC',
+           'Best senogenic\nΔAIC', 'Robustness – senogenic\nΔAIC',
+           'Within\n2 AIC?', 'Bootstrap\ncompetitive (%)']
 
 
 def main(table_only=False):
@@ -40,6 +42,8 @@ def main(table_only=False):
     assert set(raw.replicate) == set(range(1,51))
     assert (raw.high_competitive_either == raw.high_competitive_either_vs_requested).all()
     counts = raw.groupby('replicate').high_competitive_either.sum().astype(int)
+    singles = pd.read_csv(HERE / 'single_senogenic/comparisons_primary320.csv').set_index('group')
+    assert singles.index.is_unique and set(singles.index) == set(order)
     rows=[]
     for group in order:
         result=json.loads((HERE/'results_high'/f'{group}.json').read_text())
@@ -48,6 +52,8 @@ def main(table_only=False):
         frame=raw[raw.group.eq(group)]
         gap=float(chosen['AIC']-pair_aic)
         fold=chosen['params'][key]/result['baseline'][key]
+        single = singles.loc[group]
+        assert abs(gap - single.robustness_vs_pair) < 1e-8
         rows.append(dict(group=group,label=LABELS[group],n=result['n'],deaths=result['deaths'],
             preferred_single=key,fold=fold,mex=chosen['params']['mex'],delta_aic=gap,
             competitive=gap<=2,competitive_repeats=int(frame.high_competitive_either.sum()),
@@ -55,16 +61,23 @@ def main(table_only=False):
             Xc_fold=models['Xc']['params']['Xc']/result['baseline']['Xc'],
             epsilon_fold=models['epsilon']['params']['epsilon']/result['baseline']['epsilon'],
             delta_aic_Xc=models['Xc']['AIC']-pair_aic,
-            delta_aic_epsilon=models['epsilon']['AIC']-pair_aic))
+            delta_aic_epsilon=models['epsilon']['AIC']-pair_aic,
+            delta_aic_best_senogenic=float(single.senogenic_vs_pair),
+            delta_aic_robustness_minus_senogenic=-float(single.delta_senogenic_vs_robustness)))
     summary=pd.DataFrame(rows)
     assert summary.competitive.sum()==22
     assert abs(counts.mean()-18.84)<1e-12
+    assert (summary.delta_aic_best_senogenic <= 2).sum() == 10
+    assert (summary.delta_aic_robustness_minus_senogenic < 0).sum() == 17
+    assert (summary.delta_aic_robustness_minus_senogenic < -2).sum() == 16
     table_summary = summary.sort_values('Xc_fold', ascending=False).copy()
     table_summary['Xc_percent_change'] = 100 * (table_summary.Xc_fold - 1)
     table_summary.to_csv(HERE/'extended_data_table1.csv',index=False)
     display=[[r.label,f'{r.n:,} ({r.deaths:,})',
               f'{r.Xc_fold:.2f}×', f'{r.epsilon_fold:.2f}×',
-              f'{r.delta_aic:+.2f}', 'Yes' if r.competitive else 'No',
+              f'{r.delta_aic:+.2f}', f'{r.delta_aic_best_senogenic:+.2f}',
+              f'{r.delta_aic_robustness_minus_senogenic:+.2f}',
+              'Yes' if r.competitive else 'No',
               f'{r.bootstrap_percent:.0f}'] for r in table_summary.itertuples()]
     (HERE/'extended_data_table1.json').write_text(json.dumps(dict(headers=HEADERS,rows=display),indent=2))
     mpl.rcParams.update({'font.family':'DejaVu Sans','font.size':15,'axes.labelsize':15,
@@ -106,6 +119,12 @@ def main(table_only=False):
         all8_classifications_identical=True,
         table_order='Descending unrounded Xc factor',
         table_parameters='Separate Xc+mex and epsilon+mex factors relative to the full cohort',
+        single_senogenic_comparisons=dict(competitive_vs_pairs=10,
+            robustness_lower_AIC=17,robustness_advantage_over_2=16,
+            senogenic_advantage_over_2=0,bootstrapped=False),
+        new_column_definitions=dict(
+            delta_aic_best_senogenic='min(AIC_eta,AIC_beta) minus best paired AIC',
+            delta_aic_robustness_minus_senogenic='min(AIC_Xc,AIC_epsilon) minus min(AIC_eta,AIC_beta); negative favors robustness'),
         selection='Lower AIC of Xc+mex and epsilon+mex, separately selected in every bootstrap repeat',
         figure_note='Histogram sampling variation and groupwise repeat frequencies; no parameter confidence bars',
         table='extended_data_table1.csv')

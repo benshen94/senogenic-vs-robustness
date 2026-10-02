@@ -30,6 +30,15 @@ The observed dataset has 22/23 competitive groups; the bootstrap count averages
 groups by unrounded Xc factor. Its Xc and epsilon factors come from separate
 single-intrinsic-parameter fits; they are not a joint Xc+epsilon fit.
 
+Table 1 also includes two observed-data columns. Best senogenic ΔAIC compares
+the better eta+mex or beta+mex fit with the same five-pair reference; ten values
+are ≤2. Robustness – senogenic ΔAIC is the best robustness AIC minus the best
+senogenic AIC; negative values favor robustness. Seventeen values are negative,
+sixteen are below −2, and none exceeds +2. These columns have no new bootstrap
+uncertainty. The last column continues to describe robustness sufficiency in
+the original 50 resamples. The exact manuscript additions and expanded caption
+are saved in `docs/manuscript_updates/nhanes_single_senogenic.md`.
+
 The paired baseline/group bootstrap, optimization, numerical checks and optional
 cluster rerun instructions are in `analysis/model_fits/nhanes/README.md`.
 

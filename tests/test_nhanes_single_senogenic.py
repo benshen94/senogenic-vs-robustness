@@ -1,5 +1,7 @@
 """Protect the AIC reference and sign convention in the new point comparison."""
 import importlib.util
+import csv
+import json
 from pathlib import Path
 
 SOURCE = Path(__file__).resolve().parents[1] / "scripts/aggregate_nhanes_single_senogenic.py"
@@ -36,3 +38,24 @@ def test_pair_reference_is_distinct_from_best_of_all_models():
     assert summary["either_robustness_competitive_vs_pairs"] == 1
     assert summary["either_robustness_competitive_vs_all"] == 0
     assert summary["senogenic_better_by_more_than_2"] == 1
+
+
+def test_extended_table_signs_and_scores_match_raw_point_fits():
+    root = SOURCE.parents[1]
+    folder = root / "results/nhanes"
+    rows = list(csv.DictReader((folder / "extended_data_table1.csv").open()))
+    assert len(rows) == 23 and len({row["group"] for row in rows}) == 23
+    for row in rows:
+        group = row["group"]
+        old = json.loads((folder / f"results_high/{group}.json").read_text())["models"]
+        new = {m: json.loads((folder / f"single_senogenic/raw/{group}_{m}.json").read_text())["fit"]
+               for m in ("eta", "beta")}
+        senogenic = min(new[m]["AIC"] for m in new)
+        robustness = min(old[m]["AIC"] for m in ("Xc", "epsilon"))
+        pair = min(old[m]["AIC"] for m in SUMMARY.PAIRS)
+        assert abs(float(row["delta_aic_best_senogenic"]) - (senogenic - pair)) < 1e-8
+        assert abs(float(row["delta_aic_robustness_minus_senogenic"]) - (robustness - senogenic)) < 1e-8
+    assert sum(float(r["delta_aic_best_senogenic"]) <= 2 for r in rows) == 10
+    assert sum(float(r["delta_aic_robustness_minus_senogenic"]) < 0 for r in rows) == 17
+    assert sum(float(r["delta_aic_robustness_minus_senogenic"]) < -2 for r in rows) == 16
+    assert not any(float(r["delta_aic_robustness_minus_senogenic"]) > 2 for r in rows)

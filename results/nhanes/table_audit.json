@@ -10,6 +10,17 @@
   "all8_classifications_identical": true,
   "table_order": "Descending unrounded Xc factor",
   "table_parameters": "Separate Xc+mex and epsilon+mex factors relative to the full cohort",
+  "single_senogenic_comparisons": {
+    "competitive_vs_pairs": 10,
+    "robustness_lower_AIC": 17,
+    "robustness_advantage_over_2": 16,
+    "senogenic_advantage_over_2": 0,
+    "bootstrapped": false
+  },
+  "new_column_definitions": {
+    "delta_aic_best_senogenic": "min(AIC_eta,AIC_beta) minus best paired AIC",
+    "delta_aic_robustness_minus_senogenic": "min(AIC_Xc,AIC_epsilon) minus min(AIC_eta,AIC_beta); negative favors robustness"
+  },
   "selection": "Lower AIC of Xc+mex and epsilon+mex, separately selected in every bootstrap repeat",
   "figure_note": "Histogram sampling variation and groupwise repeat frequencies; no parameter confidence bars",
   "table": "extended_data_table1.csv"
