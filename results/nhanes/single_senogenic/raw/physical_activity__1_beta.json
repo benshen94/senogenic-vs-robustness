@@ -1,0 +1,111 @@
+{
+  "group": "physical_activity__1",
+  "label": "Some Activity",
+  "model": "beta",
+  "n": 23066,
+  "deaths": 1034,
+  "baseline": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "epsilon": 42.372450276429184,
+    "Xc": 18.45815654294416,
+    "CV": 0.2878703142772308,
+    "kappa": 0.5,
+    "mex": 0.0
+  },
+  "fit": {
+    "params": {
+      "eta": 0.59,
+      "beta": 60.30746414530227,
+      "epsilon": 42.372450276429184,
+      "Xc": 18.45815654294416,
+      "CV": 0.2878703142772308,
+      "kappa": 0.5,
+      "mex": 0.0002222282444415048
+    },
+    "nll": 5551.370960409096,
+    "k": 2,
+    "success": true,
+    "traces": [
+      {
+        "nll": 5551.370960409102,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 5,
+        "nfev": 30
+      },
+      {
+        "nll": 6230.700923315126,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 1,
+        "nfev": 6
+      },
+      {
+        "nll": 5551.370960409096,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 5,
+        "nfev": 51
+      }
+    ],
+    "bounds": [],
+    "seconds": 167.0249049300328,
+    "curve_calls": 87,
+    "unique_starts": 3,
+    "AIC": 11106.741920818193,
+    "tight_nll": 5551.194832635367,
+    "tight_mex": 0.00017537764661260845,
+    "tight_AIC": 11106.389665270734,
+    "grid640_nll": 5551.0055984272185,
+    "grid640_mex": 0.00017520246972696385,
+    "grid640_AIC": 11106.011196854437
+  },
+  "reference": {},
+  "optimized_grid": [
+    320,
+    0.025,
+    31
+  ],
+  "validation_grids": {
+    "tight": [
+      480,
+      0.016666666666666666,
+      41
+    ],
+    "grid640": [
+      640,
+      0.008333333333333333,
+      51
+    ]
+  },
+  "seconds": 188.122027117759,
+  "archived_point_sha256": "04e62747d6222d3ac1d05f1e033da83138f1a561cdf97f4a7afc6a15e6b65ba7",
+  "script_sha256": "69ce9aacbe628365c3290acdc29e3733506f07dc3b5c18e608e8affc1b9740e5",
+  "likelihood": "Individual delayed-entry death/censoring; direct FP boundary-flux deaths/person-time hazard; profiled mex",
+  "uncertainty": "Point fits only; no new bootstrap.",
+  "nearby_start_validation": {
+    "traces": [
+      {
+        "start_factor": 0.95,
+        "nll": 5551.370960409092,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 6,
+        "nfev": 33
+      },
+      {
+        "start_factor": 1.05,
+        "nll": 5551.370960409096,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 6,
+        "nfev": 24
+      }
+    ],
+    "improvement": 4.547473508864641e-12,
+    "seconds": 104.13067241106182,
+    "success": true,
+    "script_sha256": "1d6563aab955e635520e79d6b24b04555d6bf94b92fcf81821b16f2397730c87"
+  }
+}

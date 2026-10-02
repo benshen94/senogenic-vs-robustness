@@ -1,0 +1,168 @@
+{
+  "group": "alcohol__0",
+  "label": ">4 drinks/day",
+  "model": "eta",
+  "n": 4949,
+  "deaths": 425,
+  "baseline": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "epsilon": 42.372450276429184,
+    "Xc": 18.45815654294416,
+    "CV": 0.2878703142772308,
+    "kappa": 0.5,
+    "mex": 0.0
+  },
+  "fit": {
+    "params": {
+      "eta": 0.615858755554345,
+      "beta": 57.9,
+      "epsilon": 42.372450276429184,
+      "Xc": 18.45815654294416,
+      "CV": 0.2878703142772308,
+      "kappa": 0.5,
+      "mex": 0.0009443755836993809
+    },
+    "nll": 2195.9883197832337,
+    "k": 2,
+    "success": true,
+    "traces": [
+      {
+        "nll": 2195.9883197832337,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 4,
+        "nfev": 27
+      },
+      {
+        "nll": 2195.988319783235,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 5,
+        "nfev": 69
+      },
+      {
+        "nll": 2462.605385199058,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 1,
+        "nfev": 6
+      }
+    ],
+    "bounds": [],
+    "seconds": 199.6631139391102,
+    "curve_calls": 102,
+    "unique_starts": 3,
+    "AIC": 4395.976639566467,
+    "tight_nll": 2195.8444931030986,
+    "tight_mex": 0.0008618382056558941,
+    "tight_AIC": 4395.688986206197,
+    "grid640_nll": 2195.9783090792635,
+    "grid640_mex": 0.0009045935772496194,
+    "grid640_AIC": 4395.956618158527
+  },
+  "reference": {
+    "mex_only": {
+      "nll": 2205.6001968301175,
+      "mex": 0.0014878501387662448,
+      "grid640_nll": 2205.9107657108248,
+      "grid640_mex": 0.0014582038329227452,
+      "grid640_AIC": 4413.8215314216495
+    },
+    "Xc": {
+      "nll": 2193.091526911244,
+      "mex": 0.0,
+      "grid640_nll": 2192.8255156253567,
+      "grid640_mex": 0.0,
+      "grid640_AIC": 4389.6510312507135
+    },
+    "epsilon": {
+      "nll": 2193.083741486761,
+      "mex": 0.0,
+      "grid640_nll": 2192.861644590724,
+      "grid640_mex": 0.0,
+      "grid640_AIC": 4389.723289181448
+    },
+    "eta+beta": {
+      "nll": 2192.9198272829444,
+      "mex": 0.0,
+      "grid640_nll": 2192.6989443524744,
+      "grid640_mex": 0.0,
+      "grid640_AIC": 4391.397888704949
+    },
+    "Xc+eta": {
+      "nll": 2193.0281980762434,
+      "mex": 0.0,
+      "grid640_nll": 2192.7765274375297,
+      "grid640_mex": 0.0,
+      "grid640_AIC": 4391.553054875059
+    },
+    "Xc+beta": {
+      "nll": 2193.032137898488,
+      "mex": 0.0,
+      "grid640_nll": 2192.7786655985237,
+      "grid640_mex": 0.0,
+      "grid640_AIC": 4391.5573311970475
+    },
+    "epsilon+beta": {
+      "nll": 2192.9874328156043,
+      "mex": 0.0,
+      "grid640_nll": 2192.752845475971,
+      "grid640_mex": 0.0,
+      "grid640_AIC": 4391.505690951942
+    },
+    "epsilon+eta": {
+      "nll": 2192.9903385225834,
+      "mex": 0.0,
+      "grid640_nll": 2192.7553605360063,
+      "grid640_mex": 0.0,
+      "grid640_AIC": 4391.5107210720125
+    }
+  },
+  "optimized_grid": [
+    320,
+    0.025,
+    31
+  ],
+  "validation_grids": {
+    "tight": [
+      480,
+      0.016666666666666666,
+      41
+    ],
+    "grid640": [
+      640,
+      0.008333333333333333,
+      51
+    ]
+  },
+  "seconds": 362.9173829550855,
+  "archived_point_sha256": "f61619ea6c907904b2dd961ebdb02032b7d3313822f84eb5d6a1bc94314d6a8e",
+  "script_sha256": "69ce9aacbe628365c3290acdc29e3733506f07dc3b5c18e608e8affc1b9740e5",
+  "likelihood": "Individual delayed-entry death/censoring; direct FP boundary-flux deaths/person-time hazard; profiled mex",
+  "uncertainty": "Point fits only; no new bootstrap.",
+  "nearby_start_validation": {
+    "traces": [
+      {
+        "start_factor": 0.95,
+        "nll": 2195.988319783266,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 4,
+        "nfev": 27
+      },
+      {
+        "start_factor": 1.05,
+        "nll": 2195.9883197832346,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 4,
+        "nfev": 27
+      }
+    ],
+    "improvement": 0.0,
+    "seconds": 108.03625265415758,
+    "success": true,
+    "script_sha256": "1d6563aab955e635520e79d6b24b04555d6bf94b92fcf81821b16f2397730c87"
+  }
+}

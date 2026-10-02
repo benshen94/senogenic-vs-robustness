@@ -1,0 +1,111 @@
+{
+  "group": "alcohol__0",
+  "label": ">4 drinks/day",
+  "model": "beta",
+  "n": 4949,
+  "deaths": 425,
+  "baseline": {
+    "eta": 0.59,
+    "beta": 57.9,
+    "epsilon": 42.372450276429184,
+    "Xc": 18.45815654294416,
+    "CV": 0.2878703142772308,
+    "kappa": 0.5,
+    "mex": 0.0
+  },
+  "fit": {
+    "params": {
+      "eta": 0.59,
+      "beta": 55.62910538368736,
+      "epsilon": 42.372450276429184,
+      "Xc": 18.45815654294416,
+      "CV": 0.2878703142772308,
+      "kappa": 0.5,
+      "mex": 0.0007058065559587522
+    },
+    "nll": 2194.9326493569024,
+    "k": 2,
+    "success": true,
+    "traces": [
+      {
+        "nll": 2194.9326493569597,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 5,
+        "nfev": 21
+      },
+      {
+        "nll": 2459.32550620198,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 1,
+        "nfev": 6
+      },
+      {
+        "nll": 2194.9326493569024,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 5,
+        "nfev": 57
+      }
+    ],
+    "bounds": [],
+    "seconds": 148.0575052560307,
+    "curve_calls": 81,
+    "unique_starts": 3,
+    "AIC": 4393.865298713805,
+    "tight_nll": 2194.541838890296,
+    "tight_mex": 0.0006250090829019472,
+    "tight_AIC": 4393.083677780592,
+    "grid640_nll": 2194.790963814539,
+    "grid640_mex": 0.0006717380386804823,
+    "grid640_AIC": 4393.581927629078
+  },
+  "reference": {},
+  "optimized_grid": [
+    320,
+    0.025,
+    31
+  ],
+  "validation_grids": {
+    "tight": [
+      480,
+      0.016666666666666666,
+      41
+    ],
+    "grid640": [
+      640,
+      0.008333333333333333,
+      51
+    ]
+  },
+  "seconds": 169.33500393293798,
+  "archived_point_sha256": "f61619ea6c907904b2dd961ebdb02032b7d3313822f84eb5d6a1bc94314d6a8e",
+  "script_sha256": "69ce9aacbe628365c3290acdc29e3733506f07dc3b5c18e608e8affc1b9740e5",
+  "likelihood": "Individual delayed-entry death/censoring; direct FP boundary-flux deaths/person-time hazard; profiled mex",
+  "uncertainty": "Point fits only; no new bootstrap.",
+  "nearby_start_validation": {
+    "traces": [
+      {
+        "start_factor": 0.95,
+        "nll": 2194.9326493569,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 5,
+        "nfev": 30
+      },
+      {
+        "start_factor": 1.05,
+        "nll": 2194.932649356901,
+        "success": true,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "iterations": 6,
+        "nfev": 24
+      }
+    ],
+    "improvement": 2.2737367544323206e-12,
+    "seconds": 106.19525258103386,
+    "success": true,
+    "script_sha256": "1d6563aab955e635520e79d6b24b04555d6bf94b92fcf81821b16f2397730c87"
+  }
+}

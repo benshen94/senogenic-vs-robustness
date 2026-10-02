@@ -33,6 +33,34 @@ single-intrinsic-parameter fits; they are not a joint Xc+epsilon fit.
 The paired baseline/group bootstrap, optimization, numerical checks and optional
 cluster rerun instructions are in `analysis/model_fits/nhanes/README.md`.
 
+### Additional single-senogenic point comparison
+
+The observed-data comparison also tests eta+mex and beta+mex, with the same
+full-cohort anchor and fixed CV. These new fits are separate from the paired
+bootstrap analysis and do not change its archived model set.
+
+Against the best of the five intrinsic pairs, Xc+mex is competitive in 19/23
+groups, epsilon+mex in 21/23, eta+mex in 6/23 and beta+mex in 10/23. Selecting
+the better model within each family gives 22/23 for robustness and 10/23 for
+senogenic changes. Direct comparisons favor the robustness family by more
+than two AIC units in 16 groups; seven groups are within two units, and none
+favor the senogenic family by more than two units. All four single models
+have the same parameter count (k=2).
+
+The 480- and 640-cell evaluations give 22/23 robustness and 11/23 senogenic
+competitive groups against the same five-pair reference. These are numerical
+sensitivity evaluations at the saved intrinsic parameters, with mex reprofiled,
+not new optimizations. The point-only comparison has no new bootstrap interval.
+Conditional AIC sufficiency does not establish a unique biological mechanism.
+
+Code, the 46 converged point results, per-group likelihood/AIC tables and audit
+are in `analysis/model_fits/nhanes/single_senogenic.py` and
+`results/nhanes/single_senogenic/`. Rebuild the summaries with:
+
+```bash
+python3 scripts/aggregate_nhanes_single_senogenic.py
+```
+
 ## Extended Data Fig. 2: exposure-group survival
 
 ```bash

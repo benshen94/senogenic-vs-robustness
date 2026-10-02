@@ -38,6 +38,58 @@ groups near the AIC threshold.
 
 ## Optional expensive reruns
 
+### Point-only single-senogenic check
+
+`single_senogenic.py` adds eta+mex and beta+mex to the observed-data comparison.
+It holds Xc, epsilon, CV, kappa and the other senogenic parameter at the same
+full-cohort reference used above. Each of the 46 independent tasks fits one
+model for one group. It runs no bootstrap and leaves the archived point and
+bootstrap model inventories unchanged.
+
+```bash
+python3 scripts/prepare_nhanes_cohort.py
+python3 analysis/model_fits/nhanes/single_senogenic.py --stage \
+  --cohort tmp/nhanes_cohort.csv --output tmp/nhanes_single_senogenic
+```
+
+Copy the staging directory to the cluster. From that directory, submit
+`run_task.sh` as an LSF array with indices 1--46. The generated manifest gives
+the exact group/model mapping and input hashes. The worker optimizes on the
+same 320-cell grid as the archived point fits, with three starts (baseline,
+0.5 and 1.5 times the active parameter). It profiles nonnegative mex, then
+evaluates the saved parameters at 480 and 640 cells, reprofiling mex. Successful
+results are skipped on restart; unsuccessful outputs are eligible for repair.
+
+For each saved fit, also run the following in the staging directory, for
+indices N=1--46:
+
+```bash
+python3 single_senogenic.py --index N --validate-starts
+```
+
+This checks starts
+at 0.95 and 1.05 times the fitted active parameter, because broad starts can
+stop on much poorer extrinsic-only plateaus. Both nearby starts must converge
+within 0.005 NLL of the reported minimum. Any improvement larger than 1e-5 NLL
+updates the fit and its finer-grid evaluations. The summary audit requires
+these checks; they involve no bootstrap or extra free parameters.
+
+After collecting the 46 JSON files under
+`results/nhanes/single_senogenic/raw/`, rebuild the audit and signed comparisons:
+
+```bash
+python3 scripts/aggregate_nhanes_single_senogenic.py
+```
+
+All four single models have k=2, so their AIC differences are twice their NLL
+differences. The summary also reports each model against the best of the same
+five intrinsic pairs (k=3) used in the manuscript. It checks input identity,
+convergence, fixed parameters, bounds and paired-model likelihood nesting.
+These point-only results do not inherit bootstrap uncertainty from the earlier
+robustness analysis. See `results/nhanes/single_senogenic/REPORT.md` for results.
+
+### Original point and bootstrap reruns
+
 `group_fit.py` is the initial group worker. `refine_high_grid.py` performs
 320-cell refinement.
 Its original SHA-256 is
