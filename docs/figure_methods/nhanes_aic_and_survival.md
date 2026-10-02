@@ -42,7 +42,9 @@ bootstrap analysis and do not change its archived model set.
 Against the best of the five intrinsic pairs, Xc+mex is competitive in 19/23
 groups, epsilon+mex in 21/23, eta+mex in 6/23 and beta+mex in 10/23. Selecting
 the better model within each family gives 22/23 for robustness and 10/23 for
-senogenic changes. Direct comparisons favor the robustness family by more
+senogenic changes. The better of the two robustness fits has lower AIC than
+the better of the two senogenic fits in 17/23 groups; senogenic fits have
+lower AIC in six groups. Direct comparisons favor the robustness family by more
 than two AIC units in 16 groups; seven groups are within two units, and none
 favor the senogenic family by more than two units. All four single models
 have the same parameter count (k=2).

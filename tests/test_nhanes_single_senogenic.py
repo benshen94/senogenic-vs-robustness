@@ -31,6 +31,8 @@ def test_pair_reference_is_distinct_from_best_of_all_models():
     assert result["robustness_vs_all"] == 5
     assert result["senogenic_vs_all"] == 1
     summary = SUMMARY.summarize([result])
+    assert summary["robustness_lower_AIC"] == 0
+    assert summary["senogenic_lower_AIC"] == 1
     assert summary["either_robustness_competitive_vs_pairs"] == 1
     assert summary["either_robustness_competitive_vs_all"] == 0
     assert summary["senogenic_better_by_more_than_2"] == 1

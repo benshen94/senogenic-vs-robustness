@@ -45,6 +45,9 @@ def summarize(rows: list[dict]) -> dict:
         "either_robustness_competitive_vs_pairs": sum(r["robustness_vs_pair"] <= 2 for r in rows),
         "either_senogenic_competitive_vs_pairs": sum(r["senogenic_vs_pair"] <= 2 for r in rows),
         "either_senogenic_competitive_vs_robustness": sum(r["delta_senogenic_vs_robustness"] <= 2 for r in rows),
+        "robustness_lower_AIC": sum(r["delta_senogenic_vs_robustness"] > 0 for r in rows),
+        "senogenic_lower_AIC": sum(r["delta_senogenic_vs_robustness"] < 0 for r in rows),
+        "families_exact_AIC_tie": sum(r["delta_senogenic_vs_robustness"] == 0 for r in rows),
         "robustness_better_by_more_than_2": sum(r["delta_senogenic_vs_robustness"] > 2 for r in rows),
         "senogenic_better_by_more_than_2": sum(r["delta_senogenic_vs_robustness"] < -2 for r in rows),
         "families_within_2": sum(abs(r["delta_senogenic_vs_robustness"]) <= 2 for r in rows),
@@ -150,7 +153,8 @@ def main(raw: Path, output: Path) -> None:
              "Each single model fits one intrinsic parameter plus extrinsic mortality (k=2); each pair fits two intrinsic parameters plus extrinsic mortality (k=3). CV and kappa remain fixed. No new bootstrap was run.", "",
              f"Against the best of five intrinsic-parameter pairs, Xc or epsilon is competitive in {s['either_robustness_competitive_vs_pairs']}/23 groups; eta or beta in {s['either_senogenic_competitive_vs_pairs']}/23. "
              f"Eta alone is competitive in {s['eta_competitive_vs_pairs']}/23 and beta alone in {s['beta_competitive_vs_pairs']}/23.", "",
-             f"Comparing the two single-parameter families directly, robustness is better by more than 2 AIC units in {s['robustness_better_by_more_than_2']} groups, senogenic models in {s['senogenic_better_by_more_than_2']}, and the families differ by at most 2 in {s['families_within_2']}. "
+             f"Comparing the lower AIC of Xc+mex and epsilon+mex with the lower AIC of eta+mex and beta+mex, robustness has lower AIC in {s['robustness_lower_AIC']}/23 groups and senogenic fits in {s['senogenic_lower_AIC']}/23. "
+             f"Robustness is better by more than 2 AIC units in {s['robustness_better_by_more_than_2']} groups, senogenic models in {s['senogenic_better_by_more_than_2']}, and the families differ by at most 2 in {s['families_within_2']}. "
              f"The median signed difference (best senogenic minus best robustness AIC) is {s['median_senogenic_minus_robustness_AIC']:.2f}.", "",
              "Positive differences below favor robustness; negative differences favor a senogenic fit. The five-pair reference is eta+beta, Xc+eta, Xc+beta, epsilon+beta, or epsilon+eta, with mex in every model.", "",
              "| Group | Xc vs pair | epsilon vs pair | eta vs pair | beta vs pair | Best senogenic minus best robustness |",

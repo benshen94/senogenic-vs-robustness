@@ -4,7 +4,7 @@ All models use the same full-cohort anchor and individual delayed-entry death/ce
 
 Against the best of five intrinsic-parameter pairs, Xc or epsilon is competitive in 22/23 groups; eta or beta in 10/23. Eta alone is competitive in 6/23 and beta alone in 10/23.
 
-Comparing the two single-parameter families directly, robustness is better by more than 2 AIC units in 16 groups, senogenic models in 0, and the families differ by at most 2 in 7. The median signed difference (best senogenic minus best robustness AIC) is 3.70.
+Comparing the lower AIC of Xc+mex and epsilon+mex with the lower AIC of eta+mex and beta+mex, robustness has lower AIC in 17/23 groups and senogenic fits in 6/23. Robustness is better by more than 2 AIC units in 16 groups, senogenic models in 0, and the families differ by at most 2 in 7. The median signed difference (best senogenic minus best robustness AIC) is 3.70.
 
 Positive differences below favor robustness; negative differences favor a senogenic fit. The five-pair reference is eta+beta, Xc+eta, Xc+beta, epsilon+beta, or epsilon+eta, with mex in every model.
 
